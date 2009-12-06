@@ -93,6 +93,7 @@ extern ScriptMapMap sQuestStartScripts;
 extern ScriptMapMap sSpellScripts;
 extern ScriptMapMap sGameObjectScripts;
 extern ScriptMapMap sEventScripts;
+extern ScriptMapMap sGossipScripts;
 
 struct SpellClickInfo
 {
@@ -567,6 +568,7 @@ class ObjectMgr
         void LoadQuestStartScripts();
         void LoadEventScripts();
         void LoadSpellScripts();
+        void LoadGossipScripts();
 
         bool LoadMangosStrings(DatabaseType& db, char const* table, int32 min_value, int32 max_value);
         bool LoadMangosStrings() { return LoadMangosStrings(WorldDatabase,"mangos_string",MIN_MANGOS_STRING_ID,MAX_MANGOS_STRING_ID); }
