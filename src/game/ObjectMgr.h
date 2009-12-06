@@ -162,7 +162,7 @@ typedef UNORDERED_MAP<uint32,QuestLocale> QuestLocaleMap;
 typedef UNORDERED_MAP<uint32,NpcTextLocale> NpcTextLocaleMap;
 typedef UNORDERED_MAP<uint32,PageTextLocale> PageTextLocaleMap;
 typedef UNORDERED_MAP<int32,MangosStringLocale> MangosStringLocaleMap;
-typedef UNORDERED_MAP<uint32,NpcOptionLocale> NpcOptionLocaleMap;
+typedef UNORDERED_MAP<uint32,GossipMenuItemsLocale> GossipMenuItemsLocaleMap;
 typedef UNORDERED_MAP<uint32,PointOfInterestLocale> PointOfInterestLocaleMap;
 
 typedef std::multimap<uint32,uint32> QuestRelations;
@@ -587,7 +587,7 @@ class ObjectMgr
         void LoadQuestLocales();
         void LoadNpcTextLocales();
         void LoadPageTextLocales();
-        void LoadNpcOptionLocales();
+        void LoadGossipMenuItemsLocales();
         void LoadPointOfInterestLocales();
         void LoadInstanceTemplate();
         void LoadMailLevelRewards();
@@ -735,10 +735,10 @@ class ObjectMgr
             if(itr==mPageTextLocaleMap.end()) return NULL;
             return &itr->second;
         }
-        NpcOptionLocale const* GetNpcOptionLocale(uint32 entry) const
+        GossipMenuItemsLocale const* GetGossipMenuItemsLocale(uint32 entry) const
         {
-            NpcOptionLocaleMap::const_iterator itr = mNpcOptionLocaleMap.find(entry);
-            if(itr==mNpcOptionLocaleMap.end()) return NULL;
+            GossipMenuItemsLocaleMap::const_iterator itr = mGossipMenuItemsLocaleMap.find(entry);
+            if(itr==mGossipMenuItemsLocaleMap.end()) return NULL;
             return &itr->second;
         }
         PointOfInterestLocale const* GetPointOfInterestLocale(uint32 poi_id) const
@@ -983,7 +983,7 @@ class ObjectMgr
         NpcTextLocaleMap mNpcTextLocaleMap;
         PageTextLocaleMap mPageTextLocaleMap;
         MangosStringLocaleMap mMangosStringLocaleMap;
-        NpcOptionLocaleMap mNpcOptionLocaleMap;
+        GossipMenuItemsLocaleMap mGossipMenuItemsLocaleMap;
         PointOfInterestLocaleMap mPointOfInterestLocaleMap;
         RespawnTimes mCreatureRespawnTimes;
         RespawnTimes mGORespawnTimes;
