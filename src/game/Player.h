@@ -1306,6 +1306,7 @@ class MANGOS_DLL_SPEC Player : public Unit
 
         uint32 GetGossipTextId(uint32 menuId);
         uint32 GetGossipTextId(WorldObject *pSource);
+        uint32 GetDefaultGossipMenuForSource(WorldObject *pSource);
 
         /*********************************************************/
         /***                    QUEST SYSTEM                   ***/
