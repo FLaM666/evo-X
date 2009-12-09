@@ -7272,26 +7272,6 @@ void Aura::PeriodicDummyTick()
             }
             break;
         }
-        case SPELLFAMILY_WARLOCK:
-            switch (spell->Id)
-            {
-                //Demonic circle
-                case 48018:
-                    GameObject* obj = m_target->GetGameObject(spell->Id);
-                    if (!obj)
-                      {
-                         m_target->RemoveAurasDueToSpell(spell->Id);
-                         SendFakeAuraUpdate(62388,true);  
-                         return;
-                      }
-                    // We must take a range of teleport spell, not summon.
-                    const SpellEntry* goToCircleSpell = sSpellStore.LookupEntry(48020);
-                    if (m_target->IsWithinDist(obj,GetSpellMaxRange(sSpellRangeStore.LookupEntry(goToCircleSpell->rangeIndex))))
-                        SendFakeAuraUpdate(62388,false);
-                    else
-                        SendFakeAuraUpdate(62388,true);
-            }
-            break;
         case SPELLFAMILY_ROGUE:
         {
             switch (spell->Id)
@@ -7338,20 +7318,6 @@ void Aura::PeriodicDummyTick()
                     break;
             }
             break;
-        }
-        case SPELLFAMILY_WARLOCK:
-        {
-            switch (spell->Id)
-            {
-                //Demonic Circle
-                case 48018:   
-                       if (apply)
-                        {
-                          if (m_target->GetGameObject(spell->Id))
-                          m_target->RemoveGameObject(spell->Id,true);                         
-                       }                         
-                break;
-            }
         }
         case SPELLFAMILY_HUNTER:
         {
