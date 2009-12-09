@@ -606,7 +606,7 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
             static const float DIFF_AIRJUMP=25.0f; // 25 is realy high, but to many false positives...
             
             // Air-Jump-Detection definitively needs a better way to be detected...
-            if((movementInfo.flags & (MOVEMENTFLAG_CAN_FLY | MOVEMENTFLAG_FLYING | MOVEMENTFLAG_FLYING2)) != 0) // Fly Hack
+            if((movementInfo.flags & (MOVEMENTFLAG_CAN_FLY | MOVEMENTFLAG_FLYING | MOVEMENTFLAG_FLYING)) != 0) // Fly Hack
             {
                 Anti__CheatOccurred(CurTime,"Fly hack",
                                     ((uint8)(GetPlayer()->HasAuraType(SPELL_AURA_FLY))) +
