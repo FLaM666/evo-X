@@ -718,6 +718,8 @@ void World::LoadConfigSettings(bool reload)
         m_configs[CONFIG_MAX_PLAYER_LEVEL] = MAX_LEVEL;
     }
 
+    m_configs[CONFIG_MIN_DUALSPEC_LEVEL] = sConfig.GetIntDefault("MinDualSpecLevel", 40);
+
     m_configs[CONFIG_START_PLAYER_LEVEL] = sConfig.GetIntDefault("StartPlayerLevel", 1);
     if(m_configs[CONFIG_START_PLAYER_LEVEL] < 1)
     {
@@ -984,7 +986,7 @@ void World::LoadConfigSettings(bool reload)
     m_configs[CONFIG_ARENA_SEASON_ID]                           = sConfig.GetIntDefault ("Arena.ArenaSeason.ID", 1);
     m_configs[CONFIG_ARENA_SEASON_IN_PROGRESS]                  = sConfig.GetBoolDefault("Arena.ArenaSeason.InProgress", true);
 
-    m_configs[CONFIG_OFFHAND_CHECK_AT_TALENTS_RESET] = sConfig.GetBoolDefault("OffhandCheckAtTalentsReset", false);
+    m_configs[CONFIG_OFFHAND_CHECK_AT_SPELL_UNLEARN] = sConfig.GetBoolDefault("OffhandCheckAtSpellUnlearn", false);
 
     if(int clientCacheId = sConfig.GetIntDefault("ClientCacheVersion", 0))
     {

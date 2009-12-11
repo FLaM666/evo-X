@@ -4890,10 +4890,10 @@ bool ChatHandler::HandleResetSpellsCommand(const char * args)
 
     if(target)
     {
-        target->resetSpells();
+        target->resetSpells(/* bool myClassOnly */);
 
         ChatHandler(target).SendSysMessage(LANG_RESET_SPELLS);
-        if(!m_session || m_session->GetPlayer()!=target)
+        if(!m_session || m_session->GetPlayer() != target)
             PSendSysMessage(LANG_RESET_SPELLS_ONLINE,GetNameLink(target).c_str());
     }
     else
