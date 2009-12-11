@@ -1601,6 +1601,7 @@ class MANGOS_DLL_SPEC Unit : public WorldObject
          SeatData m_SeatData;
          void BuildVehicleInfo(Unit *target = NULL);
 
+        uint32 GetModelForForm(ShapeshiftForm form);
     protected:
         explicit Unit ();
 
