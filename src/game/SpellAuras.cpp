@@ -1029,7 +1029,7 @@ void Aura::_AddAura()
         if(slot < MAX_AURAS)                        // slot found send data to client
         {
             SetAura(false);
-            SetAuraFlags((1 << GetEffIndex()) | AFLAG_NOT_CASTER | ((GetAuraMaxDuration() > 0) ? AFLAG_DURATION : AFLAG_NONE) | (IsPositive() ? AFLAG_POSITIVE : AFLAG_NEGATIVE));
+            SetAuraFlags((1 << GetEffIndex()) | ((caster && caster != m_target) ? AFLAG_NONE : AFLAG_NOT_CASTER) | ((GetAuraMaxDuration() > 0) ? AFLAG_DURATION : AFLAG_NONE) | (IsPositive() ? AFLAG_POSITIVE : AFLAG_NEGATIVE));
             SetAuraLevel(caster ? caster->getLevel() : sWorld.getConfig(CONFIG_MAX_PLAYER_LEVEL));
             SendAuraUpdate(false);
         }
@@ -1229,37 +1229,6 @@ bool Aura::_RemoveAura()
     return true;
 }
 
-void Aura::SendFakeAuraUpdate(uint32 auraId, bool remove)
-{
-    WorldPacket data(SMSG_AURA_UPDATE);
-    data.append(m_target->GetPackGUID());
-    data << uint8(64);
-    data << uint32(remove ? 0 : auraId);
-
-    if(remove)
-    {
-        m_target->SendMessageToSet(&data, true);
-        return;
-    }
-    uint8 auraFlags = GetAuraFlags();
-    data << uint8(auraFlags);
-    data << uint8(GetAuraLevel());
-    data << uint8(m_procCharges ? m_procCharges : m_stackAmount);
-
-    if(!(auraFlags & AFLAG_NOT_CASTER))
-    {
-        data << uint8(0);                                   // pguid
-    }
-
-    if(auraFlags & AFLAG_DURATION)
-    {
-        data << uint32(GetAuraMaxDuration());
-        data << uint32(GetAuraDuration());
-    }
-
-    m_target->SendMessageToSet(&data, true);
-}
-
 void Aura::SendAuraUpdate(bool remove)
 {
     WorldPacket data(SMSG_AURA_UPDATE);
@@ -1280,7 +1249,10 @@ void Aura::SendAuraUpdate(bool remove)
 
     if(!(auraFlags & AFLAG_NOT_CASTER))
     {
-        data << uint8(0);                                   // pguid
+        if(GetCaster())
+            data.append(GetCaster()->GetPackGUID());
+        else
+            data << uint8(0);
     }
 
     if(auraFlags & AFLAG_DURATION)
@@ -1449,7 +1421,7 @@ void Aura::HandleAddModifier(bool apply, bool Real)
 
         mod->mask = (uint64)ptr[0] | (uint64)ptr[1]<<32;
         mod->mask2= (uint64)ptr[2];
-        
+
         // prevent expire spell mods with (charges > 0 && m_stackAmount > 1)
         // all this spell expected expire not at use but at spell proc event check
         mod->charges = m_spellProto->StackAmount > 1 ? 0 : m_procCharges;
@@ -2962,34 +2934,84 @@ void Aura::HandleAuraModShapeshift(bool apply, bool Real)
     switch(form)
     {
         case FORM_CAT:
+            if(Player::TeamForRace(m_target->getRace()) == ALLIANCE)
+                modelid = 892;
+            else
+                modelid = 8571;
             PowerType = POWER_ENERGY;
             break;
+        case FORM_TRAVEL:
+            modelid = 632;
+            break;
+        case FORM_AQUA:
+            if(Player::TeamForRace(m_target->getRace()) == ALLIANCE)
+                modelid = 2428;
+            else
+                modelid = 2428;
+            break;
         case FORM_BEAR:
+            if(Player::TeamForRace(m_target->getRace()) == ALLIANCE)
+                modelid = 2281;
+            else
+                modelid = 2289;
+            PowerType = POWER_RAGE;
+            break;
+        case FORM_GHOUL:
+            if(Player::TeamForRace(m_target->getRace()) == ALLIANCE)
+                modelid = 10045;
+            break;
         case FORM_DIREBEAR:
+            if(Player::TeamForRace(m_target->getRace()) == ALLIANCE)
+                modelid = 2281;
+            else
+                modelid = 2289;
+            PowerType = POWER_RAGE;
+            break;
+        case FORM_CREATUREBEAR:
+            modelid = 902;
+            break;
+        case FORM_GHOSTWOLF:
+            modelid = 4613;
+            break;
+        case FORM_FLIGHT:
+            if(Player::TeamForRace(m_target->getRace()) == ALLIANCE)
+                modelid = 20857;
+            else
+                modelid = 20872;
+            break;
+        case FORM_MOONKIN:
+            if(Player::TeamForRace(m_target->getRace()) == ALLIANCE)
+                modelid = 15374;
+            else
+                modelid = 15375;
+            break;
+        case FORM_FLIGHT_EPIC:
+            if(Player::TeamForRace(m_target->getRace()) == ALLIANCE)
+                modelid = 21243;
+            else
+                modelid = 21244;
+            break;
+        case FORM_METAMORPHOSIS:
+            modelid = 25277;
+            break;
+        case FORM_AMBIENT:
+        case FORM_SHADOW:
+        case FORM_STEALTH:
+            break;
+        case FORM_TREE:
+            modelid = 864;
+            break;
         case FORM_BATTLESTANCE:
         case FORM_BERSERKERSTANCE:
         case FORM_DEFENSIVESTANCE:
             PowerType = POWER_RAGE;
             break;
-        case FORM_TRAVEL:
-        case FORM_AQUA:
-        case FORM_GHOUL:
-        case FORM_CREATUREBEAR:
-        case FORM_GHOSTWOLF:
-        case FORM_FLIGHT:
-        case FORM_MOONKIN:
-        case FORM_FLIGHT_EPIC:
-        case FORM_METAMORPHOSIS:
-        case FORM_AMBIENT:
-        case FORM_SHADOW:
-        case FORM_STEALTH:
-        case FORM_TREE:
+        case FORM_SPIRITOFREDEMPTION:
+            modelid = 16031;
             break;
         default:
             sLog.outError("Auras: Unknown Shapeshift Type: %u, SpellId %u.", m_modifier.m_miscvalue, GetId());
     }
-
-    modelid = m_target->GetModelForForm(form);
 
     // remove polymorph before changing display id to keep new display id
     switch ( form )
@@ -3498,7 +3520,7 @@ void Aura::HandleModPossess(bool apply, bool Real)
             m_target->GetMotionMaster()->Clear();
             m_target->GetMotionMaster()->MoveIdle();
         }
-        else if(m_target->GetTypeId() == TYPEID_PLAYER)
+        else if(m_target->GetTypeId() == TYPEID_PLAYER && !m_target->GetVehicleGUID())
         {
             ((Player*)m_target)->SetClientControl(m_target, 0);
         }
@@ -3515,7 +3537,7 @@ void Aura::HandleModPossess(bool apply, bool Real)
         m_target->SetCharmerGUID(0);
         p_caster->InterruptSpell(CURRENT_CHANNELED_SPELL);  // the spell is not automatically canceled when interrupted, do it now
 
-        if(m_target->GetTypeId() == TYPEID_PLAYER)
+        if(m_target->GetTypeId() == TYPEID_PLAYER && !m_target->GetVehicleGUID())
         {
             ((Player*)m_target)->setFactionForRace(m_target->getRace());
             ((Player*)m_target)->SetClientControl(m_target, 1);
@@ -3784,10 +3806,13 @@ void Aura::HandleAuraModStun(bool apply, bool Real)
             m_target->SetStandState(UNIT_STAND_STATE_STAND);// in 1.5 client
         }
 
-        WorldPacket data(SMSG_FORCE_MOVE_ROOT, 8);
-        data.append(m_target->GetPackGUID());
-        data << uint32(0);
-        m_target->SendMessageToSet(&data, true);
+        if(!m_target->hasUnitState(UNIT_STAT_ON_VEHICLE))
+        {
+            WorldPacket data(SMSG_FORCE_MOVE_ROOT, 8);
+            data.append(m_target->GetPackGUID());
+            data << uint32(0);
+            m_target->SendMessageToSet(&data,true);
+        }
 
         // Summon the Naj'entus Spine GameObject on target if spell is Impaling Spine
         if(GetId() == 39837)
@@ -3837,7 +3862,7 @@ void Aura::HandleAuraModStun(bool apply, bool Real)
         m_target->clearUnitState(UNIT_STAT_STUNNED);
         m_target->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_STUNNED);
 
-        if(!m_target->hasUnitState(UNIT_STAT_ROOT))         // prevent allow move if have also root effect
+        if(!m_target->hasUnitState(UNIT_STAT_ROOT | UNIT_STAT_ON_VEHICLE))         // prevent allow move if have also root effect
         {
             if(m_target->getVictim() && m_target->isAlive())
                 m_target->SetTargetGUID(m_target->getVictim()->GetGUID());
@@ -4055,13 +4080,16 @@ void Aura::HandleAuraModRoot(bool apply, bool Real)
 
         if(m_target->GetTypeId() == TYPEID_PLAYER)
         {
-            WorldPacket data(SMSG_FORCE_MOVE_ROOT, 10);
-            data.append(m_target->GetPackGUID());
-            data << (uint32)2;
-            m_target->SendMessageToSet(&data, true);
+            if(!m_target->hasUnitState(UNIT_STAT_ON_VEHICLE))
+            {
+                WorldPacket data(SMSG_FORCE_MOVE_ROOT, 10);
+                data.append(m_target->GetPackGUID());
+                data << (uint32)2;
+                m_target->SendMessageToSet(&data,true);
 
-            //Clear unit movement flags
-            ((Player*)m_target)->m_movementInfo.SetMovementFlags(MOVEMENTFLAG_NONE);
+                //Clear unit movement flags
+                ((Player*)m_target)->m_movementInfo.SetMovementFlags(MOVEMENTFLAG_NONE);
+            }
         }
         else
             m_target->StopMoving();
@@ -4100,7 +4128,7 @@ void Aura::HandleAuraModRoot(bool apply, bool Real)
         // TODO: find correct flag
         //m_target->RemoveFlag(UNIT_FIELD_FLAGS,(apply_stat<<16));
 
-        if(!m_target->hasUnitState(UNIT_STAT_STUNNED))      // prevent allow move if have also stun effect
+        if(!m_target->hasUnitState(UNIT_STAT_STUNNED | UNIT_STAT_ON_VEHICLE))      // prevent allow move if have also stun effect
         {
             if(m_target->getVictim() && m_target->isAlive())
                 m_target->SetTargetGUID(m_target->getVictim()->GetGUID());
@@ -4255,15 +4283,9 @@ void Aura::HandleAuraModIncreaseFlightSpeed(bool apply, bool Real)
     {
         WorldPacket data;
         if(apply)
-        {
-            ((Player*)m_target)->SetCanFly(true);
             data.Initialize(SMSG_MOVE_SET_CAN_FLY, 12);
-        }
         else
-        {
             data.Initialize(SMSG_MOVE_UNSET_CAN_FLY, 12);
-            ((Player*)m_target)->SetCanFly(false);
-        }
         data.append(m_target->GetPackGUID());
         data << uint32(0);                                      // unknown
         m_target->SendMessageToSet(&data, true);
@@ -4347,19 +4369,6 @@ void Aura::HandleModMechanicImmunity(bool apply, bool /*Real*/)
 
     m_target->ApplySpellImmune(GetId(),IMMUNITY_MECHANIC,misc,apply);
 
-    // Demonic Circle
-    if (GetSpellProto()->SpellFamilyName == SPELLFAMILY_WARLOCK && GetSpellProto()->SpellIconID == 3221)
-    {
-        if (m_target->GetTypeId() != TYPEID_PLAYER)
-            return;
-        if (apply)
-        {
-            GameObject* obj = m_target->GetGameObject(48018);
-            if (obj)
-                if (m_target->IsWithinDist(obj,GetSpellMaxRange(sSpellRangeStore.LookupEntry(GetSpellProto()->rangeIndex))))
-                    ((Player*)m_target)->TeleportTo(obj->GetMapId(),obj->GetPositionX(),obj->GetPositionY(),obj->GetPositionZ(),obj->GetOrientation());
-        }
-    }
     // Bestial Wrath
     if (GetSpellProto()->SpellFamilyName == SPELLFAMILY_HUNTER && GetSpellProto()->SpellIconID == 1680)
     {
@@ -4619,20 +4628,6 @@ void Aura::HandleAuraPeriodicDummy(bool apply, bool Real)
                 }
             }
             break;
-        }
-        case SPELLFAMILY_WARLOCK:
-        {
-            switch (spell->Id)
-            {
-                //Demonic Circle
-                case 48018:   
-                       if (apply)
-                        {
-                          if (m_target->GetGameObject(spell->Id))
-                          m_target->RemoveGameObject(spell->Id,true);                         
-                       }                         
-                break;
-            }
         }
         case SPELLFAMILY_HUNTER:
         {
@@ -6262,16 +6257,10 @@ void Aura::HandleAuraAllowFlight(bool apply, bool Real)
     // allow fly
     WorldPacket data;
     if(apply)
-    {
-        ((Player*)m_target)->SetCanFly(true);
         data.Initialize(SMSG_MOVE_SET_CAN_FLY, 12);
-    }
     else
-    {
         data.Initialize(SMSG_MOVE_UNSET_CAN_FLY, 12);
-        ((Player*)m_target)->SetCanFly(false);
-    }
-		data.append(m_target->GetPackGUID());
+    data.append(m_target->GetPackGUID());
     data << uint32(0);                                      // unk
     m_target->SendMessageToSet(&data, true);
 }
@@ -6306,7 +6295,7 @@ void Aura::HandleModRatingFromStat(bool apply, bool Real)
 
 void Aura::HandleForceMoveForward(bool apply, bool Real)
 {
-    if(!Real || m_target->GetTypeId() != TYPEID_PLAYER)
+    if(!Real)
         return;
     if(apply)
         m_target->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_FORCE_MOVE);
@@ -7329,26 +7318,6 @@ void Aura::PeriodicDummyTick()
             }
             break;
         }
-        case SPELLFAMILY_WARLOCK:
-            switch (spell->Id)
-            {
-                //Demonic circle
-                case 48018:
-                    GameObject* obj = m_target->GetGameObject(spell->Id);
-                    if (!obj)
-                      {
-                         m_target->RemoveAurasDueToSpell(spell->Id);
-                         SendFakeAuraUpdate(62388,true);  
-                         return;
-                      }
-                    // We must take a range of teleport spell, not summon.
-                    const SpellEntry* goToCircleSpell = sSpellStore.LookupEntry(48020);
-                    if (m_target->IsWithinDist(obj,GetSpellMaxRange(sSpellRangeStore.LookupEntry(goToCircleSpell->rangeIndex))))
-                        SendFakeAuraUpdate(62388,false);
-                    else
-                        SendFakeAuraUpdate(62388,true);
-            }
-            break;
         case SPELLFAMILY_ROGUE:
         {
             switch (spell->Id)
@@ -7556,28 +7525,36 @@ void Aura::HandleArenaPreparation(bool apply, bool Real)
  */
 void Aura::HandleAuraControlVehicle(bool apply, bool Real)
 {
-    if(!Real)
+     if(!Real)
+         return;
+
+    Unit *caster = GetCaster();
+    Vehicle *vehicle = dynamic_cast<Vehicle*>(m_target);
+    if(!caster || !vehicle)
         return;
 
-    Unit *player = GetCaster();
-    Vehicle *vehicle = dynamic_cast<Vehicle*>(m_target);
-    if(!player || player->GetTypeId() != TYPEID_PLAYER || !vehicle)
+    // this can happen due to wrong caster/target spell handling
+    // note : SPELL_AURA_CONTROL_VEHICLE can have EffectImplicitTargetA
+    // TARGET_SCRIPT, TARGET_DUELVSPLAYER.. etc
+    if(caster->GetGUID() == vehicle->GetGUID())
         return;
 
     if (apply)
     {
-        if(Pet *pet = player->GetPet())
-            pet->Remove(PET_SAVE_AS_CURRENT);
-        ((Player*)player)->EnterVehicle(vehicle);
+        if(caster->GetTypeId() == TYPEID_PLAYER)
+        {
+            WorldPacket data(SMSG_ON_CANCEL_EXPECTED_RIDE_VEHICLE_AURA, 0);
+            ((Player*)caster)->GetSession()->SendPacket(&data);
+        }
+        // if we leave and enter again, this will refresh
+        int32 duration = GetSpellMaxDuration(GetSpellProto());
+        if(duration > 0)
+            vehicle->SetSpawnDuration(duration);
     }
     else
     {
-        SpellEntry const *spell = GetSpellProto();
-
         // some SPELL_AURA_CONTROL_VEHICLE auras have a dummy effect on the player - remove them
-        player->RemoveAurasDueToSpell(spell->Id);
-
-        ((Player*)player)->ExitVehicle(vehicle);
+        caster->RemoveAurasDueToSpell(GetId());
     }
 }
 

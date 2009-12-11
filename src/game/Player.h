@@ -1089,7 +1089,7 @@ class MANGOS_DLL_SPEC Player : public Unit
         std::string afkMsg;
         std::string dndMsg;
 
-        uint32 GetBarberShopCost(uint8 newhairstyle, uint8 newhaircolor, uint8 newfacialhair, BarberShopStyleEntry const* newSkin=NULL);
+        uint32 GetBarberShopCost(uint8 newhairstyle, uint8 newhaircolor, uint8 newfacialhair);
 
         PlayerSocial *GetSocial() { return m_social; }
 
@@ -1439,7 +1439,6 @@ class MANGOS_DLL_SPEC Player : public Unit
 
         bool LoadFromDB(uint32 guid, SqlQueryHolder *holder);
 
-        bool MinimalLoadFromDB(QueryResult *result, uint32 guid);
         static bool   LoadValuesArrayFromDB(Tokens& data,uint64 guid);
         static uint32 GetUInt32ValueFromArray(Tokens const& data, uint16 index);
         static float  GetFloatValueFromArray(Tokens const& data, uint16 index);
@@ -2145,6 +2144,10 @@ class MANGOS_DLL_SPEC Player : public Unit
         bool HasMovementFlag(MovementFlags f) const;        // for script access to m_movementInfo.HasMovementFlag
         void UpdateFallInformationIfNeed(MovementInfo const& minfo,uint16 opcode);
         Unit *m_mover;
+        Unit *m_mover_in_queve;
+
+        void SetMoverInQueve(Unit* pet) {m_mover_in_queve = pet ? pet : this; }
+
         void SetFallInformation(uint32 time, float z)
         {
             m_lastFallTime = time;
@@ -2157,19 +2160,15 @@ class MANGOS_DLL_SPEC Player : public Unit
         bool isMoving() const { return m_movementInfo.HasMovementFlag(movementFlagsMask); }
         bool isMovingOrTurning() const { return m_movementInfo.HasMovementFlag(movementOrTurningFlagsMask); }
 
-        uint32 Anti__GetLastTeleTime() const { return m_anti_TeleTime; }
-        void Anti__SetLastTeleTime(uint32 TeleTime) { m_anti_TeleTime=TeleTime; }
-        //bool CanFly() const { return m_movementInfo.HasMovementFlag(MOVEMENTFLAG_CAN_FLY); }
-        bool CanFly() const { return m_CanFly;  }
-        void SetCanFly(bool CanFly) { m_CanFly=CanFly; }
+        bool CanFly() const { return m_movementInfo.HasMovementFlag(MOVEMENTFLAG_CAN_FLY); }
         bool IsFlying() const { return m_movementInfo.HasMovementFlag(MOVEMENTFLAG_FLYING); }
         bool IsKnowHowFlyIn(uint32 mapid, uint32 zone) const;
 
         void SetClientControl(Unit* target, uint8 allowMove);
         void SetMover(Unit* target) { m_mover = target ? target : this; }
 
-        void EnterVehicle(Vehicle *vehicle);
-        void ExitVehicle(Vehicle *vehicle);
+        // vehicle system
+        void SendEnterVehicle(Vehicle *vehicle);
 
         uint64 GetFarSight() const { return GetUInt64Value(PLAYER_FARSIGHT); }
         void SetFarSightGUID(uint64 guid);
@@ -2270,8 +2269,6 @@ class MANGOS_DLL_SPEC Player : public Unit
         uint8 GetSubGroup() const { return m_group.getSubGroup(); }
         uint32 GetGroupUpdateFlag() const { return m_groupUpdateMask; }
         void SetGroupUpdateFlag(uint32 flag) { m_groupUpdateMask |= flag; }
-        const uint64& GetAuraUpdateMask() const { return m_auraUpdateMask; }
-        void SetAuraUpdateMask(uint8 slot) { m_auraUpdateMask |= (uint64(1) << slot); }
         Player* GetNextRandomRaidMember(float radius);
         PartyResult CanUninviteFromGroup() const;
         // BattleGround Group System
@@ -2509,16 +2506,6 @@ class MANGOS_DLL_SPEC Player : public Unit
         RestType rest_type;
         ////////////////////Rest System/////////////////////
 
-        //movement anticheat
-        uint32 m_anti_lastmovetime;     //last movement time
-        float  m_anti_MovedLen;         //Length of traveled way
-        uint32 m_anti_NextLenCheck;
-        float  m_anti_BeginFallZ;    //alternative falling begin
-        uint32 m_anti_lastalarmtime;    //last time when alarm generated
-        uint32 m_anti_alarmcount;       //alarm counter
-        uint32 m_anti_TeleTime;
-        bool m_CanFly;
-
         // Transports
         Transport * m_transport;
 
@@ -2535,7 +2522,6 @@ class MANGOS_DLL_SPEC Player : public Unit
         GroupReference m_originalGroup;
         Group *m_groupInvite;
         uint32 m_groupUpdateMask;
-        uint64 m_auraUpdateMask;
 
         uint64 m_miniPet;
 

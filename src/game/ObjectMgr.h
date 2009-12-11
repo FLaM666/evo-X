@@ -217,32 +217,6 @@ struct PointOfInterest
     std::string icon_name;
 };
 
-struct QuestPOIPoint
-{
-    int32 x;
-    int32 y;
-
-    QuestPOIPoint() : x(0), y(0) {}
-    QuestPOIPoint(int32 _x, int32 _y) : x(_x), y(_y) {}
-};
-
-struct QuestPOI
-{
-    int32 ObjectiveIndex;
-    uint32 MapId;
-    uint32 Unk1;
-    uint32 Unk2;
-    uint32 Unk3;
-    uint32 Unk4;
-    std::vector<QuestPOIPoint> points;
-
-    QuestPOI() : ObjectiveIndex(0), MapId(0), Unk1(0), Unk2(0), Unk3(0), Unk4(0) {}
-    QuestPOI(int32 objIndex, uint32 mapId, uint32 unk1, uint32 unk2, uint32 unk3, uint32 unk4) : ObjectiveIndex(objIndex), MapId(mapId), Unk1(unk1), Unk2(unk2), Unk3(unk3), Unk4(unk4) {}
-};
-
-typedef std::vector<QuestPOI> QuestPOIVector;
-typedef UNORDERED_MAP<uint32, QuestPOIVector> QuestPOIMap;
-
 struct GossipMenuItems
 {
     uint32          menu_id;
@@ -274,6 +248,42 @@ typedef std::multimap<uint32,GossipMenus> GossipMenusMap;
 typedef std::pair<GossipMenusMap::const_iterator, GossipMenusMap::const_iterator> GossipMenusMapBounds;
 typedef std::multimap<uint32,GossipMenuItems> GossipMenuItemsMap;
 typedef std::pair<GossipMenuItemsMap::const_iterator, GossipMenuItemsMap::const_iterator> GossipMenuItemsMapBounds;
+
+struct QuestPOIPoint
+{
+    int32 x;
+    int32 y;
+
+    QuestPOIPoint() : x(0), y(0) {}
+    QuestPOIPoint(int32 _x, int32 _y) : x(_x), y(_y) {}
+    uint32          npc_option_npcflag;
+    uint32          action_menu_id;
+    uint32          action_poi_id;
+    uint32          action_script_id;
+    bool            box_coded;
+    uint32          box_money;
+    std::string     box_text;
+    uint16          cond_1;
+    uint16          cond_2;
+    uint16          cond_3;
+};
+
+struct QuestPOI
+{
+    int32 ObjectiveIndex;
+    uint32 MapId;
+    uint32 Unk1;
+    uint32 Unk2;
+    uint32 Unk3;
+    uint32 Unk4;
+    std::vector<QuestPOIPoint> points;
+
+    QuestPOI() : ObjectiveIndex(0), MapId(0), Unk1(0), Unk2(0), Unk3(0), Unk4(0) {}
+    QuestPOI(int32 objIndex, uint32 mapId, uint32 unk1, uint32 unk2, uint32 unk3, uint32 unk4) : ObjectiveIndex(objIndex), MapId(mapId), Unk1(unk1), Unk2(unk2), Unk3(unk3), Unk4(unk4) {}
+};
+
+typedef std::vector<QuestPOI> QuestPOIVector;
+typedef UNORDERED_MAP<uint32, QuestPOIVector> QuestPOIMap;
 
 #define WEATHER_SEASONS 4
 struct WeatherSeasonChances
@@ -368,6 +378,18 @@ extern LanguageDesc lang_description[LANGUAGES_COUNT];
 MANGOS_DLL_SPEC LanguageDesc const* GetLanguageDescByID(uint32 lang);
 
 class PlayerDumpReader;
+// vehicle system
+#define MAX_VEHICLE_SPELLS 10
+
+struct VehicleDataStructure
+{
+    uint32 v_flags;                                         // vehicle flags, see enum CustomVehicleFLags
+    uint32 v_spells[MAX_VEHICLE_SPELLS];                    // spells
+    uint32 req_aura;                                        // requieres aura on player to enter (eg. in wintergrasp)
+};
+
+typedef UNORDERED_MAP<uint32, VehicleDataStructure> VehicleDataMap;
+typedef std::map<uint32,uint32> VehicleSeatDataMap;
 
 class ObjectMgr
 {
@@ -634,6 +656,9 @@ class ObjectMgr
         void LoadVendors();
         void LoadTrainerSpell();
 
+        void LoadVehicleData();
+        void LoadVehicleSeatData();
+
         std::string GeneratePetName(uint32 entry);
         uint32 GetBaseXP(uint32 level);
         uint32 GetXPForLevel(uint32 level);
@@ -860,6 +885,24 @@ class ObjectMgr
 
         int GetOrNewIndexForLocale(LocaleConstant loc);
 
+        VehicleDataMap mVehicleData;
+        VehicleSeatDataMap mVehicleSeatData;
+
+        uint32 GetSeatFlags(uint32 seatid)
+        {
+            VehicleSeatDataMap::iterator i = mVehicleSeatData.find(seatid);
+            if(i == mVehicleSeatData.end())
+                return NULL;
+            else
+                return i->second;
+        }
+        VehicleDataStructure const* GetVehicleData(uint32 entry) const
+        {
+            VehicleDataMap::const_iterator itr = mVehicleData.find(entry);
+            if(itr==mVehicleData.end()) return NULL;
+            return &itr->second;
+        }
+
         SpellClickInfoMapBounds GetSpellClickInfoMapBounds(uint32 creature_id) const
         {
             return SpellClickInfoMapBounds(mSpellClickInfoMap.lower_bound(creature_id),mSpellClickInfoMap.upper_bound(creature_id));
@@ -894,6 +937,7 @@ class ObjectMgr
         // first free low guid for seelcted guid type
         uint32 m_hiCharGuid;
         uint32 m_hiCreatureGuid;
+		uint32 m_hiVehicleGuid;
         uint32 m_hiItemGuid;
         uint32 m_hiGoGuid;
         uint32 m_hiCorpseGuid;
@@ -953,6 +997,7 @@ class ObjectMgr
         void CheckScripts(ScriptMapMap const& scripts,std::set<int32>& ids);
         void LoadCreatureAddons(SQLStorage& creatureaddons, char const* entryName, char const* comment);
         void ConvertCreatureAddonAuras(CreatureDataAddon* addon, char const* table, char const* guidEntryStr);
+        void ConvertCreatureAddonPassengers(CreatureDataAddon* addon, char const* table, char const* guidEntryStr);
         void LoadQuestRelationsHelper(QuestRelations& map,char const* table);
 
         MailLevelRewardMap m_mailLevelRewardMap;

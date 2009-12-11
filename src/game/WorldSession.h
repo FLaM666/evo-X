@@ -116,10 +116,6 @@ class MANGOS_DLL_SPEC WorldSession
         bool PlayerLogoutWithSave() const { return m_playerLogout && m_playerSave; }
 
 
-        inline bool Anti__CheatOccurred(uint32 CurTime,const char* Reason,float Speed,const char* Op=NULL,
-                                float Val1=0.0f,uint32 Val2=0,MovementInfo* MvInfo=NULL);
-        bool Anti__ReportCheat(const char* Reason,float Speed,const char* Op=NULL,float Val1=0.0f,uint32 Val2=0,MovementInfo* MvInfo=NULL);
-
         void SizeError(WorldPacket const& packet, uint32 size) const;
 
         void ReadAddonsInfo(WorldPacket &data);
@@ -393,6 +389,11 @@ class MANGOS_DLL_SPEC WorldSession
         void HandleSetActiveMoverOpcode(WorldPacket &recv_data);
         void HandleMoveNotActiveMover(WorldPacket &recv_data);
         void HandleDismissControlledVehicle(WorldPacket &recv_data);
+        void HandleRequestVehicleExit(WorldPacket &recv_data);
+        void HandleRequestVehiclePrevSeat(WorldPacket &recv_data);
+        void HandleRequestVehicleNextSeat(WorldPacket &recv_data);
+        void HandleRequestVehicleSwitchSeat(WorldPacket &recv_data);
+        void HandleChangeSeatsOnControlledVehicle(WorldPacket &recv_data);
         void HandleMoveTimeSkippedOpcode(WorldPacket &recv_data);
 
         void HandleRequestRaidInfoOpcode( WorldPacket & recv_data );
