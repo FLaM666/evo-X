@@ -21585,8 +21585,6 @@ void Player::ActivateSpec(uint8 spec)
         if (!talentInfo)
             continue;
 
-        haveLearnedMaxRank=false;
-
         TalentTabEntry const *talentTabInfo = sTalentTabStore.LookupEntry(talentInfo->TalentTab);
 
         if (!talentTabInfo)
@@ -21637,6 +21635,8 @@ void Player::ActivateSpec(uint8 spec)
 
         if (!talentInfo)
             continue;
+
+        haveLearnedMaxRank=false;
 
         TalentTabEntry const *talentTabInfo = sTalentTabStore.LookupEntry(talentInfo->TalentTab);
 
