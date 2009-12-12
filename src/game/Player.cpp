@@ -21629,6 +21629,7 @@ void Player::ActivateSpec(uint8 spec)
 
     SetActiveSpec(spec);
     uint32 spentTalents = 0;
+
     bool haveLearnedMaxRank=false;
 
     for (uint32 talentId = 0; talentId < sTalentStore.GetNumRows(); ++talentId)
@@ -21658,8 +21659,8 @@ void Player::ActivateSpec(uint8 spec)
             {
                 learnSpell(talentInfo->RankID[rank], false); // add the talent to the PlayerSpellMap
                 spentTalents += (rank + 1);                  // increment the spentTalents count
-                haveLearnedMaxRank=true;                     // prevent counting spentTalents if talent happens to be faulty
-            }
+                haveLearnedMaxRank=true;                     // prevent counting spentTalents if talent happens
+			}
         }
     }
 
