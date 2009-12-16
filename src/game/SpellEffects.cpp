@@ -3469,6 +3469,7 @@ void Spell::EffectSummonType(uint32 i)
                     break;
                 }
                 case SUMMON_PROP_TYPE_CRITTER:
+                case SUMMON_PROP_TYPE_REPAIR_BOT:
                 {
                     EffectSummonCritter(i, summon_prop->FactionId);
                     break;
