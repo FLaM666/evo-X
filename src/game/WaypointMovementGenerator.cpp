@@ -85,7 +85,7 @@ bool WaypointMovementGenerator<Creature>::Update(Creature &creature, const uint3
 
     // Waypoint movement can be switched on/off
     // This is quite handy for escort quests and other stuff
-    if (creature.hasUnitState(UNIT_STAT_ROOT | UNIT_STAT_STUNNED | UNIT_STAT_DISTRACTED | UNIT_STAT_DIED | UNIT_STAT_ON_VEHICLE))
+    if(creature.hasUnitState(UNIT_STAT_ROOT | UNIT_STAT_STUNNED | UNIT_STAT_DISTRACTED | UNIT_STAT_DIED | UNIT_STAT_ON_VEHICLE))
         return true;
 
     // prevent a crash at empty waypoint path.
@@ -213,7 +213,7 @@ bool WaypointMovementGenerator<Creature>::Update(Creature &creature, const uint3
         }
         else
         {
-			// If not stopped then stop it and set the reset of TimeTracker to waittime
+            // If not stopped then stop it and set the reset of TimeTracker to waittime
             creature.StopMoving();
             SetStoppedByPlayer(false);
 

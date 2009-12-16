@@ -1,4 +1,4 @@
-= evo-X -- README =
+= MaNGOS -- README =
 
 Copyright (C) 2005-2009 MaNGOS project <http://getmangos.com/>
 
@@ -30,7 +30,7 @@ Comments are welcome.
 
 	- theluda <theluda@getmangos.com>
 
-== Welcome to evo-X ==
+== Welcome to MaNGOS ==
 
 MaNGOS (the Massive Network Game Object Server) is an Open Source reference
 implementation for a MMORPG server system. Please see the file COPYING for

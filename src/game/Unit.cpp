@@ -6285,7 +6285,7 @@ bool Unit::HandleDummyAuraProc(Unit *pVictim, uint32 damage, Aura* triggeredByAu
                     break;
                 }
                 // Sacred Shield (talent rank)
-                case 53601: 
+                case 53601:
                 {
                     triggered_spell_id = 58597;
                     target = this;
@@ -9018,7 +9018,7 @@ bool Unit::isSpellCrit(Unit *pVictim, SpellEntry const *spellProto, SpellSchoolM
                         // Lava Burst
                         if (spellProto->SpellFamilyFlags & UI64LIT(0x0000100000000000))
                         {
-                            // Flame Shock 
+                            // Flame Shock
                             if (Aura *flameShock = pVictim->GetAura(SPELL_AURA_PERIODIC_DAMAGE, SPELLFAMILY_SHAMAN, UI64LIT(0x0000000010000000), 0, GetGUID()))
                                 return true;
                         }
@@ -10896,7 +10896,7 @@ int32 Unit::CalculateSpellDuration(SpellEntry const* spellProto, uint8 effect_in
         durationMod_always+=target->GetTotalAuraModifierByMiscValue(SPELL_AURA_MOD_DURATION_OF_EFFECTS_BY_DISPEL, spellProto->Dispel);
         // Find max mod (negative bonus)
         int32 durationMod_not_stack = target->GetMaxNegativeAuraModifierByMiscValue(SPELL_AURA_MECHANIC_DURATION_MOD_NOT_STACK, mechanic);
-        
+
         if (!IsPositiveSpell(spellProto->Id))
              durationMod_always += target->GetTotalAuraModifierByMiscValue(SPELL_AURA_MOD_DURATION_OF_MAGIC_EFFECTS, spellProto->DmgClass);
 
@@ -13224,6 +13224,14 @@ void Unit::StopAttackFaction(uint32 faction_id)
         if(Unit* guardian = Unit::GetUnit(*this,*itr))
             guardian->StopAttackFaction(faction_id);
 }
+
+void Unit::CleanupDeletedAuars()
+{
+    // really delete auras "deleted" while processing its ApplyModify code
+    for(AuraList::const_iterator itr = m_deletedAuras.begin(); itr != m_deletedAuras.end(); ++itr)
+        delete *itr;
+    m_deletedAuras.clear();
+}
 uint32 Unit::GetModelForForm(ShapeshiftForm form)
 {
     switch(form)
@@ -13422,12 +13430,4 @@ uint32 Unit::GetModelForForm(ShapeshiftForm form)
             return 16031;
     }
     return 0;
-}
-
-void Unit::CleanupDeletedAuars()
-{
-    // really delete auras "deleted" while processing its ApplyModify code
-    for(AuraList::const_iterator itr = m_deletedAuras.begin(); itr != m_deletedAuras.end(); ++itr)
-        delete *itr;
-    m_deletedAuras.clear();
 }
