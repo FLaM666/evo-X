@@ -1691,11 +1691,6 @@ void Spell::EffectDummy(uint32 i)
                     m_caster->CastSpell(m_caster, 45182, true);
                     return;
                 }
-                case 51662:                                 // Hunger for Blood
-                {
-                    m_caster->CastSpell(m_caster, 63848, true);
-                    return;
-                }
             }
             break;
         case SPELLFAMILY_HUNTER:
@@ -4674,21 +4669,6 @@ void Spell::EffectWeaponDmg(uint32 i)
                     totalDamagePercentMod *= 1.5f;          // 150% to daggers
             }
             break;
-        }
-        case SPELLFAMILY_HUNTER:
-        {
-            switch(m_spellInfo->Id)
-            {
-                case 53351:    // Kill Shot Rank 1
-                case 61005:    // Kill Shot Rank 2
-                case 61006:    // Kill Shot Rank 3
-                {
-                    spellBonusNeedWeaponDamagePercentMod = true;
-                    spell_bonus += m_spellInfo->EffectBasePoints[0];
-                    spell_bonus += int32( 0.2f * m_caster->GetTotalAttackPowerValue(RANGED_ATTACK) );
-                    break;
-                }
-            }
         }
         case SPELLFAMILY_PALADIN:
         {

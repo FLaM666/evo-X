@@ -2584,34 +2584,6 @@ SpellMissInfo Unit::MeleeSpellHitResult(Unit *pVictim, SpellEntry const *spell)
 
     // bonus from skills is 0.04% per skill Diff
     int32 attackerWeaponSkill = int32(GetWeaponSkillValue(attType,pVictim));
-
-  if ( spell->SpellFamilyName == SPELLFAMILY_PALADIN )
-    {
-        // Hammer of Wrath
-        if ( spell->SpellFamilyFlags & UI64LIT(0x0000008000000000) )
-            attackerWeaponSkill = this->GetMaxSkillValueForLevel();
-        // Shield of Righteousness
-        else if ( spell->SpellFamilyFlags & UI64LIT(0x0010000000000000) )
-            attackerWeaponSkill = this->GetMaxSkillValueForLevel();
-        // Avenger's Shield
-        else if ( spell->SpellFamilyFlags & UI64LIT(0x0000000000004000) )
-            attackerWeaponSkill = this->GetMaxSkillValueForLevel();
-        // Judgement ( seal trigger )
-        else if ( spell->Category == SPELLCATEGORY_JUDGEMENT )
-            attackerWeaponSkill = this->GetMaxSkillValueForLevel();
-        // Judgement debuff and damage
-        else if ( GetSpellSpecific( spell->Id ) == SPELL_JUDGEMENT )
-            return SPELL_MISS_NONE;
-        // some Judgement other damage
-        else
-            switch ( spell->Id )
-            {
-                case 20425: // Judgement of Command
-                case 54158: // Judgement
-                    return SPELL_MISS_NONE;
-            }
-    }
-
     int32 skillDiff = attackerWeaponSkill - int32(pVictim->GetMaxSkillValueForLevel(this));
     int32 fullSkillDiff = attackerWeaponSkill - int32(pVictim->GetDefenseSkillValue(this));
 
@@ -9028,32 +9000,9 @@ bool Unit::isSpellCrit(Unit *pVictim, SpellEntry const *spellProto, SpellSchoolM
             break;
         }
         case SPELL_DAMAGE_CLASS_MELEE:
-        case SPELL_DAMAGE_CLASS_RANGED:
         {
-            if (pVictim)
-            {
-                crit_chance = GetUnitCriticalChance(attackType, pVictim);
-                crit_chance+= GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_SPELL_CRIT_CHANCE_SCHOOL, schoolMask);
-            }
-
-            // Rend and Tear - eff:1
-            if(spellProto->SpellFamilyName == SPELLFAMILY_DRUID && spellProto->SpellIconID == 1680 && spellProto->SpellFamilyFlags & UI64LIT(0x00800000))
-            {
-                if(pVictim->HasAuraState(AURA_STATE_MECHANIC_BLEED))
-                {
-                    AuraList const& dummyAuras = GetAurasByType(SPELL_AURA_DUMMY);
-                    for(AuraList::const_iterator i = dummyAuras.begin(); i != dummyAuras.end(); ++i)
-                    {
-                        if((*i)->GetEffIndex() == 1 && (*i)->GetSpellProto()->SpellIconID == 2859)
-                        {
-                            crit_chance += (*i)->GetModifier()->m_amount;
-                            break;
-                        }
-                    }
-                }
-            }
             // Judgement of Command proc always crits on stunned target
-            else if(spellProto->SpellFamilyName == SPELLFAMILY_PALADIN)
+            if(spellProto->SpellFamilyName == SPELLFAMILY_PALADIN)
             {
                 if(spellProto->SpellFamilyFlags & 0x0000000000800000LL && spellProto->SpellIconID == 561)
                 {
@@ -9061,6 +9010,14 @@ bool Unit::isSpellCrit(Unit *pVictim, SpellEntry const *spellProto, SpellSchoolM
                         return true;
                 }
             }
+        }
+        case SPELL_DAMAGE_CLASS_RANGED:
+        {
+            if (pVictim)
+                crit_chance = GetUnitCriticalChance(attackType, pVictim);
+
+            crit_chance+= GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_SPELL_CRIT_CHANCE_SCHOOL, schoolMask);
+            break;
         }
         default:
             return false;
@@ -9506,9 +9463,9 @@ uint32 Unit::MeleeDamageBonus(Unit *pVictim, uint32 pdamage,WeaponAttackType att
     uint32 schoolMask       = spellProto ? spellProto->SchoolMask : GetMeleeDamageSchoolMask();
     uint32 mechanicMask     = spellProto ? GetAllSpellMechanicMask(spellProto) : 0;
 
-    // Shred and Maul also have bonus as MECHANIC_BLEED damages
-    if (spellProto && spellProto->SpellFamilyName==SPELLFAMILY_DRUID && spellProto->SpellFamilyFlags & UI64LIT(0x00008800))
-         mechanicMask |= (1 << (MECHANIC_BLEED-1));
+    // Shred also have bonus as MECHANIC_BLEED damages
+    if (spellProto && spellProto->SpellFamilyName==SPELLFAMILY_DRUID && spellProto->SpellFamilyFlags & UI64LIT(0x00008000))
+        mechanicMask |= (1 << (MECHANIC_BLEED-1));
 
 
     // FLAT damage bonus auras
@@ -9606,28 +9563,6 @@ uint32 Unit::MeleeDamageBonus(Unit *pVictim, uint32 pdamage,WeaponAttackType att
     Unit *owner = GetOwner();
     if (!owner)
         owner = this;
-
-    // ..done (dummy auras)
-    if(spellProto)
-    {
-        AuraList const& casterDummyAuras = owner->GetAurasByType(SPELL_AURA_DUMMY);
-        for(AuraList::const_iterator i = casterDummyAuras.begin(); i != casterDummyAuras.end(); ++i)
-        {
-            if (!(*i)->isAffectedOnSpell(spellProto))
-                continue;
-
-            switch((*i)->GetSpellProto()->SpellIconID)
-            {
-                // Rend and Tear - eff:0
-                case 2859:
-                {
-                    if(pVictim->HasAuraState(AURA_STATE_MECHANIC_BLEED))
-                        DonePercent *= (100.0f+(*i)->GetModifier()->m_amount)/100.0f;
-                    break;
-                }
-            }
-        }
-    }
 
     // ..done (class scripts)
     if(spellProto)
@@ -13231,203 +13166,4 @@ void Unit::CleanupDeletedAuars()
     for(AuraList::const_iterator itr = m_deletedAuras.begin(); itr != m_deletedAuras.end(); ++itr)
         delete *itr;
     m_deletedAuras.clear();
-}
-uint32 Unit::GetModelForForm(ShapeshiftForm form)
-{
-    switch(form)
-    {
-        case FORM_CAT:
-            // Based on Hair color
-            if (getRace() == RACE_NIGHTELF)
-            {
-                uint8 hairColor = GetByteValue(PLAYER_BYTES, 3);
-                switch (hairColor)
-                {
-                    case 7: // Violet
-                    case 8: 
-                        return 29405;
-                    case 3: // Light Blue
-                        return 29406;
-                    case 0: // Green
-                    case 1: // Light Green
-                    case 2: // Dark Green
-                        return 29407;
-                    case 4: // White
-                        return 29408;
-                    default: // original - Dark Blue
-                        return 892;
-                }
-            }
-            // Based on Skin color
-            else if (getRace() == RACE_TAUREN)
-            {
-                uint8 skinColor = GetByteValue(PLAYER_BYTES, 0);
-                // Male
-                if (getGender() == GENDER_MALE)
-                {
-                    switch(skinColor)
-                    {
-                        case 12: // White
-                        case 13:
-                        case 14:
-                        case 18: // Completly White
-                            return 29409;
-                        case 9: // Light Brown
-                        case 10:
-                        case 11:
-                            return 29410;
-                        case 6: // Brown 
-                        case 7:
-                        case 8:
-                            return 29411;
-                        case 0: // Dark
-                        case 1:
-                        case 2:
-                        case 3: // Dark Grey
-                        case 4:
-                        case 5:
-                            return 29412;
-                        default: // original - Grey
-                            return 8571;
-                    }
-                }
-                // Female
-                else switch (skinColor)
-                {
-                    case 10: // White
-                        return 29409;
-                    case 6: // Light Brown
-                    case 7:
-                        return 29410;
-                    case 4: // Brown
-                    case 5:
-                        return 29411;
-                    case 0: // Dark
-                    case 1:
-                    case 2:
-                    case 3:
-                        return 29412;
-                    default: // original - Grey
-                        return 8571;
-                }
-            }
-            else if(Player::TeamForRace(getRace())==ALLIANCE)
-                return 892;
-            else
-                return 8571;
-        case FORM_DIREBEAR:
-        case FORM_BEAR:
-            // Based on Hair color
-            if (getRace() == RACE_NIGHTELF)
-            {
-                uint8 hairColor = GetByteValue(PLAYER_BYTES, 3);
-                switch (hairColor)
-                {
-                    case 0: // Green
-                    case 1: // Light Green
-                    case 2: // Dark Green
-                        return 29413; // 29415?
-                    case 6: // Dark Blue
-                        return 29414;
-                    case 4: // White
-                        return 29416;
-                    case 3: // Light Blue
-                        return 29417;
-                    default: // original - Violet
-                        return 2281;
-                }
-            }
-            // Based on Skin color
-            else if (getRace() == RACE_TAUREN)
-            {
-                uint8 skinColor = GetByteValue(PLAYER_BYTES, 0);
-                // Male
-                if (getGender() == GENDER_MALE)
-                {
-                    switch (skinColor)
-                    {
-                        case 0: // Dark (Black)
-                        case 1:
-                        case 2:
-                            return 29418;
-                        case 3: // White
-                        case 4:
-                        case 5:
-                        case 12:
-                        case 13:
-                        case 14:
-                            return 29419;
-                        case 9: // Light Brown/Grey
-                        case 10:
-                        case 11:
-                        case 15:
-                        case 16:
-                        case 17:
-                            return 29420;
-                        case 18: // Completly White
-                            return 29421;
-                        default: // original - Brown
-                            return 2289;
-                    }
-                }
-                // Female
-                else switch (skinColor)
-                {
-                    case 0: // Dark (Black)
-                    case 1:
-                        return 29418;
-                    case 2: // White
-                    case 3:
-                        return 29419;
-                    case 6: // Light Brown/Grey
-                    case 7:
-                    case 8:
-                    case 9:
-                        return 29420;
-                    case 10: // Completly White
-                        return 29421;
-                    default: // original - Brown
-                        return 2289;
-                }
-            }
-            else if(Player::TeamForRace(getRace())==ALLIANCE)
-                return 2281;
-            else
-                return 2289;
-        case FORM_TRAVEL:
-            return 632;
-        case FORM_AQUA:
-            if(Player::TeamForRace(getRace())==ALLIANCE)
-                return 2428;
-            else
-                return 2428;
-        case FORM_GHOUL:
-            return 24994;
-        case FORM_CREATUREBEAR:
-            return 902;
-        case FORM_GHOSTWOLF:
-            return 4613;
-        case FORM_FLIGHT:
-            if(Player::TeamForRace(getRace())==ALLIANCE)
-                return 20857;
-            else
-                return 20872;
-        case FORM_MOONKIN:
-            if(Player::TeamForRace(getRace())==ALLIANCE)
-                return 15374;
-            else
-                return 15375;
-        case FORM_FLIGHT_EPIC:
-            if(Player::TeamForRace(getRace())==ALLIANCE)
-                return 21243;
-            else
-                return 21244;
-        case FORM_METAMORPHOSIS:
-            return 25277;
-        case FORM_TREE:
-            return 864;
-        case FORM_SPIRITOFREDEMPTION:
-            return 16031;
-    }
-    return 0;
 }

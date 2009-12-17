@@ -1072,10 +1072,6 @@ void Aura::_AddAura()
             // Enrage aura state
             if(m_spellProto->Dispel == DISPEL_ENRAGE)
                 m_target->ModifyAuraState(AURA_STATE_ENRAGE, true);
-
-            // Mechanic bleed aura state
-            if(GetAllSpellMechanicMask(m_spellProto) & (1 << (MECHANIC_BLEED-1)))
-                m_target->ModifyAuraState(AURA_STATE_MECHANIC_BLEED, true);
         }
     }
 }
@@ -1152,23 +1148,6 @@ bool Aura::_RemoveAura()
         // Enrage aura state
         if(m_spellProto->Dispel == DISPEL_ENRAGE)
             m_target->ModifyAuraState(AURA_STATE_ENRAGE, false);
-
-		// Mechanic bleed aura state
-        if(GetAllSpellMechanicMask(m_spellProto) & (1 << (MECHANIC_BLEED-1)))
-        {
-            bool found = false;
-            Unit::AuraList const& mPerDmg = m_target->GetAurasByType(SPELL_AURA_PERIODIC_DAMAGE);
-            for(Unit::AuraList::const_iterator i = mPerDmg.begin(); i != mPerDmg.end(); ++i)
-            {
-                if(GetAllSpellMechanicMask((*i)->m_spellProto) & (1 << (MECHANIC_BLEED-1)))
-                {
-                    found = true;
-                    break;
-                }
-            }
-            if(!found)
-                m_target->ModifyAuraState(AURA_STATE_MECHANIC_BLEED, false);
-		}
 
         uint32 removeState = 0;
         uint64 removeFamilyFlag = m_spellProto->SpellFamilyFlags;
@@ -2978,9 +2957,56 @@ void Aura::HandleAuraModShapeshift(bool apply, bool Real)
     uint32 modelid = 0;
     Powers PowerType = POWER_MANA;
     ShapeshiftForm form = ShapeshiftForm(m_modifier.m_miscvalue);
+
+    SpellShapeshiftEntry const* ssEntry = sSpellShapeshiftStore.LookupEntry(form);
+    if(ssEntry && ssEntry->modelID_A)
+    {
+        // i will asume that creatures will always take the defined model from the dbc
+        // since no field in creature_templates describes wether an alliance or
+        // horde modelid should be used at shapeshifting
+        if (m_target->GetTypeId() != TYPEID_PLAYER)
+            modelid = ssEntry->modelID_A;
+        else
+        {
+            // players are a bit difficult since the dbc has seldomly an horde modelid
+            // so we add hacks here to set the right model
+            if (Player::TeamForRace(m_target->getRace()) == ALLIANCE)
+                modelid = ssEntry->modelID_A;
+            else                                            // 3.2.3 only the moonkin form has this information
+                modelid = ssEntry->modelID_H;
+
+            // no model found, if player is horde we look here for our hardcoded modelids
+            if (!modelid && Player::TeamForRace(m_target->getRace()) == HORDE)
+            {
+
+                switch(form)
+                {
+                    case FORM_CAT:
+                        modelid = 8571;
+                        break;
+                    case FORM_BEAR:
+                    case FORM_DIREBEAR:
+                        modelid = 2289;
+                        break;
+                    case FORM_FLIGHT:
+                        modelid = 20872;
+                        break;
+                    case FORM_FLIGHT_EPIC:
+                        modelid = 21244;
+                        break;
+                    // per default use alliance modelid
+                    // mostly horde and alliance share the same
+                    default:
+                        modelid = ssEntry->modelID_A;
+                        break;
+                }
+            }
+        }
+    }
+
+    // now only powertype must be set
     switch(form)
     {
-        case FORM_SHADOWDANCE:
         case FORM_CAT:
             PowerType = POWER_ENERGY;
             break;
@@ -2991,25 +3017,9 @@ void Aura::HandleAuraModShapeshift(bool apply, bool Real)
         case FORM_DEFENSIVESTANCE:
             PowerType = POWER_RAGE;
             break;
-        case FORM_TRAVEL:
-        case FORM_AQUA:
-        case FORM_GHOUL:
-        case FORM_CREATUREBEAR:
-        case FORM_GHOSTWOLF:
-        case FORM_FLIGHT:
-        case FORM_MOONKIN:
-        case FORM_FLIGHT_EPIC:
-        case FORM_METAMORPHOSIS:
-        case FORM_AMBIENT:
-        case FORM_SHADOW:
-        case FORM_STEALTH:
-        case FORM_TREE:
-            break;
         default:
-            sLog.outError("Auras: Unknown Shapeshift Type: %u, SpellId %u.", m_modifier.m_miscvalue, GetId());
+            break;
     }
-
-    modelid = m_target->GetModelForForm(form);
 
     // remove polymorph before changing display id to keep new display id
     switch ( form )
@@ -3064,8 +3074,7 @@ void Aura::HandleAuraModShapeshift(bool apply, bool Real)
         if(m_target->m_ShapeShiftFormSpellId)
             m_target->RemoveAurasDueToSpell(m_target->m_ShapeShiftFormSpellId, this);
 
-        // For Shadow Dance we must apply Stealth form (30) instead of current (13)
-        m_target->SetByteValue(UNIT_FIELD_BYTES_2, 3, (form == FORM_SHADOWDANCE) ? uint8(FORM_STEALTH) : form);
+        m_target->SetByteValue(UNIT_FIELD_BYTES_2, 3, form);
 
         if(modelid > 0)
             m_target->SetDisplayId(modelid);
@@ -3130,10 +3139,6 @@ void Aura::HandleAuraModShapeshift(bool apply, bool Real)
                         m_target->SetPower(POWER_RAGE, Rage_val);
                     break;
                 }
-                // Shadow Dance - apply stealth mode stand flag
-                case FORM_SHADOWDANCE:
-                    m_target->SetStandFlags(UNIT_STAND_FLAGS_CREEP);
-                    break;
                 default:
                     break;
             }
@@ -3165,10 +3170,6 @@ void Aura::HandleAuraModShapeshift(bool apply, bool Real)
             case FORM_MOONKIN:
                 if(Aura* dummy = m_target->GetDummyAura(37324) )
                     m_target->CastSpell(m_target, 37325, true, NULL, dummy);
-                break;
-            // Shadow Dance - remove stealth mode stand flag
-            case FORM_SHADOWDANCE:
-                m_target->RemoveStandFlags(UNIT_STAND_FLAGS_CREEP);
                 break;
             default:
                 break;
