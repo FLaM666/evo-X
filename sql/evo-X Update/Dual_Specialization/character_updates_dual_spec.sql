@@ -1,4 +1,4 @@
-DROP TABLE `character_glyphs`;
+DROP TABLE IF EXISTS `character_glyphs`;
 CREATE TABLE `character_glyphs` (
   `guid` int(11) unsigned NOT NULL,
   `spec` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -22,7 +22,7 @@ SELECT `guid`, 0,
 (CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(`data`, ' ', 1298),  ' ', -1) AS UNSIGNED)) AS `glyph6` 
 FROM `characters`;
 
-DROP TABLE `character_talent`;
+DROP TABLE IF EXISTS `character_talent`;
 CREATE TABLE `character_talent` (
   `guid` int(11) unsigned NOT NULL,
   `spell` int(11) unsigned NOT NULL,
@@ -49,4 +49,4 @@ CREATE TABLE `character_action` (
   PRIMARY KEY  (`guid`,`spec`,`button`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 INSERT INTO `character_action` (`guid`,`button`,`action`,`type`) SELECT `guid`,`button`,`action`,`type` FROM `character_action_old`;
-DROP TABLE `character_action_old`;
+DROP TABLE IF EXISTS `character_action_old`;

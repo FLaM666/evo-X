@@ -3110,9 +3110,11 @@ void ObjectMgr::LoadGuilds()
             delete newGuild;
             continue;
         }
+        newGuild->LoadGuildEventLogFromDB();
+        newGuild->LoadGuildBankEventLogFromDB();
+        newGuild->LoadGuildBankFromDB();
         AddGuild(newGuild);
-
-    }while( result->NextRow() );
+    } while( result->NextRow() );
 
     delete result;
     delete guildRanksResult;
@@ -4897,7 +4899,7 @@ void ObjectMgr::ReturnOrDeleteOldMails(bool serverUp)
         Player *pl = 0;
         if (serverUp)
             pl = GetPlayer((uint64)m->receiver);
-        if (pl && pl->m_mailsLoaded)
+        if (pl)
         {                                                   //this code will run very improbably (the time is between 4 and 5 am, in game is online a player, who has old mail
             //his in mailbox and he has already listed his mails )
             delete m;

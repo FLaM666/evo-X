@@ -2321,8 +2321,8 @@ enum ChatMsg
     CHAT_MSG_OFFICER                = 0x05,
     CHAT_MSG_YELL                   = 0x06,
     CHAT_MSG_WHISPER                = 0x07,
-    CHAT_MSG_WHISPER_INFORM         = 0x08, // WHISPER_FOREIGN?
-    CHAT_MSG_REPLY                  = 0x09, // WHISPER_INFORM?
+    CHAT_MSG_WHISPER_FOREIGN        = 0x08,
+    CHAT_MSG_WHISPER_INFORM         = 0x09,
     CHAT_MSG_EMOTE                  = 0x0A,
     CHAT_MSG_TEXT_EMOTE             = 0x0B,
     CHAT_MSG_MONSTER_SAY            = 0x0C,
@@ -2354,19 +2354,20 @@ enum ChatMsg
     CHAT_MSG_BG_SYSTEM_HORDE        = 0x26,
     CHAT_MSG_RAID_LEADER            = 0x27,
     CHAT_MSG_RAID_WARNING           = 0x28,
-    CHAT_MSG_RAID_BOSS_WHISPER      = 0x29,
-    CHAT_MSG_RAID_BOSS_EMOTE        = 0x2A,
+    CHAT_MSG_RAID_BOSS_EMOTE        = 0x29,
+    CHAT_MSG_RAID_BOSS_WHISPER      = 0x2A,
     CHAT_MSG_FILTERED               = 0x2B,
     CHAT_MSG_BATTLEGROUND           = 0x2C,
     CHAT_MSG_BATTLEGROUND_LEADER    = 0x2D,
     CHAT_MSG_RESTRICTED             = 0x2E,
-    CHAT_MSG_BN                     = 0x2F,
+    CHAT_MSG_BATTLENET              = 0x2F,
     CHAT_MSG_ACHIEVEMENT            = 0x30,
     CHAT_MSG_GUILD_ACHIEVEMENT      = 0x31,
-    CHAT_MSG_PARTY_LEADER           = 0x32                  // guessed
+    CHAT_MSG_ARENA_POINTS           = 0x32,
+    CHAT_MSG_PARTY_LEADER           = 0x33
 };
 
-#define MAX_CHAT_MSG_TYPE 0x33
+#define MAX_CHAT_MSG_TYPE 0x34
 
 enum ChatLinkColors
 {
@@ -2547,42 +2548,43 @@ enum ResponseCodes
     CHAR_CREATE_CHARACTER_SWAP_FACTION                     = 0x42,
     CHAR_CREATE_CHARACTER_RACE_ONLY                        = 0x43,
     CHAR_CREATE_CHARACTER_GOLD_LIMIT                       = 0x44,
+    CHAR_CREATE_FORCE_LOGIN                                = 0x45,
 
-    CHAR_DELETE_IN_PROGRESS                                = 0x45,
-    CHAR_DELETE_SUCCESS                                    = 0x46,
-    CHAR_DELETE_FAILED                                     = 0x47,
-    CHAR_DELETE_FAILED_LOCKED_FOR_TRANSFER                 = 0x48,
-    CHAR_DELETE_FAILED_GUILD_LEADER                        = 0x49,
-    CHAR_DELETE_FAILED_ARENA_CAPTAIN                       = 0x4A,
+    CHAR_DELETE_IN_PROGRESS                                = 0x46,
+    CHAR_DELETE_SUCCESS                                    = 0x47,
+    CHAR_DELETE_FAILED                                     = 0x48,
+    CHAR_DELETE_FAILED_LOCKED_FOR_TRANSFER                 = 0x49,
+    CHAR_DELETE_FAILED_GUILD_LEADER                        = 0x4A,
+    CHAR_DELETE_FAILED_ARENA_CAPTAIN                       = 0x4B,
 
-    CHAR_LOGIN_IN_PROGRESS                                 = 0x4B,
-    CHAR_LOGIN_SUCCESS                                     = 0x4C,
-    CHAR_LOGIN_NO_WORLD                                    = 0x4D,
-    CHAR_LOGIN_DUPLICATE_CHARACTER                         = 0x4E,
-    CHAR_LOGIN_NO_INSTANCES                                = 0x4F,
-    CHAR_LOGIN_FAILED                                      = 0x50,
-    CHAR_LOGIN_DISABLED                                    = 0x51,
-    CHAR_LOGIN_NO_CHARACTER                                = 0x52,
-    CHAR_LOGIN_LOCKED_FOR_TRANSFER                         = 0x53,
-    CHAR_LOGIN_LOCKED_BY_BILLING                           = 0x54,
+    CHAR_LOGIN_IN_PROGRESS                                 = 0x4C,
+    CHAR_LOGIN_SUCCESS                                     = 0x4D,
+    CHAR_LOGIN_NO_WORLD                                    = 0x4E,
+    CHAR_LOGIN_DUPLICATE_CHARACTER                         = 0x4F,
+    CHAR_LOGIN_NO_INSTANCES                                = 0x50,
+    CHAR_LOGIN_FAILED                                      = 0x51,
+    CHAR_LOGIN_DISABLED                                    = 0x52,
+    CHAR_LOGIN_NO_CHARACTER                                = 0x53,
+    CHAR_LOGIN_LOCKED_FOR_TRANSFER                         = 0x54,
+    CHAR_LOGIN_LOCKED_BY_BILLING                           = 0x55,
 
-    CHAR_NAME_SUCCESS                                      = 0x55,
-    CHAR_NAME_FAILURE                                      = 0x56,
-    CHAR_NAME_NO_NAME                                      = 0x57,
-    CHAR_NAME_TOO_SHORT                                    = 0x58,
-    CHAR_NAME_TOO_LONG                                     = 0x59,
-    CHAR_NAME_INVALID_CHARACTER                            = 0x5A,
-    CHAR_NAME_MIXED_LANGUAGES                              = 0x5B,
-    CHAR_NAME_PROFANE                                      = 0x5C,
-    CHAR_NAME_RESERVED                                     = 0x5D,
-    CHAR_NAME_INVALID_APOSTROPHE                           = 0x5E,
-    CHAR_NAME_MULTIPLE_APOSTROPHES                         = 0x5F,
-    CHAR_NAME_THREE_CONSECUTIVE                            = 0x60,
-    CHAR_NAME_INVALID_SPACE                                = 0x61,
-    CHAR_NAME_CONSECUTIVE_SPACES                           = 0x62,
-    CHAR_NAME_RUSSIAN_CONSECUTIVE_SILENT_CHARACTERS        = 0x63,
-    CHAR_NAME_RUSSIAN_SILENT_CHARACTER_AT_BEGINNING_OR_END = 0x64,
-    CHAR_NAME_DECLENSION_DOESNT_MATCH_BASE_NAME            = 0x65
+    CHAR_NAME_SUCCESS                                      = 0x56,
+    CHAR_NAME_FAILURE                                      = 0x57,
+    CHAR_NAME_NO_NAME                                      = 0x58,
+    CHAR_NAME_TOO_SHORT                                    = 0x59,
+    CHAR_NAME_TOO_LONG                                     = 0x5A,
+    CHAR_NAME_INVALID_CHARACTER                            = 0x5B,
+    CHAR_NAME_MIXED_LANGUAGES                              = 0x5C,
+    CHAR_NAME_PROFANE                                      = 0x5D,
+    CHAR_NAME_RESERVED                                     = 0x5E,
+    CHAR_NAME_INVALID_APOSTROPHE                           = 0x5F,
+    CHAR_NAME_MULTIPLE_APOSTROPHES                         = 0x60,
+    CHAR_NAME_THREE_CONSECUTIVE                            = 0x61,
+    CHAR_NAME_INVALID_SPACE                                = 0x62,
+    CHAR_NAME_CONSECUTIVE_SPACES                           = 0x63,
+    CHAR_NAME_RUSSIAN_CONSECUTIVE_SILENT_CHARACTERS        = 0x64,
+    CHAR_NAME_RUSSIAN_SILENT_CHARACTER_AT_BEGINNING_OR_END = 0x65,
+    CHAR_NAME_DECLENSION_DOESNT_MATCH_BASE_NAME            = 0x66
 };
 
 /// Ban function modes

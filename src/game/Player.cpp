@@ -411,7 +411,6 @@ Player::Player (WorldSession *session): Unit(), m_achievementMgr(this), m_reputa
     rest_type=REST_TYPE_NO;
     ////////////////////Rest System/////////////////////
 
-    m_mailsLoaded = false;
     m_mailsUpdated = false;
     unReadMails = 0;
     m_nextMailDelivereTime = 0;
@@ -15040,8 +15039,8 @@ bool Player::LoadFromDB( uint32 guid, SqlQueryHolder *holder )
 
     // apply original stats mods before spell loading or item equipment that call before equip _RemoveStatsMods()
 
-    //mails are loaded only when needed ;-) - when player in game click on mailbox.
-    //_LoadMail();
+    // Mail
+    _LoadMail();
 
 	m_specsCount = fields[41].GetUInt32();
     m_activeSpec = fields[42].GetUInt32();
@@ -15678,7 +15677,6 @@ void Player::_LoadMail()
         } while( result->NextRow() );
         delete result;
     }
-    m_mailsLoaded = true;
 }
 
 void Player::LoadPet()
@@ -16503,9 +16501,6 @@ void Player::_SaveInventory()
 
 void Player::_SaveMail()
 {
-    if (!m_mailsLoaded)
-        return;
-
     for (PlayerMails::iterator itr = m_mail.begin(); itr != m_mail.end(); ++itr)
     {
         Mail *m = (*itr);
@@ -17137,7 +17132,7 @@ void Player::Whisper(const std::string& text, uint32 language,uint64 receiver)
         if (language != LANG_ADDON)
         {
             data.Initialize(SMSG_MESSAGECHAT, 200);
-            rPlayer->BuildPlayerChat(&data, CHAT_MSG_REPLY, text, language);
+            rPlayer->BuildPlayerChat(&data, CHAT_MSG_WHISPER_INFORM, text, language);
             GetSession()->SendPacket(&data);
         }
     }
@@ -18890,8 +18885,6 @@ void Player::SendInitialPacketsBeforeAddToMap()
 {
     GetSocial()->SendSocialList();
 
-    // guild bank list wtf?
-
     // Homebind
     WorldPacket data(SMSG_BINDPOINTUPDATE, 5*4);
     data << m_homebindX << m_homebindY << m_homebindZ;
@@ -18902,11 +18895,13 @@ void Player::SendInitialPacketsBeforeAddToMap()
     // SMSG_SET_PROFICIENCY
     // SMSG_SET_PCT_SPELL_MODIFIER
     // SMSG_SET_FLAT_SPELL_MODIFIER
-    // SMSG_UPDATE_AURA_DURATION
 
     SendTalentsInfoData(false);
 
-    // SMSG_INSTANCE_DIFFICULTY
+    data.Initialize(SMSG_INSTANCE_DIFFICULTY, 4+4);
+    data << uint32(0);
+    data << uint32(0);
+    GetSession()->SendPacket(&data);
 
     SendInitialSpells();
 
@@ -18916,10 +18911,15 @@ void Player::SendInitialPacketsBeforeAddToMap()
 
     SendInitialActionButtons();
     m_reputationMgr.SendInitialReputations();
-    // SMSG_INIT_WORLD_STATES
-    m_achievementMgr.SendAllAchievementData();
+
+    if(!isAlive())
+        SendCorpseReclaimDelay(true);
+
+    SendInitWorldStates(GetZoneId(), GetAreaId());
 
     SendEquipmentSetList();
+
+    m_achievementMgr.SendAllAchievementData();
 
     data.Initialize(SMSG_LOGIN_SETTIMESPEED, 4 + 4 + 4);
     data << uint32(secsToTimeBitFields(sWorld.GetGameTime()));
@@ -18929,7 +18929,6 @@ void Player::SendInitialPacketsBeforeAddToMap()
 
     // SMSG_TALENTS_INFO x 2 for pet (unspent points and talents in separate packets...)
     // SMSG_PET_GUIDS
-    // SMSG_UPDATE_WORLD_STATE
     // SMSG_POWER_UPDATE
 
     // set fly flag if in fly form or taxi flight to prevent visually drop at ground in showup moment
