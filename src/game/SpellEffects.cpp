@@ -3018,6 +3018,7 @@ void Spell::EffectEnergize(uint32 i)
             level_multiplier = 4;
             break;
         case 31930:                                         // Judgements of the Wise
+        case 48542:                                         // Revitalize (mana restore case)
         case 63375:                                         // Improved Stormstrike
             damage = damage * unitTarget->GetCreateMana() / 100;
             break;
