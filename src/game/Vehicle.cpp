@@ -678,13 +678,13 @@ void Vehicle::InstallAllAccessories()
             InstallAccessory(32933,0);
             InstallAccessory(32934,1);
             break;
-        case 33109:InstallAccessory(33167,1);break;
+        case 33109:InstallAccessory(33167,1, true);break;
         case 33060:InstallAccessory(33067,7, true);break;
         case 33113:
-            InstallAccessory(33114,0);
-            InstallAccessory(33114,1);
-            InstallAccessory(33114,2);
-            InstallAccessory(33114,3);
+            InstallAccessory(33114,0, true);
+            InstallAccessory(33114,1, true);
+            InstallAccessory(33114,2, true);
+            InstallAccessory(33114,3, true);
             InstallAccessory(33139,7);
             break;
         case 33114:
