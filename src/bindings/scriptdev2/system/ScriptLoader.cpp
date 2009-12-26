@@ -30,7 +30,7 @@ extern void AddSC_npc_professions();
 extern void AddSC_npcs_special();
 
 //eastern kingdoms
-extern void AddSC_blackrock_depths();                       //blackrock_depths
+extern void AddSC_blackrock_depths();                       //Blackrock_Depths
 extern void AddSC_boss_ambassador_flamelash();
 extern void AddSC_boss_anubshiah();
 extern void AddSC_boss_draganthaurissan();
@@ -41,7 +41,7 @@ extern void AddSC_boss_high_interrogator_gerstahn();
 extern void AddSC_boss_magmus();
 extern void AddSC_boss_tomb_of_seven();
 extern void AddSC_instance_blackrock_depths();
-extern void AddSC_boss_drakkisath();                        //blackrock_spire
+extern void AddSC_boss_drakkisath();                        //Blackrock_Spire
 extern void AddSC_boss_halycon();
 extern void AddSC_boss_highlordomokk();
 extern void AddSC_boss_mothersmolderweb();
@@ -53,7 +53,7 @@ extern void AddSC_boss_quatermasterzigris();
 extern void AddSC_boss_pyroguard_emberseer();
 extern void AddSC_boss_gyth();
 extern void AddSC_boss_rend_blackhand();
-extern void AddSC_boss_razorgore();                         //blackwing_lair
+extern void AddSC_boss_razorgore();                         //Blackwing_Lair
 extern void AddSC_boss_vael();
 extern void AddSC_boss_broodlord();
 extern void AddSC_boss_firemaw();
@@ -62,9 +62,9 @@ extern void AddSC_boss_flamegor();
 extern void AddSC_boss_chromaggus();
 extern void AddSC_boss_nefarian();
 extern void AddSC_boss_victor_nefarius();
-extern void AddSC_deadmines();                              //deadmines
+extern void AddSC_deadmines();                              //Deadmines
 extern void AddSC_instance_deadmines();
-extern void AddSC_boss_attumen();                           //karazhan
+extern void AddSC_boss_attumen();                           //Karazhan
 extern void AddSC_boss_curator();
 extern void AddSC_boss_maiden_of_virtue();
 extern void AddSC_boss_shade_of_aran();
@@ -75,13 +75,13 @@ extern void AddSC_boss_moroes();
 extern void AddSC_bosses_opera();
 extern void AddSC_instance_karazhan();
 extern void AddSC_karazhan();
-extern void AddSC_boss_felblood_kaelthas();                 //magisters_terrace
+extern void AddSC_boss_felblood_kaelthas();                 //Magisters_Terrace
 extern void AddSC_boss_selin_fireheart();
 extern void AddSC_boss_vexallus();
 extern void AddSC_boss_priestess_delrissa();
 extern void AddSC_instance_magisters_terrace();
 extern void AddSC_magisters_terrace();
-extern void AddSC_boss_lucifron();                          //molten_core
+extern void AddSC_boss_lucifron();                          //Molten_Core
 extern void AddSC_boss_magmadar();
 extern void AddSC_boss_gehennas();
 extern void AddSC_boss_garr();
@@ -93,8 +93,8 @@ extern void AddSC_boss_majordomo();
 extern void AddSC_boss_ragnaros();
 extern void AddSC_instance_molten_core();
 extern void AddSC_molten_core();
-extern void AddSC_ebon_hold();                              //scarlet_enclave
-extern void AddSC_boss_arcanist_doan();                     //scarlet_monastery
+extern void AddSC_ebon_hold();                              //Scarlet_Enclave
+extern void AddSC_boss_arcanist_doan();                     //Scarlet_Monastery
 extern void AddSC_boss_azshir_the_sleepless();
 extern void AddSC_boss_bloodmage_thalnos();
 extern void AddSC_boss_herod();
@@ -105,7 +105,7 @@ extern void AddSC_boss_mograine_and_whitemane();
 extern void AddSC_boss_scorn();
 extern void AddSC_boss_headless_horseman();
 extern void AddSC_instance_scarlet_monastery();
-extern void AddSC_boss_darkmaster_gandling();               //scholomance
+extern void AddSC_boss_darkmaster_gandling();               //Scholomance
 extern void AddSC_boss_death_knight_darkreaver();
 extern void AddSC_boss_theolenkrastinov();
 extern void AddSC_boss_illuciabarov();
@@ -118,9 +118,9 @@ extern void AddSC_boss_rasfrost();
 extern void AddSC_boss_theravenian();
 extern void AddSC_boss_vectus();
 extern void AddSC_instance_scholomance();
-extern void AddSC_shadowfang_keep();                        //shadowfang_keep
+extern void AddSC_shadowfang_keep();                        //Shadowfang_keep
 extern void AddSC_instance_shadowfang_keep();
-extern void AddSC_boss_magistrate_barthilas();              //stratholme
+extern void AddSC_boss_magistrate_barthilas();              //Stratholme
 extern void AddSC_boss_maleki_the_pallid();
 extern void AddSC_boss_nerubenkan();
 extern void AddSC_boss_cannon_master_willey();
@@ -133,12 +133,12 @@ extern void AddSC_boss_dathrohan_balnazzar();
 extern void AddSC_boss_order_of_silver_hand();
 extern void AddSC_instance_stratholme();
 extern void AddSC_stratholme();
-extern void AddSC_boss_brutallus();                         //sunwell_plateau
+extern void AddSC_boss_brutallus();                         //Sunwell_Plateau
 extern void AddSC_boss_kalecgos();
 extern void AddSC_instance_sunwell_plateau();
-extern void AddSC_boss_ironaya();                           //uldaman
+extern void AddSC_boss_ironaya();                           //Uldaman
 extern void AddSC_uldaman();
-extern void AddSC_boss_akilzon();                           //zulaman
+extern void AddSC_boss_akilzon();                           //Zulaman
 extern void AddSC_boss_halazzi();
 extern void AddSC_boss_janalai();
 extern void AddSC_boss_malacrass();
@@ -146,7 +146,7 @@ extern void AddSC_boss_nalorakk();
 extern void AddSC_instance_zulaman();
 extern void AddSC_zulaman();
 extern void AddSC_boss_zuljin();
-extern void AddSC_boss_arlokk();                            //zulgurub
+extern void AddSC_boss_arlokk();                            //Zulgurub
 extern void AddSC_boss_gahzranka();
 extern void AddSC_boss_grilek();
 extern void AddSC_boss_hakkar();
@@ -188,13 +188,13 @@ extern void AddSC_westfall();
 extern void AddSC_wetlands();
 
 //kalimdor
-extern void AddSC_instance_blackfathom_deeps();             //blackfathom_deeps
-extern void AddSC_boss_aeonus();                            //COT, dark_portal
+extern void AddSC_instance_blackfathom_deeps();             //Blackfathom_Deeps
+extern void AddSC_boss_aeonus();                            //COT, Dark_Portal
 extern void AddSC_boss_chrono_lord_deja();
 extern void AddSC_boss_temporus();
 extern void AddSC_dark_portal();
 extern void AddSC_instance_dark_portal();
-extern void AddSC_hyjal();                                  //COT, hyjal
+extern void AddSC_hyjal();                                  //COT, Hyjal
 extern void AddSC_boss_archimonde();
 extern void AddSC_instance_mount_hyjal();
 extern void AddSC_boss_captain_skarloc();                   //COT, old_hillsbrad
