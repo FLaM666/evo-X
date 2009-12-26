@@ -257,15 +257,15 @@ extern void AddSC_boss_anubarak();                          //azjol-nerub
 extern void AddSC_boss_hadronox();
 extern void AddSC_boss_krikthir();
 extern void AddSC_instance_azjol_nerub();
-extern void AddSC_boss_novos();                             //draktharon_keep
+extern void AddSC_boss_novos();                             //Draktharon_keep
 extern void AddSC_boss_tharonja();
 extern void AddSC_boss_trollgore();
-extern void AddSC_boss_colossus();                          //gundrak
+extern void AddSC_boss_colossus();                          //Gundrak
 extern void AddSC_boss_galdarah();
 extern void AddSC_boss_moorabi();
 extern void AddSC_boss_sladran();
 extern void AddSC_instance_gundrak();
-extern void AddSC_boss_anubrekhan();                        //naxxramas
+extern void AddSC_boss_anubrekhan();                        //Naxxramas
 extern void AddSC_boss_four_horsemen();
 extern void AddSC_boss_faerlina();
 extern void AddSC_boss_gluth();
@@ -278,14 +278,14 @@ extern void AddSC_boss_patchwerk();
 extern void AddSC_boss_razuvious();
 extern void AddSC_boss_sapphiron();
 extern void AddSC_instance_naxxramas();
-extern void AddSC_boss_anomalus();                          //nexus
+extern void AddSC_boss_anomalus();                          //Nexus
 extern void AddSC_boss_keristrasza();
 extern void AddSC_boss_ormorok();
 extern void AddSC_boss_telestra();
 extern void AddSC_instance_nexus();
-extern void AddSC_boss_sartharion();                        //obsidian_sanctum
+extern void AddSC_boss_sartharion();                        //Obsidian_sanctum
 extern void AddSC_instance_obsidian_sanctum();
-extern void AddSC_instance_vault_of_archavon();             //vault_of_archavon
+extern void AddSC_instance_vault_of_archavon();             //Vault_of_archavon
 extern void AddSC_boss_koralon();
 extern void AddSC_boss_emalon();
 extern void AddSC_boss_archavon();
@@ -297,7 +297,7 @@ extern void AddSC_instance_halls_of_lightning();
 extern void AddSC_boss_maiden_of_grief();                   //Ulduar, halls_of_stone
 extern void AddSC_boss_sjonnir();
 extern void AddSC_halls_of_stone();
-extern void AddSC_boss_leviathan();                         //ulduar
+extern void AddSC_boss_leviathan();                         //Ulduar
 extern void AddSC_boss_ignis();
 extern void AddSC_boss_razorscale();
 extern void AddSC_boss_xt002();
@@ -313,16 +313,20 @@ extern void AddSC_boss_yogg_saron();
 extern void AddSC_boss_algalon();
 extern void AddSC_ulduar_teleport();
 extern void AddSC_instance_ulduar();
-extern void AddSC_boss_ingvar();                            //utgarde_keep
+extern void AddSC_boss_ingvar();                            //Utgarde_keep
 extern void AddSC_boss_keleseth();
 extern void AddSC_boss_skarvald_and_dalronn();
 extern void AddSC_instance_utgarde_keep();
 extern void AddSC_utgarde_keep();
-extern void AddSC_boss_gortok();                           //utgarde_pinnacle
+extern void AddSC_boss_gortok();                            //Utgarde_pinnacle
 extern void AddSC_boss_skadi();
 extern void AddSC_boss_svala();
 extern void AddSC_boss_ymiron();
 extern void AddSC_instance_pinnacle();
+extern void AddSC_instance_trial_of_the_champion();         //Trial_of_the_Champion
+extern void AddSC_boss_argent_challenge();
+extern void AddSC_boss_black_knight();
+extern void AddSC_boss_grand_champions();
 
 extern void AddSC_borean_tundra();
 extern void AddSC_dalaran();
