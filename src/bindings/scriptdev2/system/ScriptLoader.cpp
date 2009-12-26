@@ -289,6 +289,14 @@ extern void AddSC_instance_vault_of_archavon();             //Vault_of_archavon
 extern void AddSC_boss_koralon();
 extern void AddSC_boss_emalon();
 extern void AddSC_boss_archavon();
+extern void AddSC_instance_violet_hold();                   //Violet_Hold
+extern void AddSC_boss_cyanigosa();
+extern void AddSC_boss_erekem();
+extern void AddSC_boss_ichoron();
+extern void AddSC_boss_lavanthor();
+extern void AddSC_boss_moragg();
+extern void AddSC_boss_xevozz();
+extern void AddSC_boss_zuramat();
 extern void AddSC_boss_bjarngrim();                         //Ulduar, halls_of_lightning
 extern void AddSC_boss_ionar();
 extern void AddSC_boss_loken();
@@ -703,6 +711,14 @@ void AddScripts()
     AddSC_boss_koralon();
     AddSC_boss_emalon();
     AddSC_boss_archavon();
+    AddSC_instance_violet_hold();                           //Violet_Hold
+    AddSC_boss_cyanigosa();
+    AddSC_boss_erekem();
+    AddSC_boss_ichoron();
+    AddSC_boss_lavanthor();
+    AddSC_boss_moragg();
+    AddSC_boss_xevozz();
+    AddSC_boss_zuramat();
     AddSC_boss_bjarngrim();                                 //Ulduar, halls_of_lightning
     AddSC_boss_ionar();
     AddSC_boss_loken();
@@ -737,6 +753,10 @@ void AddScripts()
     AddSC_boss_svala();
     AddSC_boss_ymiron();
     AddSC_instance_pinnacle();
+    AddSC_instance_trial_of_the_champion();                 //Trial_of_the_Champion
+    AddSC_boss_argent_challenge();
+    AddSC_boss_black_knight();
+    AddSC_boss_grand_champions();
 
     AddSC_borean_tundra();
     AddSC_dalaran();
