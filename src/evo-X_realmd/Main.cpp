@@ -39,9 +39,9 @@
 
 #ifdef WIN32
 #include "ServiceWin32.h"
-char serviceName[] = "realmd";
-char serviceLongName[] = "MaNGOS realmd service";
-char serviceDescription[] = "Massive Network Game Object Server";
+char serviceName[] = "evo-X_realmd";
+char serviceLongName[] = "evo-X realmd service";
+char serviceDescription[] = "evo-X Server";
 /*
  * -1 - not in service mode
  *  0 - stopped
@@ -206,7 +206,7 @@ extern int main(int argc, char **argv)
     ListenSocket<AuthSocket> authListenSocket(h);
     if ( authListenSocket.Bind(bind_ip.c_str(),rmport))
     {
-        sLog.outError( "MaNGOS realmd can not bind to %s:%d",bind_ip.c_str(), rmport );
+        sLog.outError( "evo-X realmd can not bind to %s:%d",bind_ip.c_str(), rmport );
         return 1;
     }
 
@@ -255,7 +255,7 @@ extern int main(int argc, char **argv)
         if(Prio)
         {
             if(SetPriorityClass(hProcess,HIGH_PRIORITY_CLASS))
-                sLog.outString("realmd process priority class set to HIGH");
+                sLog.outString("evo-X realmd process priority class set to HIGH");
             else
                 sLog.outError("ERROR: Can't set realmd process priority class.");
             sLog.outString();

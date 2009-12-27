@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
-	Name="mangosd"
+	Version="9,00"
+	Name="evo-X_world"
 	ProjectGUID="{A3A04E47-43A2-4C08-90B3-029CEF558594}"
-	RootNamespace="mangosd"
+	RootNamespace="evo-X_world"
+	Keyword="Win32Proj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform
@@ -19,10 +21,9 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -41,27 +42,28 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.tlb"
+				TypeLibraryName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\mangosd;..\..\dep\ACE_wrappers"
+				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\evo-X_world;..\..\dep\ACE_wrappers"
 				PreprocessorDefinitions="VERSION=&quot;0.15.0-DEV&quot;;WIN32;NDEBUG;_CONSOLE;ENABLE_CLI;_SECURE_SCL=0"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				EnableEnhancedInstructionSet="1"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.pch"
-				AssemblerListingLocation=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.pch"
+				AssemblerListingLocation=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				CallingConvention="0"
 				CompileAs="0"
 			/>
 			<Tool
@@ -79,18 +81,20 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrt.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;..\..\dep\lib\$(PlatformName)_$(ConfigurationName)&quot;;&quot;.\framework__$(PlatformName)_$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.map"
 				SubSystem="1"
 				LargeAddressAware="2"
 				LinkTimeCodeGeneration="0"
-				ImportLibrary="$(OutDir)\mangosd.lib"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				ImportLibrary="$(OutDir)\evo-X_world.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -109,9 +113,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -120,10 +121,9 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -143,27 +143,28 @@
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
-				TypeLibraryName=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.tlb"
+				TypeLibraryName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\mangosd;..\..\dep\ACE_wrappers"
+				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\evo-X_world;..\..\dep\ACE_wrappers"
 				PreprocessorDefinitions="VERSION=&quot;0.15.0-DEV&quot;;WIN32;NDEBUG;_CONSOLE;ENABLE_CLI;_SECURE_SCL=0"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				EnableEnhancedInstructionSet="0"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.pch"
-				AssemblerListingLocation=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.pch"
+				AssemblerListingLocation=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				CallingConvention="0"
 				CompileAs="0"
 			/>
 			<Tool
@@ -180,17 +181,19 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrt.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;..\..\dep\lib\$(PlatformName)_$(ConfigurationName)&quot;;&quot;.\framework__$(PlatformName)_$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.map"
 				SubSystem="1"
 				LinkTimeCodeGeneration="0"
-				ImportLibrary="$(OutDir)\mangosd.lib"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				ImportLibrary="$(OutDir)\evo-X_world.lib"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -210,9 +213,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -221,10 +221,9 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -243,26 +242,28 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.tlb"
+				TypeLibraryName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\mangosd;..\..\dep\ACE_wrappers"
+				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\evo-X_world;..\..\dep\ACE_wrappers"
 				PreprocessorDefinitions="VERSION=&quot;0.15.0-DEV&quot;;WIN32;_DEBUG;MANGOS_DEBUG;_CONSOLE;ENABLE_CLI"
 				IgnoreStandardIncludePath="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.pch"
-				AssemblerListingLocation=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.pch"
+				AssemblerListingLocation=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				CallingConvention="0"
 				CompileAs="0"
 			/>
 			<Tool
@@ -280,19 +281,21 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrtd.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
 				Version=""
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;..\..\dep\lib\$(PlatformName)_$(ConfigurationName)&quot;;&quot;.\framework__$(PlatformName)_$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.map"
 				SubSystem="1"
 				LargeAddressAware="2"
-				ImportLibrary="$(OutDir)\mangosd.lib"
+				RandomizedBaseAddress="1"
 				FixedBaseAddress="1"
+				DataExecutionPrevention="0"
+				ImportLibrary="$(OutDir)\evo-X_world.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -311,9 +314,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -322,10 +322,9 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -345,26 +344,28 @@
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
-				TypeLibraryName=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.tlb"
+				TypeLibraryName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\mangosd;..\..\dep\ACE_wrappers"
+				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\evo-X_world;..\..\dep\ACE_wrappers"
 				PreprocessorDefinitions="VERSION=&quot;0.15.0-DEV&quot;;WIN32;_DEBUG;MANGOS_DEBUG;_CONSOLE;ENABLE_CLI"
 				IgnoreStandardIncludePath="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.pch"
-				AssemblerListingLocation=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.pch"
+				AssemblerListingLocation=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				CallingConvention="0"
 				CompileAs="0"
 			/>
 			<Tool
@@ -381,19 +382,21 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrtd.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
 				Version=""
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;..\..\dep\lib\$(PlatformName)_$(ConfigurationName)&quot;;&quot;.\framework__$(PlatformName)_$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.map"
 				SubSystem="1"
-				ImportLibrary="$(OutDir)\mangosd.lib"
-				TargetMachine="17"
+				RandomizedBaseAddress="1"
 				FixedBaseAddress="1"
+				DataExecutionPrevention="0"
+				ImportLibrary="$(OutDir)\evo-X_world.lib"
+				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -414,19 +417,15 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				CommandLine="copy ..\..\dep\lib\$(PlatformName)_$(ConfigurationName)\*.dll ..\..\bin\$(PlatformName)_$(ConfigurationName)"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug_NoPCH|Win32"
-			OutputDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -445,26 +444,28 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.tlb"
+				TypeLibraryName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\mangosd;..\..\dep\ACE_wrappers"
+				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\evo-X_world;..\..\dep\ACE_wrappers"
 				PreprocessorDefinitions="VERSION=&quot;0.15.0-DEV&quot;;WIN32;_DEBUG;MANGOS_DEBUG;_CONSOLE;ENABLE_CLI"
 				IgnoreStandardIncludePath="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.pch"
-				AssemblerListingLocation=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.pch"
+				AssemblerListingLocation=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				CallingConvention="0"
 				CompileAs="0"
 			/>
 			<Tool
@@ -482,19 +483,21 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrtd.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
 				Version=""
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;..\..\dep\lib\$(PlatformName)_debug&quot;;&quot;.\framework__$(PlatformName)_$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.map"
 				SubSystem="1"
 				LargeAddressAware="2"
-				ImportLibrary="$(OutDir)\mangosd.lib"
+				RandomizedBaseAddress="1"
 				FixedBaseAddress="1"
+				DataExecutionPrevention="0"
+				ImportLibrary="$(OutDir)\evo-X_world.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -515,19 +518,15 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				CommandLine="copy ..\..\dep\lib\$(PlatformName)_debug\*.dll ..\..\bin\$(PlatformName)_$(ConfigurationName)"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug_NoPCH|x64"
-			OutputDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\mangosd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\evo-X_world__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -547,26 +546,28 @@
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
-				TypeLibraryName=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.tlb"
+				TypeLibraryName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\mangosd;..\..\dep\ACE_wrappers"
+				AdditionalIncludeDirectories="..\..\dep\include,..\..\src\framework,..\..\src\shared,..\..\src\game,..\..\src\evo-X_world;..\..\dep\ACE_wrappers"
 				PreprocessorDefinitions="VERSION=&quot;0.15.0-DEV&quot;;WIN32;_DEBUG;MANGOS_DEBUG;_CONSOLE;ENABLE_CLI"
 				IgnoreStandardIncludePath="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\mangosd.pch"
-				AssemblerListingLocation=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\mangosd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\evo-X_world.pch"
+				AssemblerListingLocation=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\evo-X_world__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				CallingConvention="0"
 				CompileAs="0"
 			/>
 			<Tool
@@ -583,19 +584,21 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrtd.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
 				Version=""
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;..\..\dep\lib\$(PlatformName)_debug&quot;;&quot;.\framework__$(PlatformName)_$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\mangosd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.map"
 				SubSystem="1"
-				ImportLibrary="$(OutDir)\mangosd.lib"
-				TargetMachine="17"
+				RandomizedBaseAddress="1"
 				FixedBaseAddress="1"
+				DataExecutionPrevention="0"
+				ImportLibrary="$(OutDir)\evo-X_world.lib"
+				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -614,9 +617,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -664,35 +664,35 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath="..\..\src\mangosd\CliRunnable.cpp"
+			RelativePath="..\..\src\evo-X_world\CliRunnable.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\mangosd\CliRunnable.h"
+			RelativePath="..\..\src\evo-X_world\CliRunnable.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\mangosd\Main.cpp"
+			RelativePath="..\..\src\evo-X_world\Main.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\mangosd\mangosd.rc"
+			RelativePath="..\..\src\evo-X_world\evo-X_world.rc"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\mangosd\Master.cpp"
+			RelativePath="..\..\src\evo-X_world\Master.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\mangosd\Master.h"
+			RelativePath="..\..\src\evo-X_world\Master.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\mangosd\RASocket.cpp"
+			RelativePath="..\..\src\evo-X_world\RASocket.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\mangosd\RASocket.h"
+			RelativePath="..\..\src\evo-X_world\RASocket.h"
 			>
 		</File>
 		<File
@@ -704,11 +704,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\mangosd\WorldRunnable.cpp"
+			RelativePath="..\..\src\evo-X_world\WorldRunnable.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\mangosd\WorldRunnable.h"
+			RelativePath="..\..\src\evo-X_world\WorldRunnable.h"
 			>
 		</File>
 	</Files>

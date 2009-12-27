@@ -17,37 +17,44 @@
 ## Process this file with automake to produce Makefile.in
 
 ## CPP flags for includes, defines, etc.
-AM_CPPFLAGS = $(MANGOS_INCLUDES) -I$(top_builddir)/src/shared -I$(srcdir)/../../dep/include -I$(srcdir)/../framework -I$(srcdir)/../shared -I$(srcdir) -DSYSCONFDIR=\"$(sysconfdir)/\"
+AM_CPPFLAGS = $(MANGOS_INCLUDES) -I$(top_builddir)/src/shared -I$(srcdir)/../../dep/include -I$(srcdir)/../framework -I$(srcdir)/../shared  -I$(srcdir)/../game -I$(srcdir) -DSYSCONFDIR=\"$(sysconfdir)/\"
 
-## Build realm list daemon as standalone program
-bin_PROGRAMS = mangos-realmd
-mangos_realmd_SOURCES = \
-	AuthCodes.h \
-	AuthSocket.cpp \
-	AuthSocket.h \
+## Build world daemon as standalone program
+bin_PROGRAMS = evo-X_world
+evo-X_world_SOURCES = \
+	CliRunnable.cpp \
+	CliRunnable.h \
 	Main.cpp \
-	RealmList.cpp \
-	RealmList.h
+	Master.cpp \
+	Master.h \
+	RASocket.cpp \
+	RASocket.h \
+	WorldRunnable.cpp \
+	WorldRunnable.h
 
-## Link realm list daemon against the shared library
-mangos_realmd_LDADD = \
+## Link world daemon against the shared library
+evo-X_world_LDADD = \
+	../bindings/universal/libmangosscript.la \
+	../game/libmangosgame.a \
 	../shared/Database/libmangosdatabase.a \
 	../shared/Config/libmangosconfig.a \
 	../shared/Auth/libmangosauth.a \
 	../shared/libmangosshared.a \
+	../shared/vmap/libmangosvmaps.a \
 	../framework/libmangosframework.a \
-	../../dep/src/sockets/libmangossockets.a
+	../../dep/src/sockets/libmangossockets.a \
+	../../dep/src/g3dlite/libg3dlite.a
 
-mangos_realmd_LDFLAGS = -L../../dep/src/sockets -L$(libdir) $(MANGOS_LIBS)
+evo-X_world_LDFLAGS = -L../../dep/src/sockets -L../../dep/src/g3dlite -L../bindings/universal/ -L$(libdir) $(MANGOS_LIBS) -export-dynamic
 
 ## Additional files to include when running 'make dist'
-#  Include realm list daemon configuration
+#  Include world daemon configuration
 EXTRA_DIST = \
-	realmd.conf.dist
+	mangosd.conf.dist
 
 ## Additional files to install
 sysconf_DATA = \
-	realmd.conf.dist
+	mangosd.conf.dist
 
 install-data-hook:
 	@list='$(sysconf_DATA)'
