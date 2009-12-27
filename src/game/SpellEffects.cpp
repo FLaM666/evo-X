@@ -155,7 +155,7 @@ pEffect SpellEffects[TOTAL_SPELL_EFFECTS]=
     &Spell::EffectSelfResurrect,                            // 94 SPELL_EFFECT_SELF_RESURRECT
     &Spell::EffectSkinning,                                 // 95 SPELL_EFFECT_SKINNING
     &Spell::EffectCharge,                                   // 96 SPELL_EFFECT_CHARGE
-    &Spell::EffectUnused,                                   // 97 SPELL_EFFECT_97
+    &Spell::EffectSummonAllTotems,                          // 97 SPELL_EFFECT_SUMMON_ALL_TOTEMS
     &Spell::EffectKnockBack,                                // 98 SPELL_EFFECT_KNOCK_BACK
     &Spell::EffectDisEnchant,                               // 99 SPELL_EFFECT_DISENCHANT
     &Spell::EffectInebriate,                                //100 SPELL_EFFECT_INEBRIATE
@@ -6582,6 +6582,31 @@ void Spell::EffectSummonDeadPet(uint32 /*i*/)
 
     // _player->PetSpellInitialize(); -- action bar not removed at death and not required send at revive
     pet->SavePetToDB(PET_SAVE_AS_CURRENT);
+}
+
+void Spell::EffectSummonAllTotems(uint32 i)
+{
+    if(m_caster->GetTypeId() != TYPEID_PLAYER)
+        return;
+
+    switch(m_spellInfo->Id)
+    {
+        case 66842:         // Call of the Elements
+        case 66843:         // Call of the Ancestors
+        case 66844:         // Call of the Spirits
+        {
+            for(int32 slot = 0; slot != MAX_TOTEM; ++slot)
+            {
+                uint8 button = m_spellInfo->EffectMiscValue[i]+slot+132;
+                uint32 spell_id = ((Player*)m_caster)->GetActionByActionButton(button);
+                if(spell_id && !HasSpellCooldown(spell_id))
+                    m_caster->CastSpell(unitTarget,spell_id,true);
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 void Spell::EffectDestroyAllTotems(uint32 /*i*/)

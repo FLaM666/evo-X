@@ -506,6 +506,10 @@ void Spell::FillTargetMap()
         if(IsAreaAuraEffect(m_spellInfo->Effect[i]))
             AddUnitTarget(m_caster, i);
 
+        // SPELL_EFFECT_SUMMON_ALL_TOTEMS not have any implicit target
+        if(m_spellInfo->Effect[i] == SPELL_EFFECT_SUMMON_ALL_TOTEMS)
+            AddUnitTarget(m_caster, i);
+
         std::list<Unit*> tmpUnitMap;
 
         // TargetA/TargetB dependent from each other, we not switch to full support this dependences
