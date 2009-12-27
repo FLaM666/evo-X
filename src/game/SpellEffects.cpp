@@ -6599,7 +6599,7 @@ void Spell::EffectSummonAllTotems(uint32 i)
             {
                 uint8 button = m_spellInfo->EffectMiscValue[i]+slot+132;
                 uint32 spell_id = ((Player*)m_caster)->GetActionByActionButton(button);
-                if(spell_id && !HasSpellCooldown(spell_id))
+                if(spell_id)
                     m_caster->CastSpell(unitTarget,spell_id,true);
             }
             break;
