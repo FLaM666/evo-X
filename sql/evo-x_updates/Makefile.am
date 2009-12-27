@@ -17,26 +17,19 @@
 ## Process this file with automake to produce Makefile.in
 
 ## Sub-directories to parse
-SUBDIRS = updates tools
 
 ## Change installation location
-#  datadir = evo-X/sql
-pkgdatadir = $(datadir)/mangos/sql
+#  datadir = evo-X/sql/updates
+pkgdatadir = $(datadir)/evo-X/sql/updates
 
 ## Files to be installed
 #  Install basic SQL files to datadir
 pkgdata_DATA = \
-	evo-X_world.sql \
-	evo-X_realmd.sql \
-	evo-X_characters.sql \
-	create_mysql.sql \
-	drop_mysql.sql
+
+	README
 
 ## Additional files to include when running 'make dist'
-#  SQL files for evo-X database
+#  SQL update files, to upgrade database schema from older revisions
 EXTRA_DIST = \
-	create_mysql.sql \
-	drop_mysql.sql \
-	evo-X_characters.sql \
-	evo-X_world.sql \
-	evo-X_realmd.sql
+
+	README
