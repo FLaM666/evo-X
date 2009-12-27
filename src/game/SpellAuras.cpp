@@ -7887,6 +7887,9 @@ void Aura::HandleAuraCloneCaster(bool Apply, bool Real)
     if (!caster)
         return;
 
+    if (m_target->GetTypeId()== TYPEID_PLAYER)
+        return;
+
     // Set item visual
     m_target->SetDisplayId(caster->GetDisplayId());
     m_target->SetUInt32Value(UNIT_FIELD_FLAGS_2, 2064);
