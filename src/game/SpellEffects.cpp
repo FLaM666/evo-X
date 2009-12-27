@@ -506,6 +506,14 @@ void Spell::EffectSchoolDMG(uint32 effect_idx)
                         }
                     }
                 }
+                // Smite
+                else if (m_spellInfo->SpellFamilyFlags & 0x80LL)
+                {
+                    // Glyph of Smite
+                    if (Aura * aurEff = m_caster->GetAura(55692, 0))
+                        if (unitTarget->GetAura(SPELL_AURA_PERIODIC_DAMAGE, SPELLFAMILY_PRIEST, 0x100000, 0, m_caster->GetGUID()))
+                            damage += damage * aurEff->GetModifier()->m_amount / 100;
+                }
                 break;
             }
             case SPELLFAMILY_DRUID:
