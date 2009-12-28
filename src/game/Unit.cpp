@@ -7076,6 +7076,7 @@ bool Unit::HandleProcTriggerSpell(Unit *pVictim, uint32 damage, Aura* triggeredB
 					default:
                         return false;
 
+                }
             }
             // Drain Soul
             else if (auraSpellInfo->SpellFamilyFlags & UI64LIT(0x0000000000004000))
