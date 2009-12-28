@@ -954,6 +954,15 @@ void World::LoadConfigSettings(bool reload)
 
     m_configs[CONFIG_THREAT_RADIUS] = sConfig.GetIntDefault("ThreatRadius", 100);
 
+	    /* PvP Token System */
+    m_configs[CONFIG_PVP_TOKEN_ENABLE] = sConfig.GetBoolDefault("PvPToken.Enable", true);
+    m_configs[CONFIG_PVP_TOKEN_ITEMID] = sConfig.GetIntDefault("PvPToken.ItemID", 29434);
+    m_configs[CONFIG_PVP_TOKEN_ITEMCOUNT] = sConfig.GetIntDefault("PvPToken.ItemCount", 1);
+    m_configs[CONFIG_PVP_TOKEN_RESTRICTION] = sConfig.GetIntDefault("PvPToken.MapRestriction", 4);
+
+    if(m_configs[CONFIG_PVP_TOKEN_ITEMCOUNT] <= 0)
+        m_configs[CONFIG_PVP_TOKEN_ENABLE] = 0;
+
     // always use declined names in the russian client
     m_configs[CONFIG_DECLINED_NAMES_USED] =
         (m_configs[CONFIG_REALM_ZONE] == REALM_ZONE_RUSSIAN) ? true : sConfig.GetBoolDefault("DeclinedNames", false);

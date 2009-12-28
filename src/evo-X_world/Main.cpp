@@ -148,17 +148,17 @@ extern int main(int argc, char **argv)
     sLog.outString( "%s [world-daemon]", _FULLVERSION(REVISION_DATE,REVISION_TIME,REVISION_NR,REVISION_ID) );
     sLog.outString( "<Ctrl-C> to stop.\n\n" );
 
-    sLog.outTitle( "EEEEEEE EE                EE   EEEEEEEEEEEE           EE       EE    ");
-    sLog.outTitle( "EE       EE              EE    EE        EE            EE    EE    ");
-    sLog.outTitle( "MM        EE            EE     EE        EE             EE  EE     ");
-    sLog.outTitle( "MM         EE          EE      EE        EE               EE      ");
-    sLog.outTitle( "EEEEEEE     EE        EE       EE        EE   EEEEEEE    EEEE      ");
-    sLog.outTitle( "EE           EE      EE        EE        EE             EE  EE     ");
-    sLog.outTitle( "EE            EE    EE         EE        EE            EE    EE    ");
-    sLog.outTitle( "EE             EE  EE          EE        EE           EE      EE   ");
-    sLog.outTitle( "EEEEEEE          EE            EEEEEEEEEEEE          EE        EE  ");
-    sLog.outTitle( "        MM  MMM http://evo-x-project.com");
-    sLog.outTitle( "        MMMMMM\n\n");
+  sLog.outTitle( "################################################");
+  sLog.outTitle( "#                                              #");
+  sLog.outTitle( "#             .:| Evo-X Emu |:.                #");
+  sLog.outTitle( "#                                              #");
+  sLog.outTitle( "################################################");
+  sLog.outTitle( "                                               #");
+  sLog.outTitle( "#   Visit us on http://europe-wow.eu/evo-X     #");
+  sLog.outTitle( "# Core based on Mangos modified by evo-x Team  #");
+  sLog.outTitle( "#                                              #");
+  sLog.outTitle( "################################################");
+  sLog.outTitle( "");
 
     sLog.outString("Using configuration file %s.", cfg_file);
 
