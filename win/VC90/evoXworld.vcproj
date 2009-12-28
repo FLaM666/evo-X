@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="evo-X_world"
+	Name="evoXworld"
 	ProjectGUID="{A3A04E47-43A2-4C08-90B3-029CEF558594}"
-	RootNamespace="evo-X_world"
+	RootNamespace="evoXworld"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -664,35 +664,35 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath="..\..\src\evo-X_world\CliRunnable.cpp"
+			RelativePath="..\..\src\evoXworld\CliRunnable.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_world\CliRunnable.h"
+			RelativePath="..\..\src\evoXworld\CliRunnable.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_world\Main.cpp"
+			RelativePath="..\..\src\evoXworld\Main.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_world\evo-X_world.rc"
+			RelativePath="..\..\src\evoXworld\evo-X_world.rc"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_world\Master.cpp"
+			RelativePath="..\..\src\evoXworld\Master.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_world\Master.h"
+			RelativePath="..\..\src\evoXworld\Master.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_world\RASocket.cpp"
+			RelativePath="..\..\src\evoXworld\RASocket.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_world\RASocket.h"
+			RelativePath="..\..\src\evoXworld\RASocket.h"
 			>
 		</File>
 		<File
@@ -704,11 +704,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_world\WorldRunnable.cpp"
+			RelativePath="..\..\src\evoXworld\WorldRunnable.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_world\WorldRunnable.h"
+			RelativePath="..\..\src\evoXworld\WorldRunnable.h"
 			>
 		</File>
 	</Files>

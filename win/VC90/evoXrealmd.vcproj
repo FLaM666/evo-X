@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="evo-X_realmd"
+	Name="evoXrealmd"
 	ProjectGUID="{563E9905-3657-460C-AE63-0AC39D162E23}"
-	RootNamespace="evo-X_realmd"
+	RootNamespace="evoXrealmd"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -610,31 +610,31 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\src\evo-X_realmd\AuthCodes.h"
+			RelativePath="..\..\src\evoXrealmd\AuthCodes.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_realmd\AuthSocket.cpp"
+			RelativePath="..\..\src\evoXrealmd\AuthSocket.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_realmd\AuthSocket.h"
+			RelativePath="..\..\src\evoXrealmd\AuthSocket.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_realmd\Main.cpp"
+			RelativePath="..\..\src\evoXrealmd\Main.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_realmd\evo-X_realmd.rc"
+			RelativePath="..\..\src\evoXrealmd\evo-X_realmd.rc"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_realmd\RealmList.cpp"
+			RelativePath="..\..\src\evoXrealmd\RealmList.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evo-X_realmd\RealmList.h"
+			RelativePath="..\..\src\evoXrealmd\RealmList.h"
 			>
 		</File>
 		<File

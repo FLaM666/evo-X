@@ -22,9 +22,9 @@ SUBDIRS = dep doc sql src
 
 # Win32 project workspace for Visual Studio .NET 2008
 EXTRA_DIST += \
-	win/evo-XVC90.sln \
+	win/evoX.sln \
 	win/VC90/framework.vcproj \
-	win/VC90/game.vcproj \
+	win/VC90/evoXgame.vcproj \
 	win/VC90/evoXworld.vcproj \
 	win/VC90/evoXrealmd.vcproj \
 	win/VC90/shared.vcproj \
