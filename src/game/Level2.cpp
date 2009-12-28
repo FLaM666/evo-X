@@ -34,7 +34,6 @@
 #include "SpellMgr.h"
 #include "PoolManager.h"
 #include "AccountMgr.h"
-#include "GMTicketMgr.h"
 #include "WaypointManager.h"
 #include "Util.h"
 #include <cctype>
@@ -139,6 +138,48 @@ bool ChatHandler::HandleUnmuteCommand(const char* args)
     std::string nameLink = playerLink(target_name);
 
     PSendSysMessage(LANG_YOU_ENABLE_CHAT, nameLink.c_str());
+    return true;
+}
+
+bool ChatHandler::HandleGoTicketCommand(const char * args)
+{
+    if(!*args)
+        return false;
+
+    char *cstrticket_id = strtok((char*)args, " ");
+
+    if(!cstrticket_id)
+        return false;
+
+    uint64 ticket_id = atoi(cstrticket_id);
+    if(!ticket_id)
+        return false;
+
+    GM_Ticket *ticket = sObjectMgr.GetGMTicket(ticket_id);
+    if(!ticket)
+    {
+        SendSysMessage(LANG_COMMAND_TICKETNOTEXIST);
+        return true;
+    }
+
+    float x, y, z;
+    int mapid;
+
+    x = ticket->pos_x;
+    y = ticket->pos_y;
+    z = ticket->pos_z;
+    mapid = ticket->map;
+
+    Player* _player = m_session->GetPlayer();
+    if(_player->isInFlight())
+    {
+        _player->GetMotionMaster()->MovementExpired();
+        _player->m_taxi.ClearTaxiDestinations();
+    }
+     else
+        _player->SaveRecallPosition();
+
+    _player->TeleportTo(mapid, x, y, z, 1, 0);
     return true;
 }
 
@@ -2193,223 +2234,6 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
     uint32 copp = (money % GOLD) % SILVER;
     PSendSysMessage(LANG_PINFO_LEVEL,  timeStr.c_str(), level, gold,silv,copp );
 
-    return true;
-}
-
-//show tickets
-void ChatHandler::ShowTicket(uint64 guid, char const* text, char const* time)
-{
-    std::string name;
-    if(!sObjectMgr.GetPlayerNameByGUID(guid,name))
-        name = GetMangosString(LANG_UNKNOWN);
-
-    std::string nameLink = playerLink(name);
-
-    PSendSysMessage(LANG_COMMAND_TICKETVIEW, nameLink.c_str(),time,text);
-}
-
-//ticket commands
-bool ChatHandler::HandleTicketCommand(const char* args)
-{
-    char* px = strtok((char*)args, " ");
-
-    // ticket<end>
-    if (!px)
-    {
-        if(!m_session)
-        {
-            SendSysMessage(LANG_PLAYER_NOT_FOUND);
-            SetSentErrorMessage(true);
-            return false;
-        }
-
-        size_t count = sTicketMgr.GetTicketCount();
-
-        bool accept = m_session->GetPlayer()->isAcceptTickets();
-
-        PSendSysMessage(LANG_COMMAND_TICKETCOUNT, count, accept ?  GetMangosString(LANG_ON) : GetMangosString(LANG_OFF));
-        return true;
-    }
-
-    // ticket on
-    if(strncmp(px,"on",3) == 0)
-    {
-        if(!m_session)
-        {
-            SendSysMessage(LANG_PLAYER_NOT_FOUND);
-            SetSentErrorMessage(true);
-            return false;
-        }
-
-        m_session->GetPlayer()->SetAcceptTicket(true);
-        SendSysMessage(LANG_COMMAND_TICKETON);
-        return true;
-    }
-
-    // ticket off
-    if(strncmp(px,"off",4) == 0)
-    {
-        if(!m_session)
-        {
-            SendSysMessage(LANG_PLAYER_NOT_FOUND);
-            SetSentErrorMessage(true);
-            return false;
-        }
-
-        m_session->GetPlayer()->SetAcceptTicket(false);
-        SendSysMessage(LANG_COMMAND_TICKETOFF);
-        return true;
-    }
-
-    // ticket respond
-    if(strncmp(px,"respond",8) == 0)
-    {
-        char *name = strtok(NULL, " ");
-
-        if(!name)
-        {
-            SendSysMessage(LANG_CMD_SYNTAX);
-            SetSentErrorMessage(true);
-            return false;
-        }
-
-        std::string plName = name;
-        uint64 guid = sObjectMgr.GetPlayerGUIDByName(plName);
-
-        if(!guid)
-        {
-            SendSysMessage(LANG_PLAYER_NOT_FOUND);
-            SetSentErrorMessage(true);
-            return false;
-        }
-
-        GMTicket* ticket = sTicketMgr.GetGMTicket(GUID_LOPART(guid));
-
-        if(!ticket)
-        {
-            PSendSysMessage(LANG_COMMAND_TICKETNOTEXIST, GUID_LOPART(guid));
-            SetSentErrorMessage(true);
-            return false;
-        }
-
-        char* response = strtok(NULL, "");
-
-        if(!response)
-        {
-            SendSysMessage(LANG_CMD_SYNTAX);
-            SetSentErrorMessage(true);
-            return false;
-        }
-
-        ticket->SetResponseText(response);
-
-        if(Player* pl = sObjectMgr.GetPlayer(guid))
-            pl->GetSession()->SendGMResponse(ticket);
-
-        return true;
-    }
-
-    // ticket #num
-    int num = atoi(px);
-    if(num > 0)
-    {
-        QueryResult *result = CharacterDatabase.PQuery("SELECT guid,ticket_text,ticket_lastchange FROM character_ticket ORDER BY ticket_id ASC "_OFFSET_, num-1);
-
-        if(!result)
-        {
-            PSendSysMessage(LANG_COMMAND_TICKETNOTEXIST, num);
-            SetSentErrorMessage(true);
-            return false;
-        }
-
-        Field* fields = result->Fetch();
-
-        uint32 guid = fields[0].GetUInt32();
-        char const* text = fields[1].GetString();
-        char const* time = fields[2].GetString();
-
-        ShowTicket(MAKE_NEW_GUID(guid, 0, HIGHGUID_PLAYER),text,time);
-        delete result;
-        return true;
-    }
-
-    uint64 target_guid;
-    if(!extractPlayerTarget(px,NULL,&target_guid))
-        return false;
-
-    // ticket $char_name
-    GMTicket* ticket = sTicketMgr.GetGMTicket(GUID_LOPART(target_guid));
-    if(!ticket)
-        return false;
-
-    std::string time = TimeToTimestampStr(ticket->GetLastUpdate());
-
-    ShowTicket(target_guid, ticket->GetText(), time.c_str());
-
-    return true;
-}
-
-//dell all tickets
-bool ChatHandler::HandleDelTicketCommand(const char *args)
-{
-    char* px = strtok((char*)args, " ");
-    if (!px)
-        return false;
-
-    // delticket all
-    if(strncmp(px,"all",4) == 0)
-    {
-        sTicketMgr.DeleteAll();
-        SendSysMessage(LANG_COMMAND_ALLTICKETDELETED);
-        return true;
-    }
-
-    int num = (uint32)atoi(px);
-
-    // delticket #num
-    if(num > 0)
-    {
-        QueryResult* result = CharacterDatabase.PQuery("SELECT guid FROM character_ticket ORDER BY ticket_id ASC "_OFFSET_,num-1);
-        if(!result)
-        {
-            PSendSysMessage(LANG_COMMAND_TICKETNOTEXIST, num);
-            SetSentErrorMessage(true);
-            return false;
-        }
-        Field* fields = result->Fetch();
-        uint32 guid = fields[0].GetUInt32();
-        delete result;
-
-        sTicketMgr.Delete(guid);
-
-        //notify player
-        if(Player* pl = sObjectMgr.GetPlayer(MAKE_NEW_GUID(guid, 0, HIGHGUID_PLAYER)))
-        {
-            pl->GetSession()->SendGMTicketGetTicket(0x0A, 0);
-            PSendSysMessage(LANG_COMMAND_TICKETPLAYERDEL, GetNameLink(pl).c_str());
-        }
-        else
-            PSendSysMessage(LANG_COMMAND_TICKETDEL);
-
-        return true;
-    }
-
-    Player* target;
-    uint64 target_guid;
-    std::string target_name;
-    if(!extractPlayerTarget(px,&target,&target_guid,&target_name))
-        return false;
-
-    // delticket $char_name
-    sTicketMgr.Delete(GUID_LOPART(target_guid));
-
-    // notify players about ticket deleting
-    if(target)
-        target->GetSession()->SendGMTicketGetTicket(0x0A,0);
-
-    std::string nameLink = playerLink(target_name);
-
-    PSendSysMessage(LANG_COMMAND_TICKETPLAYERDEL,nameLink.c_str());
     return true;
 }
 

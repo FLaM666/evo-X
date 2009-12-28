@@ -46,7 +46,7 @@ static DumpTable dumpTables[] =
     { "character_aura",                   DTT_CHAR_TABLE },
     { "character_homebind",               DTT_CHAR_TABLE },
     { "character_skills",                 DTT_CHAR_TABLE },
-    { "character_ticket",                 DTT_CHAR_TABLE },
+    { "tickets",                          DTT_CHAR_TABLE },
     { "character_inventory",              DTT_INVENTORY  },
     { "mail",                             DTT_MAIL       },
     { "mail_items",                       DTT_MAIL_ITEM  },

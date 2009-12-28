@@ -206,7 +206,11 @@ ChatCommand * ChatHandler::getCommandTable()
         { "xy",             SEC_MODERATOR,      false, &ChatHandler::HandleGoXYCommand,                "", NULL },
         { "xyz",            SEC_MODERATOR,      false, &ChatHandler::HandleGoXYZCommand,               "", NULL },
         { "",               SEC_MODERATOR,      false, &ChatHandler::HandleGoXYZCommand,               "", NULL },
+
+        { "ticket",         SEC_MODERATOR,      false, &ChatHandler::HandleGoTicketCommand,            "", NULL },
+
         { NULL,             0,                  false, NULL,                                           "", NULL }
+
     };
 
     static ChatCommand gobjectCommandTable[] =
@@ -472,6 +476,8 @@ ChatCommand * ChatHandler::getCommandTable()
         { "spell_threats",               SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadSpellThreatsCommand,            "", NULL },
         { "vehicle_data",                SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadVehicleDataCommand,             "", NULL },
         { "vehicle_seat_data",           SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadVehicleSeatDataCommand,         "", NULL },
+    
+        { "tickets",                  SEC_ADMINISTRATOR, true,  &ChatHandler::HandleGMTicketReloadCommand,                "", NULL },
 
         { NULL,                          0,                 false, NULL,                                                     "", NULL }
     };
@@ -584,6 +590,21 @@ ChatCommand * ChatHandler::getCommandTable()
         { NULL,             0,                  false, NULL,                                           "", NULL }
     };
 
+    static ChatCommand ticketCommandTable[] =
+    {
+        { "list",           SEC_MODERATOR,      false, &ChatHandler::HandleGMTicketListCommand,             "", NULL },
+        { "onlinelist",     SEC_MODERATOR,      false, &ChatHandler::HandleGMTicketListOnlineCommand,       "", NULL },
+        { "viewname",       SEC_MODERATOR,      false, &ChatHandler::HandleGMTicketGetByNameCommand,        "", NULL },
+        { "viewid",         SEC_MODERATOR,      false, &ChatHandler::HandleGMTicketGetByIdCommand,          "", NULL },
+        { "close",          SEC_MODERATOR,      false, &ChatHandler::HandleGMTicketCloseByIdCommand,        "", NULL },
+        { "closedlist",     SEC_MODERATOR,      false, &ChatHandler::HandleGMTicketListClosedCommand,       "", NULL },
+        { "delete",         SEC_ADMINISTRATOR,  false, &ChatHandler::HandleGMTicketDeleteByIdCommand,       "", NULL },
+        { "assign",         SEC_MODERATOR,      false, &ChatHandler::HandleGMTicketAssignToCommand,         "", NULL },
+        { "unassign",       SEC_MODERATOR,      false, &ChatHandler::HandleGMTicketUnAssignCommand,         "", NULL },
+        { "comment",        SEC_MODERATOR,      false, &ChatHandler::HandleGMTicketCommentCommand,          "", NULL },
+        { NULL,             0,                  false, NULL,                                                "", NULL }
+    };
+
     static ChatCommand commandTable[] =
     {
         { "account",        SEC_PLAYER,         true,  NULL,                                           "", accountCommandTable  },
@@ -610,6 +631,8 @@ ChatCommand * ChatHandler::getCommandTable()
         { "reset",          SEC_ADMINISTRATOR,  true,  NULL,                                           "", resetCommandTable    },
         { "instance",       SEC_ADMINISTRATOR,  true,  NULL,                                           "", instanceCommandTable },
         { "server",         SEC_ADMINISTRATOR,  true,  NULL,                                           "", serverCommandTable   },
+        { "ticket",         SEC_MODERATOR,      false,  NULL,                                          "", ticketCommandTable },
+
 
         { "aura",           SEC_ADMINISTRATOR,  false, &ChatHandler::HandleAuraCommand,                "", NULL },
         { "unaura",         SEC_ADMINISTRATOR,  false, &ChatHandler::HandleUnAuraCommand,              "", NULL },
@@ -651,8 +674,6 @@ ChatCommand * ChatHandler::getCommandTable()
         { "additemset",     SEC_ADMINISTRATOR,  false, &ChatHandler::HandleAddItemSetCommand,          "", NULL },
         { "bank",           SEC_ADMINISTRATOR,  false, &ChatHandler::HandleBankCommand,                "", NULL },
         { "wchange",        SEC_ADMINISTRATOR,  false, &ChatHandler::HandleChangeWeather,              "", NULL },
-        { "ticket",         SEC_GAMEMASTER,     true,  &ChatHandler::HandleTicketCommand,              "", NULL },
-        { "delticket",      SEC_GAMEMASTER,     true,  &ChatHandler::HandleDelTicketCommand,           "", NULL },
         { "maxskill",       SEC_ADMINISTRATOR,  false, &ChatHandler::HandleMaxSkillCommand,            "", NULL },
         { "setskill",       SEC_ADMINISTRATOR,  false, &ChatHandler::HandleSetSkillCommand,            "", NULL },
         { "whispers",       SEC_MODERATOR,      false, &ChatHandler::HandleWhispersCommand,            "", NULL },
@@ -814,6 +835,23 @@ void ChatHandler::SendGlobalSysMessage(const char *str)
     }
 
     delete [] buf;
+}
+
+void ChatHandler::SendGlobalGMSysMessage(const char *str)
+{
+    // Chat output
+    WorldPacket data;
+
+    // need copy to prevent corruption by strtok call in LineFromMessage original string
+    char* buf = strdup(str);
+    char* pos = buf;
+
+    while(char* line = LineFromMessage(pos))
+    {
+        FillSystemMessageData(&data, line);
+        sWorld.SendGlobalGMMessage(&data);
+     }
+    free(buf);
 }
 
 void ChatHandler::SendSysMessage(int32 entry)

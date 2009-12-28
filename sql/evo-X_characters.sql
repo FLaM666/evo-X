@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : Salja
 Source Server Version : 50137
 Source Host           : localhost:3306
-Source Database       : awda
+Source Database       : characters
 
 Target Server Type    : MYSQL
 Target Server Version : 50137
 File Encoding         : 65001
 
-Date: 2009-12-27 22:57:29
+Date: 2009-12-28 13:35:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -241,7 +241,7 @@ CREATE TABLE `character_battleground_data` (
 -- ----------------------------
 DROP TABLE IF EXISTS `character_db_version`;
 CREATE TABLE `character_db_version` (
-  `required_001_01_evo_X_characters` bit(1) DEFAULT NULL
+  `required_002_01_evo_X_characters` bit(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Last applied sql update to DB';
 
 -- ----------------------------
@@ -584,23 +584,6 @@ CREATE TABLE `character_talent` (
 
 -- ----------------------------
 -- Records of character_talent
--- ----------------------------
-
--- ----------------------------
--- Table structure for `character_ticket`
--- ----------------------------
-DROP TABLE IF EXISTS `character_ticket`;
-CREATE TABLE `character_ticket` (
-  `ticket_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `guid` int(11) unsigned NOT NULL DEFAULT '0',
-  `ticket_text` text,
-  `response_text` text,
-  `ticket_lastchange` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ticket_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Player System';
-
--- ----------------------------
--- Records of character_ticket
 -- ----------------------------
 
 -- ----------------------------
@@ -1144,4 +1127,29 @@ CREATE TABLE `saved_variables` (
 
 -- ----------------------------
 -- Records of saved_variables
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `tickets`
+-- ----------------------------
+DROP TABLE IF EXISTS `tickets`;
+CREATE TABLE `tickets` (
+  `guid` int(10) NOT NULL AUTO_INCREMENT,
+  `playerGuid` int(11) unsigned NOT NULL DEFAULT '0',
+  `name` varchar(15) NOT NULL,
+  `message` text NOT NULL,
+  `createtime` int(10) NOT NULL DEFAULT '0',
+  `map` int(11) NOT NULL DEFAULT '0',
+  `posX` float NOT NULL DEFAULT '0',
+  `posY` float NOT NULL DEFAULT '0',
+  `posZ` float NOT NULL DEFAULT '0',
+  `timestamp` int(10) NOT NULL DEFAULT '0',
+  `closed` int(10) NOT NULL DEFAULT '0',
+  `assignedto` int(10) NOT NULL DEFAULT '0',
+  `comment` text NOT NULL,
+  PRIMARY KEY (`guid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Ticket System';
+
+-- ----------------------------
+-- Records of tickets
 -- ----------------------------

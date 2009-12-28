@@ -60,7 +60,6 @@
 #include "CellImpl.h"
 #include "InstanceSaveMgr.h"
 #include "WaypointManager.h"
-#include "GMTicketMgr.h"
 #include "Util.h"
 
 INSTANTIATE_SINGLETON_1( World );
@@ -1431,7 +1430,7 @@ void World::SetInitialWorldSettings()
     sWaypointMgr.Load();
 
     sLog.outString( "Loading GM tickets...");
-    sTicketMgr.LoadGMTickets();
+    sObjectMgr.LoadGMTickets();
 
     ///- Handle outdated emails (delete/return)
     sLog.outString( "Returning old mails..." );
@@ -1715,6 +1714,22 @@ void World::SendGlobalMessage(WorldPacket *packet, WorldSession *self, uint32 te
         }
     }
 }
+void World::SendGlobalGMMessage(WorldPacket *packet, WorldSession *self, uint32 team)
+{
+    SessionMap::iterator itr;
+    for (itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
+    {
+        if (itr->second &&
+            itr->second->GetPlayer() &&
+            itr->second->GetPlayer()->IsInWorld() &&
+            itr->second != self &&
+            itr->second->GetSecurity() > SEC_PLAYER &&
+            (team == 0 || itr->second->GetPlayer()->GetTeam() == team))
+        {
+            itr->second->SendPacket(packet);
+        }
+    }
+}
 
 namespace MaNGOS
 {
@@ -1784,6 +1799,27 @@ void World::SendWorldText(int32 string_id, ...)
     for(SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
     {
         if(!itr->second || !itr->second->GetPlayer() || !itr->second->GetPlayer()->IsInWorld() )
+            continue;
+
+        wt_do(itr->second->GetPlayer());
+    }
+
+    va_end(ap);
+}
+
+void World::SendGMText(int32 string_id, ...)
+{
+    va_list ap;
+    va_start(ap, string_id);
+
+    MaNGOS::WorldWorldTextBuilder wt_builder(string_id, &ap);
+    MaNGOS::LocalizedPacketListDo<MaNGOS::WorldWorldTextBuilder> wt_do(wt_builder);
+    for (SessionMap::iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
+    {
+        if (!itr->second || !itr->second->GetPlayer() || !itr->second->GetPlayer()->IsInWorld())
+            continue;
+
+        if (itr->second->GetSecurity() < SEC_MODERATOR)
             continue;
 
         wt_do(itr->second->GetPlayer());

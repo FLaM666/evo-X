@@ -8609,3 +8609,126 @@ Quest const* GetQuestTemplateStore(uint32 entry)
 {
     return sObjectMgr.GetQuestTemplate(entry);
 }
+
+uint64 ObjectMgr::GenerateGMTicketId()
+{
+    return ++m_GMticketid;
+}
+
+void ObjectMgr::LoadGMTickets()
+{
+    if(!m_GMTicketList.empty())
+    {
+        for(GmTicketList::const_iterator itr = m_GMTicketList.begin(); itr != m_GMTicketList.end(); ++itr)
+            delete *itr;
+    }
+    m_GMTicketList.clear();
+
+    QueryResult *result = CharacterDatabase.Query( "SELECT guid, playerGuid, name, message, createtime, map, posX, posY, posZ, timestamp, closed, assignedto, comment FROM tickets" );
+ 
+
+    if(!result)
+    {
+        sLog.outString(" \n>> GM Tickets table is empty, no tickets were loaded.\n" );
+        return;
+    }
+
+    uint16 count = 0;
+    barGoLink bar ((*result).GetRowCount());
+    GM_Ticket *ticket;
+    do
+    {
+        Field *fields = result->Fetch();
+        ticket = new GM_Ticket;
+        ticket->guid = fields[0].GetUInt64();
+        ticket->playerGuid = fields[1].GetUInt64();
+        ticket->name = fields[2].GetCppString();
+        ticket->message = fields[3].GetCppString();
+        ticket->createtime = fields[4].GetUInt64();
+        ticket->map = fields[5].GetUInt32();
+        ticket->pos_x = fields[6].GetFloat();
+        ticket->pos_y = fields[7].GetFloat();
+        ticket->pos_z = fields[8].GetFloat();
+        ticket->timestamp = fields[9].GetUInt64();
+        ticket->closed = fields[10].GetUInt64();
+        ticket->assignedToGM = fields[11].GetUInt64();
+        ticket->comment = fields[12].GetCppString();
+        ++count;
+        bar.step();
+
+        m_GMTicketList.push_back(ticket);
+
+    } while( result->NextRow() );
+
+    delete result;
+
+    result = CharacterDatabase.PQuery("SELECT MAX(guid) from tickets");
+    m_GMticketid = 0;
+
+    if(result)
+    {
+        Field *fields = result->Fetch();
+        m_GMticketid = fields[0].GetUInt64();
+    }
+    delete result;
+
+    sLog.outString(">>> %u GM Tickets loaded from the database.", count);
+}
+
+void ObjectMgr::AddOrUpdateGMTicket(GM_Ticket &ticket, bool create)
+{
+    if(create)
+        m_GMTicketList.push_back(&ticket);
+
+    _AddOrUpdateGMTicket(ticket);
+}
+
+void ObjectMgr::_AddOrUpdateGMTicket(GM_Ticket &ticket)
+{
+    std::string msg(ticket.message), name(ticket.name), comment(ticket.comment);
+    CharacterDatabase.escape_string(msg);
+    CharacterDatabase.escape_string(name);
+    CharacterDatabase.escape_string(comment);
+    std::ostringstream ss;
+    ss << "REPLACE INTO tickets (guid, playerGuid, name, message, createtime, map, posX, posY, posZ, timestamp, closed, assignedto, comment) VALUES('";
+    ss << ticket.guid << "', '";
+    ss << ticket.playerGuid << "', '";
+    ss << name << "', '";
+    ss << msg << "', '" ;
+    ss << ticket.createtime << "', '";
+    ss << ticket.map << "', '";
+    ss << ticket.pos_x << "', '";
+    ss << ticket.pos_y << "', '";
+    ss << ticket.pos_z << "', '";
+    ss << ticket.timestamp << "', '";
+    ss << ticket.closed << "', '";
+    ss << ticket.assignedToGM << "', '";
+    ss << comment << "');";
+    CharacterDatabase.BeginTransaction();
+    CharacterDatabase.Execute(ss.str().c_str());
+    CharacterDatabase.CommitTransaction();
+}
+
+void ObjectMgr::RemoveGMTicket(GM_Ticket *ticket, int64 source, bool permanently)
+{
+    for (GmTicketList::iterator i = m_GMTicketList.begin(); i != m_GMTicketList.end(); ++i)
+        if((*i)->guid == ticket->guid)
+        {
+            if(permanently)
+            {
+                CharacterDatabase.PExecute("DELETE FROM tickets WHERE guid = '%u'", ticket->guid);
+                i = m_GMTicketList.erase(i);
+                ticket = NULL;
+                return;
+            }
+            (*i)->closed = source;
+            _AddOrUpdateGMTicket(*(*i));
+        }
+}
+
+void ObjectMgr::RemoveGMTicket(uint64 ticketGuid, int64 source, bool permanently)
+{
+    GM_Ticket *ticket = GetGMTicket(ticketGuid);
+    assert( ticket );
+    RemoveGMTicket(ticket, source, permanently);
+}

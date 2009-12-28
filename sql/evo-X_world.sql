@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50137
 File Encoding         : 65001
 
-Date: 2009-12-28 01:35:30
+Date: 2009-12-28 13:36:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1120,13 +1120,26 @@ CREATE TABLE `db_version` (
   `version` varchar(120) DEFAULT NULL,
   `creature_ai_version` varchar(120) DEFAULT NULL,
   `cache_id` int(10) DEFAULT '0',
-  `required_001_01_evo_X_world` bit(1) DEFAULT NULL
+  `required_003_01_evo_X_world` bit(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Used DB version notes';
 
 -- ----------------------------
 -- Records of db_version
 -- ----------------------------
 INSERT INTO `db_version` VALUES ('Mangos default database.', 'Creature EventAI not provided.', '0', null);
+
+-- ----------------------------
+-- Table structure for `db_version_evo_x`
+-- ----------------------------
+DROP TABLE IF EXISTS `db_version_evo_x`;
+CREATE TABLE `db_version_evo_x` (
+  `version` varchar(120) NOT NULL,
+  `evo_X_Full_Database_001` bit(1) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Used evo_x version notes';
+
+-- ----------------------------
+-- Records of db_version_evo_x
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `disenchant_loot_template`
@@ -2712,15 +2725,12 @@ INSERT INTO `mangos_string` VALUES ('284', 'Accepting Whisper: %s', null, null, 
 INSERT INTO `mangos_string` VALUES ('285', 'Accepting Whisper: ON', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('286', 'Accepting Whisper: OFF', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('287', 'Creature (GUID: %u) not found', null, null, null, null, null, null, null, null);
-INSERT INTO `mangos_string` VALUES ('288', 'Tickets count: %i show new tickets: %s\n', null, null, null, null, null, null, null, null);
-INSERT INTO `mangos_string` VALUES ('289', 'New ticket from %s', null, null, null, null, null, null, null, null);
-INSERT INTO `mangos_string` VALUES ('290', 'Ticket of %s (Last updated: %s):\n%s ', null, null, null, null, null, null, null, null);
-INSERT INTO `mangos_string` VALUES ('291', 'New ticket show: ON', null, null, null, null, null, null, null, null);
-INSERT INTO `mangos_string` VALUES ('292', 'New ticket show: OFF', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('293', 'Ticket %i doesn\'t exist', null, null, null, null, null, null, null, null);
-INSERT INTO `mangos_string` VALUES ('294', 'All tickets deleted.', null, null, null, null, null, null, null, null);
-INSERT INTO `mangos_string` VALUES ('295', 'Character %s ticket deleted.', null, null, null, null, null, null, null, null);
-INSERT INTO `mangos_string` VALUES ('296', 'Ticket deleted.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('292', 'New ticket show: OFF', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('291', 'New ticket show: ON', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('290', 'Ticket of %s (Last updated: %s):\n%s', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('289', 'New ticket from %s', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('288', 'Tickets count: %i show new tickets: %s\n', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('297', 'Spawn distance changed to: %f', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('298', 'Spawn time changed to: %i', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('299', 'The honor of %s was set to %u!', null, null, null, null, null, null, null, null);
@@ -3179,6 +3189,35 @@ INSERT INTO `mangos_string` VALUES ('1130', 'event started %u \"%s\"', null, nul
 INSERT INTO `mangos_string` VALUES ('1131', 'event stopped %u \"%s\"', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('1200', 'You try to view cinemitic %u but it doesn\'t exist.', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('1201', 'You try to view movie %u but it doesn\'t exist.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('294', 'All tickets deleted.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('295', 'Character %s ticket deleted.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('296', 'Ticket deleted.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2000', '|cff00ff00New ticket from|r|cffff00ff %s.|r |cff00ff00Ticket entry:|r|cffff00ff %d.|r', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2001', '|cff00ff00Character|r|cffff00ff %s |r|cff00ff00edited his/her ticket:|r|cffff00ff %d.|r', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2002', '|cff00ff00Character|r|cffff00ff %s |r|cff00ff00abandoned ticket entry:|r|cffff00ff %d.|r', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2003', '|cff00ff00Closed by|r:|cff00ccff %s|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2004', '|cff00ff00Deleted by|r:|cff00ccff %s|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2005', 'Ticket not found.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2006', 'Please close ticket before deleting it permanently.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2007', 'Ticket %d is already assigned.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2008', '%u Tickets succesfully reloaded from the database.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2009', 'Showing list of open tickets.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2010', 'Showing list of open tickets whose creator is online.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2011', 'Showing list of closed tickets.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2012', 'Invalid name specified. Name should be that of an online Gamemaster.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2013', 'This ticket is already assigned to yourself. To unassign use .ticket unassign %d and then reassign.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2014', 'Ticket %d is not assigned, you cannot unassign it.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2015', 'You cannot unassign tickets from staffmembers with a higher security level than yourself.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2016', 'Cannot close ticket %d, it is assigned to another GM.', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2017', '|cff00ff00Ticket|r:|cff00ccff %d.|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2018', '|cff00ff00Created by|r:|cff00ccff %s|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2019', '|cff00ff00Last change|r:|cff00ccff %s ago|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2020', '|cff00ff00Assigned to|r:|cff00ccff %s|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2021', '|cff00ff00Unassigned by|r:|cff00ccff %s|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2022', '\n|cff00ff00Message|r: \"%s\"|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2023', '\n|cff00ff00Comment|r: \"%s\"|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2024', '\n|cff00ccff%s|r |cff00ff00Added comment|r: \"%s\"|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('2025', '|cff00ff00Created|r:|cff00ccff %s ago|r ', null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `milling_loot_template`

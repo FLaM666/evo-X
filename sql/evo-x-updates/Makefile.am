@@ -27,6 +27,8 @@ pkgdatadir = $(datadir)/evo-X/sql/updates
 pkgdata_DATA = \
 1_world_spell_proc_event.sql \
 2_world_db_version_evo_x.sql \
+3_characters_tickets.sql \
+3_world_world_string.sql \
 
 	README
 
@@ -35,5 +37,7 @@ pkgdata_DATA = \
 EXTRA_DIST = \
 1_world_spell_proc_event.sql \
 2_world_db_version_evo_x.sql \
+3_characters_tickets.sql \
+3_world_world_string.sql \
 
 	README

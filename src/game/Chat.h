@@ -67,6 +67,7 @@ class ChatHandler
         void SendSysMessage(          int32     entry);
         void PSendSysMessage(         const char *format, ...) ATTR_PRINTF(2,3);
         void PSendSysMessage(         int32     entry, ...  );
+		std::string PGetParseString(  int32     entry, ...);
 
         int ParseCommands(const char* text);
 
@@ -87,6 +88,7 @@ class ChatHandler
         bool HasLowerSecurityAccount(WorldSession* target, uint32 account, bool strong = false);
 
         void SendGlobalSysMessage(const char *str);
+		void SendGlobalGMSysMessage(const char *str);
 
         bool SetDataForCommandInTable(ChatCommand *table, const char* text, uint32 security, std::string const& help, std::string const& fullcommand );
         bool ExecuteCommandInTable(ChatCommand *table, const char* text, const std::string& fullcommand);
@@ -191,6 +193,8 @@ class ChatHandler
         bool HandleGoXYCommand(const char* args);
         bool HandleGoXYZCommand(const char* args);
         bool HandleGoZoneXYCommand(const char* args);
+
+        bool HandleGoTicketCommand(const char* args);
 
         bool HandleGuildCreateCommand(const char* args);
         bool HandleGuildInviteCommand(const char* args);
@@ -490,8 +494,19 @@ class ChatHandler
         bool HandleChangeWeather(const char* args);
         bool HandleKickPlayerCommand(const char * args);
 
-        bool HandleTicketCommand(const char* args);
-        bool HandleDelTicketCommand(const char* args);
+        // GM ticket command handlers
+        bool HandleGMTicketListCommand(const char* args);
+        bool HandleGMTicketListOnlineCommand(const char* args);
+        bool HandleGMTicketListClosedCommand(const char* args);
+        bool HandleGMTicketGetByIdCommand(const char* args);
+        bool HandleGMTicketGetByNameCommand(const char* args);
+        bool HandleGMTicketCloseByIdCommand(const char* args);
+        bool HandleGMTicketAssignToCommand(const char* args);
+        bool HandleGMTicketUnAssignCommand(const char* args);
+        bool HandleGMTicketCommentCommand(const char* args);
+        bool HandleGMTicketDeleteByIdCommand(const char* args);
+        bool HandleGMTicketReloadCommand(const char*);
+
         bool HandleMaxSkillCommand(const char* args);
         bool HandleSetSkillCommand(const char* args);
         bool HandleRespawnCommand(const char* args);
@@ -529,7 +544,6 @@ class ChatHandler
         GameObject* GetObjectGlobalyWithGuidOrNearWithDbGuid(uint32 lowguid,uint32 entry);
 
         // Utility methods for commands
-        void ShowTicket(uint64 guid, char const* text, char const* time);
         bool LookupPlayerSearchCommand(QueryResult* result, int32 limit);
         bool HandleBanListHelper(QueryResult* result);
         bool HandleBanHelper(BanMode mode,char const* args);
