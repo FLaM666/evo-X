@@ -4,7 +4,7 @@
 	Version="9,00"
 	Name="evo-X_realmd"
 	ProjectGUID="{563E9905-3657-460C-AE63-0AC39D162E23}"
-	RootNamespace="evo-X_evo-X_realmd"
+	RootNamespace="evo-X_realmd"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -21,8 +21,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -42,7 +42,7 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.tlb"
+				TypeLibraryName=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -55,10 +55,10 @@
 				EnableFunctionLevelLinking="true"
 				EnableEnhancedInstructionSet="1"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pch"
-				AssemblerListingLocation=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.pch"
+				AssemblerListingLocation=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\realmd__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
@@ -86,9 +86,9 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\dep\lib\$(PlatformName)_$(ConfigurationName)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.map"
 				SubSystem="1"
 				LargeAddressAware="2"
 				RandomizedBaseAddress="1"
@@ -118,8 +118,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -140,7 +140,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
-				TypeLibraryName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.tlb"
+				TypeLibraryName=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -153,10 +153,10 @@
 				EnableFunctionLevelLinking="true"
 				EnableEnhancedInstructionSet="0"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pch"
-				AssemblerListingLocation=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.pch"
+				AssemblerListingLocation=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\realmd__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
@@ -183,9 +183,9 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\dep\lib\$(PlatformName)_$(ConfigurationName)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.map"
 				SubSystem="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -215,8 +215,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -236,7 +236,7 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.tlb"
+				TypeLibraryName=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -249,10 +249,10 @@
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pch"
-				AssemblerListingLocation=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.pch"
+				AssemblerListingLocation=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\realmd__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
@@ -280,9 +280,9 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\dep\lib\$(PlatformName)_$(ConfigurationName)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.map"
 				SubSystem="1"
 				LargeAddressAware="2"
 				RandomizedBaseAddress="1"
@@ -313,8 +313,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -335,7 +335,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
-				TypeLibraryName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.tlb"
+				TypeLibraryName=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -348,10 +348,10 @@
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pch"
-				AssemblerListingLocation=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.pch"
+				AssemblerListingLocation=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\realmd__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
@@ -378,9 +378,9 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\dep\lib\$(PlatformName)_$(ConfigurationName)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.map"
 				SubSystem="1"
 				RandomizedBaseAddress="1"
 				FixedBaseAddress="1"
@@ -411,8 +411,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_NoPCH|Win32"
-			OutputDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -432,7 +432,7 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.tlb"
+				TypeLibraryName=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -445,10 +445,10 @@
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pch"
-				AssemblerListingLocation=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.pch"
+				AssemblerListingLocation=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\realmd__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
@@ -476,9 +476,9 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\dep\lib\$(PlatformName)_debug"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.map"
 				SubSystem="1"
 				LargeAddressAware="2"
 				RandomizedBaseAddress="1"
@@ -509,8 +509,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_NoPCH|x64"
-			OutputDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\realmd__$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -531,7 +531,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
-				TypeLibraryName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.tlb"
+				TypeLibraryName=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -544,10 +544,10 @@
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pch"
-				AssemblerListingLocation=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\evo-X_realmd__$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderFile=".\realmd__$(PlatformName)_$(ConfigurationName)\realmd.pch"
+				AssemblerListingLocation=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\realmd__$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\realmd__$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
@@ -574,9 +574,9 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\dep\lib\$(PlatformName)_debug"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_realmd.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)\realmd.map"
 				SubSystem="1"
 				RandomizedBaseAddress="1"
 				FixedBaseAddress="1"
