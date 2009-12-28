@@ -6689,9 +6689,6 @@ bool Unit::HandleDummyAuraProc(Unit *pVictim, uint32 damage, Aura* triggeredByAu
                 triggered_spell_id = deathCoilId;
                 break;
             }
-             // Mark of Blood
-             if (dummySpell->Id == 49005)
-             {
             // Mark of Blood
             if (dummySpell->Id == 49005)
             {
