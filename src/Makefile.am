@@ -17,7 +17,7 @@
 ## Process this file with automake to produce Makefile.in
 
 ## Sub-directories to parse
-SUBDIRS = tools framework shared realmd game bindings mangosd
+SUBDIRS = tools framework shared evo-X_realmd game bindings evo-X_world
 
 ## Additional files to include when running 'make dist'
 #  Nothing yet.
