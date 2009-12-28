@@ -153,7 +153,7 @@ extern int main(int argc, char **argv)
   sLog.outTitle( "#             .:| Evo-X Emu |:.                #");
   sLog.outTitle( "#                                              #");
   sLog.outTitle( "################################################");
-  sLog.outTitle( "                                               #");
+  sLog.outTitle( "#                                              #");
   sLog.outTitle( "#   Visit us on http://europe-wow.eu/evo-X     #");
   sLog.outTitle( "# Core based on Mangos modified by evo-x Team  #");
   sLog.outTitle( "#                                              #");
