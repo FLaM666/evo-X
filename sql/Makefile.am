@@ -17,11 +17,11 @@
 ## Process this file with automake to produce Makefile.in
 
 ## Sub-directories to parse
-SUBDIRS = evo-x_updates tools
+SUBDIRS = evo-x-updates tools
 
 ## Change installation location
 #  datadir = evo-X/sql
-pkgdatadir = $(datadir)/mangos/sql
+pkgdatadir = $(datadir)/evo-X/sql
 
 ## Files to be installed
 #  Install basic SQL files to datadir
