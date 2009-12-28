@@ -1074,6 +1074,13 @@ void Spell::DoSpellHitOnUnit(Unit *unit, const uint32 effectMask)
         return;
     }
 
+	// Recheck deflection (only for delayed spells)
+	if (m_spellInfo->speed && unit->HasAura(19263))
+    {
+        realCaster->SendSpellMiss(unit, m_spellInfo->Id, SPELL_MISS_DODGE);
+        return;
+    }
+	
     if (unit->GetTypeId() == TYPEID_PLAYER)
     {
         ((Player*)unit)->GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET, m_spellInfo->Id);
@@ -2529,6 +2536,13 @@ void Spell::cast(bool skipCheck)
                 AddPrecastSpell(23230);                     // Blood Fury - Healing Reduction
             else if(m_spellInfo->Id == 20594)               // Stoneskin
                 AddTriggeredSpell(65116);                   // Stoneskin - armor 10% for 8 sec
+            break;
+        }
+		case SPELLFAMILY_HUNTER:
+        {
+            // Deterrence
+            if (m_spellInfo->Id == 19263)
+                AddTriggeredSpell(67801);                   // Deterrence
             break;
         }
         case SPELLFAMILY_MAGE:
