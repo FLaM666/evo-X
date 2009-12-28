@@ -1177,5 +1177,108 @@ UPDATE creature_template SET ScriptName='mob_healing_ward' WHERE entry=14987;
 UPDATE creature_template SET ScriptName='mob_spawn_of_marli' WHERE entry=15041;
 UPDATE creature_template SET ScriptName='mob_batrider' WHERE entry=14965;
 UPDATE creature_template SET ScriptName='mob_shade_of_jindo' WHERE entry=14986;
+UPDATE `creature_template` SET `ScriptName`='boss_archavon' WHERE `entry`=31125;
+UPDATE `creature_template` SET `ScriptName`='boss_emalon' WHERE `entry`=33993;
+UPDATE `creature_template` SET `ScriptName`='npc_tempest_minion' WHERE `entry`=33998;
+UPDATE `creature_template` SET `ScriptName`='npc_tempest_warder' WHERE `entry`=34015;
+UPDATE `creature_template` SET `ScriptName`='boss_koralon' WHERE `entry`=35013;
+UPDATE `instance_template` SET `script`='instance_vault_of_archavon' WHERE `map`=624;
 
+DELETE FROM `creature_template` WHERE `entry`=99001;
+insert into `creature_template` values ('99001','0','0','0','0','0','18','0','18','0','Slappy McFry','The Teleport Guy',NULL,'0','59','61','6700','24000','5598','5875','20','35','35','1','1.48','0','0','181','189','0','158','1','1400','1900','0','0','0','0','0','0','0','0','0','0','100','7','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','','1','3','1','1','0','0','0','0','0','0','0','0','1','0','0','0','teleguy');
+
+UPDATE `creature_template` SET `ScriptName`='boss_razorscale' WHERE `entry`=33186;
+UPDATE `creature_template` SET `ScriptName`='boss_ignis' WHERE `entry`=33118;
+UPDATE `creature_template` SET `ScriptName`='boss_xt002' WHERE `entry`=33293;
+UPDATE `creature_template` SET `ScriptName`='boss_flame_leviathan' WHERE `entry`=33113;
+UPDATE `creature_template` SET `ScriptName`='boss_auriaya' WHERE `entry`=33515;
+UPDATE `creature_template` SET `ScriptName`='boss_kologarn' WHERE `entry`=32930;
+UPDATE `creature_template` SET `ScriptName`='boss_kologarn_left_arm' WHERE `entry`=32933;
+UPDATE `creature_template` SET `ScriptName`='boss_kologarn_right_arm' WHERE `entry`=32934;
+UPDATE `creature_template` SET `ScriptName`='boss_steelbreaker' WHERE `entry`=32867;
+UPDATE `creature_template` SET `ScriptName`='boss_molgeim' WHERE `entry`=32927;
+UPDATE `creature_template` SET `ScriptName`='boss_brundir' WHERE `entry`=32857;
+UPDATE `creature_template` SET `ScriptName`='boss_thorim' WHERE `entry`=32865;
+UPDATE `creature_template` SET `ScriptName`='boss_hodir' WHERE `entry`=32845;
+UPDATE `creature_template` SET `ScriptName`='boss_freya' WHERE `entry`=32906;
+UPDATE `creature_template` SET `ScriptName`='boss_mimiron' WHERE `entry`=33350;
+UPDATE `creature_template` SET `ScriptName`='boss_vezax' WHERE `entry`=33271;
+UPDATE `creature_template` SET `ScriptName`='boss_yogg_saron' WHERE `entry`=33288;
+UPDATE `creature_template` SET `ScriptName`='boss_algalon' WHERE `entry`=32871;
+UPDATE `instance_template` SET `script`='instance_ulduar' WHERE `map`=603;
+
+insert into `creature_template` values ('99005','0','0','0','0','0','22448','0','22448','0','Ulduar teleporter','',NULL,'0','80','80','64200','64200','12300','12300','31200','35','35','1','1.48','0.5','0','3170','6182','0','33235','1','1400','1900','0','0','0','0','0','0','0','0','0','0','100','7','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','','1','3','1','1','0','0','0','0','0','0','0','0','1','99003','0','0','ulduar_teleporter');
+replace into `creature_template_addon` values ('99005','0','0''0','0','0','0','0','48143 0');
+replace into `locales_creature` values ('99005','','','','','','','','                    ',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'');
+/*replace into `creature` values
+('500000','99005','571','1','1','0','99003','9025.76','-1179.12','1060.18','4.59386','25','0','0','64200','12300','0','0'),
+('500001','99005','603','2','1','0','99003','1497.84','-23.9801','421.367','5.0242','25','0','0','64200','12300','0','0'),
+('500002','99005','603','2','1','0','99003','131.248','-35.3802','410.204','0','25','0','0','64200','12300','0','0'),
+('500003','99005','603','2','1','0','99003','553.233','-12.3247','410.079','0','25','0','0','64200','12300','0','0'),
+('500004','99005','603','2','1','0','99003','926.292','-11.4635','418.995','0','25','0','0','64200','12300','0','0'),
+('500005','99005','603','2','1','0','99003','2086.17','-24.3111','421.639','3.11803','25','0','0','64200','12300','0','0');*/
+
+UPDATE creature_template SET AIName='EventAI', ScriptName='' WHERE entry IN (32918, 36561);
+DELETE FROM creature_ai_scripts WHERE creature_id IN (32918, 36561);
+INSERT INTO creature_ai_scripts VALUES 
+(3291800, 32918, 6, 0, 100, 2, 0, 0, 0, 0, 11, 62598, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 'Detonating Lasher - OnDeath (N)'),
+(3291801, 32918, 6, 0, 100, 4, 0, 0, 0, 0, 11, 62937, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 'Detonating Lasher - OnDeath (H)');
+
+UPDATE `creature_template` SET `ScriptName`='mob_loatheb_spores' WHERE `entry`=16286;
+UPDATE `creature_template` SET `ScriptName`='boss_gothik' WHERE `entry`=16060;
+UPDATE `creature_template` SET `ScriptName`='mob_gothik_trainee' WHERE `entry` IN (16124,16127);
+UPDATE `creature_template` SET `ScriptName`='mob_gothik_dk' WHERE `entry` IN (16125,16148);
+UPDATE `creature_template` SET `ScriptName`='mob_gothik_rider' WHERE `entry` IN (16126,16150);
+
+-- SpectralRift
+UPDATE gameobject_template SET `type` = '22', `data0` = '0', `data3` = '1', `data6` = '0', `data10` = '0', `ScriptName` = 'kalecgos_teleporter' WHERE `entry` IN (187055);
+-- Scriptnames KalecgosEvent
+UPDATE creature_template SET `mechanic_immune_mask` = '1073463287', `ScriptName` = 'boss_kalecgos' WHERE `entry` IN (24850); 
+UPDATE creature_template SET `mechanic_immune_mask` = '1073463287', `ScriptName` = 'boss_sathrovarr' WHERE `entry` IN  (24892);
+UPDATE creature_template SET `mechanic_immune_mask` = '1073463287', `ScriptName` = 'boss_kalec' WHERE `entry` IN (24891);
+
+UPDATE creature_template SET `minhealth` = '3700000', `maxhealth` = '3700000' WHERE `entry` IN (24850, 24892);
+
+-- Felmyst add immune to taunt
+UPDATE creature_template SET `mechanic_immune_mask` = '1073463287', `ScriptName` = 'boss_felmyst' WHERE `entry` IN (25038); 
+
+UPDATE creature_template SET `minlevel` = '70', `maxlevel` = '70',`ScriptName` = 'mob_felmyst_vapor' WHERE `entry` IN (25265); 
+
+UPDATE creature_template SET `ScriptName` = 'mob_felmyst_trail' WHERE `entry` IN (25267); 
+
+UPDATE creature_template SET `ScriptName` = 'mob_deathcloud' WHERE `entry` IN (25703); 
+
+-- --------------------------------------------------------
+-- Muru Event
+-- Muru and Entropius
+UPDATE `creature_template` SET `lootid` = '25840', `mingold` = '2250000', `maxgold` = '2750000', `minhealth` = '5200000', `maxhealth` = '5200000', `mechanic_immune_mask` = '1073463287', `ScriptName` = 'boss_muru' WHERE `entry` IN (25741);
+
+-- Dark Fiend
+UPDATE `creature_template` SET `faction_A` = '14', `faction_H` = '14', `speed` = '0.6', `ScriptName` = 'dark_fiend' WHERE `entry` IN (25744); 
+
+-- Void Sentinel
+UPDATE `creature_template` SET `mechanic_immune_mask` = '1073463287', `AIName` = '', `ScriptName` = 'mob_voidsentinel' WHERE `entry` IN (25772); 
+UPDATE `creature_template` SET `minmana` = '10000', `maxmana` = '10000' WHERE `entry` IN (25798, 25772);
+
+-- Singularity
+UPDATE creature_template SET `faction_A` = '14', `faction_H` = '14', `speed` = '1', `rank` = '1', `AIName` = '', `ScriptName` = 'mob_singularity' WHERE `entry` IN (25855); 
+
+-- --------------------------------------------------------
+
+-- Kiljaeden 
+UPDATE `creature_template` SET `mechanic_immune_mask` = '1073463287', `AIName` = '', `ScriptName` = 'boss_kiljaden', `minhealth` = '12600000', `maxhealth` = '12600000', `minmana` = '2000000', `maxmana` = '2000000' WHERE `entry` IN (25315); 
+UPDATE `creature_template` SET `mechanic_immune_mask` = '0', `AIName` = '', `minmana` = '165450', `maxmana` = '165450', `ScriptName` = 'mob_deceiver' WHERE `entry` IN (25588); 
+UPDATE `creature_template` SET `mechanic_immune_mask` = '0', `minlevel` = '70', `maxlevel` = '70', `minhealth` = '78246', `maxhealth` = '78246', `minmana` = '78875', `maxmana` = '78875', `armor` = '2000', `faction_A` = '14', `faction_H` = '14', `mindmg` = '600', `maxdmg` = '1200', `attackpower` = '450', `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` IN (25708); 
+UPDATE `creature_template` SET `mechanic_immune_mask` = '0', `minlevel` = '70', `maxlevel` = '70', `minhealth` = '20000', `maxhealth` = '20000', `minmana` = '78875', `maxmana` = '78875', `armor` = '2000', `faction_A` = '14', `faction_H` = '14', `mindmg` = '600', `maxdmg` = '1200', `attackpower` = '450', `AIName` = '', `ScriptName` = 'mob_orb' WHERE `entry` IN (25502); 
+UPDATE `creature_template` SET `mechanic_immune_mask` = '1073463287', `AIName` = '', `ScriptName` = 'mob_armagedon', `minlevel` = '70', `maxlevel` = '70' WHERE `entry` IN (25735); 
+UPDATE `creature_template` SET `mechanic_immune_mask` = '1073463287', `AIName` = '', `minhealth` = '100', `maxhealth` = '100',`ScriptName` = 'mob_killimp', `minlevel` = '70', `maxlevel` = '70' WHERE `entry` IN (25598); 
+
+-- Blue Dragon
+UPDATE `creature_template` SET `unit_flags` = '6',`npcflag` = '1', `minhealth` = '50000', `maxhealth` = '50000',`ScriptName` = 'dragon', `minlevel` = '71', `maxlevel` = '71', `RegenHealth` = '0' WHERE `entry` IN (25653); 
+
+-- Shadow Spike
+UPDATE `creature_template` SET `minhealth` = '1', `maxhealth` = '1', `faction_A` = '14', `faction_H` = '14', `ScriptName` = 'mob_shadowspike', `minlevel` = '71', `maxlevel` = '71' WHERE `entry` IN (30598); 
+
+-- Dragon Orb
+UPDATE gameobject_template SET `type` = '22', `data0` = '0', `data3` = '1', `data6` = '0', `data10` = '0', `ScriptName` = 'go_orb_of_the_blue_flight' WHERE `entry` IN (188415);
 /* EOF */
