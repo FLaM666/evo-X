@@ -157,7 +157,7 @@ extern int main(int argc, char **argv)
     sLog.outTitle( "EE            EE    EE         EE        EE            EE    EE    ");
     sLog.outTitle( "EE             EE  EE          EE        EE           EE      EE   ");
     sLog.outTitle( "EEEEEEE          EE            EEEEEEEEEEEE          EE        EE  ");
-    sLog.outTitle( "        MM  MMM http://europe-wow.eu");
+    sLog.outTitle( "        MM  MMM http://evo-x-project.com");
     sLog.outTitle( "        MMMMMM\n\n");
 
     sLog.outString("Using configuration file %s.", cfg_file);
