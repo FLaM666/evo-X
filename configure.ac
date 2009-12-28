@@ -291,10 +291,10 @@ AC_CONFIG_FILES([
    src/shared/vmap/Makefile
    src/shared/SystemConfig.h
    src/game/Makefile
-   src/realmd/Makefile
-   src/realmd/realmd.conf.dist
-   src/mangosd/Makefile
-   src/mangosd/mangosd.conf.dist
+   src/evo-X_realmd/Makefile
+   src/evo-X_realmd/realmd.conf.dist
+   src/evo-X_world/Makefile
+   src/evo-X_world/mangosd.conf.dist
    src/bindings/Makefile
    src/bindings/universal/Makefile
 ])
