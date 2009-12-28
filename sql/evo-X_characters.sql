@@ -241,7 +241,7 @@ CREATE TABLE `character_battleground_data` (
 -- ----------------------------
 DROP TABLE IF EXISTS `character_db_version`;
 CREATE TABLE `character_db_version` (
-  `required_001_01_evo_X_realmd` bit(1) DEFAULT NULL
+  `required_001_01_evo_X_characters` bit(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Last applied sql update to DB';
 
 -- ----------------------------
