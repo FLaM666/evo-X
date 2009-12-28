@@ -6678,7 +6678,7 @@ bool Unit::HandleDummyAuraProc(Unit *pVictim, uint32 damage, Aura* triggeredByAu
                 // NOTE: Trigger here on every attack and spell cast
                 return false;
             }
-			if (dummySpell->SpellIconId == 1939)
+			if (dummySpell->SpellIconID == 1939)
 			{
 			    uint32 deathCoilId = 49892;
                 SpellChainMapNext const& nextMap = sSpellMgr.GetSpellChainNext();
