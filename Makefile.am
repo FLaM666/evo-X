@@ -25,8 +25,8 @@ EXTRA_DIST = \
 	win/mangosdVC80.sln \
 	win/VC80/framework.vcproj \
 	win/VC80/game.vcproj \
-	win/VC80/mangosd.vcproj \
-	win/VC80/realmd.vcproj \
+	win/VC80/evo-X_world.vcproj \
+	win/VC80/evo-X_realmd.vcproj \
 	win/VC80/shared.vcproj \
 	win/VC80/zlib.vcproj \
 	win/VC80/g3dlite.vcproj
@@ -36,8 +36,8 @@ EXTRA_DIST += \
 	win/mangosdVC90.sln \
 	win/VC90/framework.vcproj \
 	win/VC90/game.vcproj \
-	win/VC90/mangosd.vcproj \
-	win/VC90/realmd.vcproj \
+	win/VC90/evo-X_world.vcproj \
+	win/VC90/evo-X_realmd.vcproj \
 	win/VC90/shared.vcproj \
 	win/VC90/zlib.vcproj \
 	win/VC90/g3dlite.vcproj
@@ -47,8 +47,8 @@ EXTRA_DIST += \
 	win/mangosdVC100.sln \
 	win/VC100/framework.vcxproj \
 	win/VC100/game.vcxproj \
-	win/VC100/mangosd.vcxproj \
-	win/VC100/realmd.vcxproj \
+	win/VC100/evo-X_world.vcxproj \
+	win/VC100/evo-X_realmd.vcxproj \
 	win/VC100/shared.vcxproj \
 	win/VC100/zlib.vcxproj \
 	win/VC100/g3dlite.vcxproj

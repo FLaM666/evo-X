@@ -1,8 +1,8 @@
-= MaNGOS -- README =
+= evo-X -- README =
 
-Copyright (C) 2005-2009 MaNGOS project <http://getmangos.com/>
+Copyright (C) 2005-2009 evo-X project <http://europe-wow.eu/>
 
-  MaNGOS is free software; you can redistribute it and/or modify
+  evo-X is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
   (at your option) any later version.
@@ -16,8 +16,8 @@ Copyright (C) 2005-2009 MaNGOS project <http://getmangos.com/>
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-  In addition, as a special exception, the MaNGOS project
-  gives permission to link the code of its release of MaNGOS with the
+  In addition, as a special exception, the evo-X project
+  gives permission to link the code of its release of evo-X with the
   OpenSSL project's "OpenSSL" library (or with modified versions of it
   that use the same license as the "OpenSSL" library), and distribute
   the linked executables.  You must obey the GNU General Public License
@@ -28,29 +28,28 @@ Copyright (C) 2005-2009 MaNGOS project <http://getmangos.com/>
 
 Comments are welcome.
 
-	- theluda <theluda@getmangos.com>
 
-== Welcome to MaNGOS ==
+== Welcome to evo-X ==
 
-MaNGOS (the Massive Network Game Object Server) is an Open Source reference
+evo-X (the Massive Network Game Object Server) is an Open Source reference
 implementation for a MMORPG server system. Please see the file COPYING for
 license details.
 
-For further information on the MaNGOS project, please visit our project web
-site at <http://getmangos.com/>
+For further information on the evo-X project, please visit our project web
+site at <http://europe-wow.eu/>
 
 Documenation on various development related topics can be found in the doc/
 subdirectory, including Doxygen-generated API documentation.
 
 The required SQL files for creating the database backend are included in the
-sql/ subdirectory. In case you are upgrading from an older MaNGOS release,
+sql/ subdirectory. In case you are upgrading from an older evo-X release,
 make sure you as well take a look at the SQL files in the sql/updates/ sub-
 directory.
 
-In order to build and install MaNGOS under Linux, follow the instructions
+In order to build and install evo-X under Linux, follow the instructions
 described in the INSTALL file.
 
-In case you have checked out MaNGOS from the GIT repository, please run
+In case you have checked out evo-X from the GIT repository, please run
 
 $ autoreconf --install --force
 
