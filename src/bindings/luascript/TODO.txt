@@ -1,0 +1,8 @@
+TODO list by Derex
+--------------------------------------------------------
+*MaNGOS need fixing singletons and all dll api
+*need to export many other functions , and things to lua
+*need to rearange code ... it is absolutelly messed
+*documentation!!!
+*find something else to do
+

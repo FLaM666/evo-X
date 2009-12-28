@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua5", "lua5.vcproj", "{DD0AF92F-C2E9-4EDF-958E-C143CB2BE04C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{DD0AF92F-C2E9-4EDF-958E-C143CB2BE04C}.Debug.ActiveCfg = Debug|Win32
+		{DD0AF92F-C2E9-4EDF-958E-C143CB2BE04C}.Debug.Build.0 = Debug|Win32
+		{DD0AF92F-C2E9-4EDF-958E-C143CB2BE04C}.Release.ActiveCfg = Release|Win32
+		{DD0AF92F-C2E9-4EDF-958E-C143CB2BE04C}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

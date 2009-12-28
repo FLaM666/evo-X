@@ -1,0 +1,19 @@
+Index: ScriptCalls.cpp
+===================================================================
+--- ScriptCalls.cpp	(revision 2753)
++++ ScriptCalls.cpp	(working copy)
+@@ -27,6 +27,14 @@
+ 
+ bool LoadScriptingModule(char const* libName)
+ {
++//this is hak for reloading scripts ,when AI is used ...
++if(Script)
++	{
++Script->ScriptsFree();
++Script->ScriptsInit();
++return true;
++	}
++
+     ScriptsSet testScript=new _ScriptSet;
+ 
+     std::string name = strlen(libName) ? libName : MANGOS_SCRIPT_NAME;
