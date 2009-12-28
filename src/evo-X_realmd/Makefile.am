@@ -30,7 +30,7 @@ mangos_realmd_SOURCES = \
 	RealmList.h
 
 ## Link realm list daemon against the shared library
-evo-X_realmd_LDADD = \
+mangos_realmd_LDADD = \
 	../shared/Database/libmangosdatabase.a \
 	../shared/Config/libmangosconfig.a \
 	../shared/Auth/libmangosauth.a \
