@@ -25,10 +25,12 @@
 #define LUABIND_IMPLICIT_CAST_HPP_INCLUDED
 
 #include <luabind/config.hpp>
-#include <luabind/detail/class_rep.hpp>
+#include <luabind/typeid.hpp>
 
 namespace luabind { namespace detail
 {
+	class class_rep;
+
 	// returns -1 if there exists no implicit cast from the given class_rep
 	// to T. If there exists an implicit cast to T, the number of steps times 2
 	// is returned and pointer_offset is filled with the number of bytes
@@ -43,7 +45,7 @@ namespace luabind { namespace detail
 	// the this-pointer is const, there's no problem, since the non-const function
 	// will not match at all.
 
-	LUABIND_API int implicit_cast(const class_rep*, LUABIND_TYPE_INFO const&, int&);
+	LUABIND_API int implicit_cast(const class_rep*, type_id const&, int&);
 
 }}
 

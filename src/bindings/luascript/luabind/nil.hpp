@@ -1,4 +1,4 @@
-// Copyright (c) 2003 Daniel Wallin and Arvid Norberg
+// Copyright (c) 2004 Daniel Wallin and Arvid Norberg
 
 // Permission is hereby granted, free of charge, to any person obtaining a
 // copy of this software and associated documentation files (the "Software"),
@@ -20,53 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-#ifndef LUABIND_DISCARD_RESULT_POLICY_HPP_INCLUDED
-#define LUABIND_DISCARD_RESULT_POLICY_HPP_INCLUDED
+#ifndef LUABIND_NIL_HPP
+#define LUABIND_NIL_HPP
 
 #include <luabind/config.hpp>
-#include <luabind/detail/policy.hpp>
-
-namespace luabind { namespace detail 
-{
-	struct discard_converter
-	{
-		template<class T>
-		void apply(lua_State*, T) {}
-	};
-
-	struct discard_result_policy : conversion_policy<0>
-	{
-		static void precall(lua_State*, const index_map&) {}
-		static void postcall(lua_State*, const index_map&) {}
-
-		struct can_only_convert_from_cpp_to_lua {};
-
-		template<class T, class Direction>
-		struct apply
-		{
-			typedef typename boost::mpl::if_<boost::is_same<Direction, cpp_to_lua>
-				, discard_converter
-				, can_only_convert_from_cpp_to_lua
-			>::type type;
-		};
-	};
-
-}}
 
 namespace luabind
 {
-  detail::policy_cons<
-      detail::discard_result_policy, detail::null_type> const discard_result = {};
+   namespace detail
+   {
+      struct nil_type {};
+   }
 
-  namespace detail
-  {
-    inline void ignore_unused_discard_result()
-    {
-        (void)discard_result;
-    }
-  }
+   // defined in class.cpp
+   extern LUABIND_API detail::nil_type nil;
 }
 
-#endif // LUABIND_DISCARD_RESULT_POLICY_HPP_INCLUDED
+#endif
 
