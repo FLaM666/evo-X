@@ -1055,6 +1055,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\scripts\eastern_kingdoms\sunwell_plateau\boss_muru.cpp"
+						>
+					</File>
+					<File
 						RelativePath="..\scripts\eastern_kingdoms\sunwell_plateau\instance_sunwell_plateau.cpp"
 						>
 					</File>

@@ -194,6 +194,7 @@ scripts/eastern_kingdoms/sunken_temple/sunken_temple.cpp \
 scripts/eastern_kingdoms/sunwell_plateau/boss_brutallus.cpp \
 scripts/eastern_kingdoms/sunwell_plateau/boss_kalecgos.cpp \
 scripts/eastern_kingdoms/sunwell_plateau/boss_kiljaden.cpp \
+scripts/eastern_kingdoms/sunwell_plateau/boss_muru.cpp \
 scripts/eastern_kingdoms/sunwell_plateau/instance_sunwell_plateau.cpp \
 scripts/eastern_kingdoms/sunwell_plateau/sunwell_plateau.h \
 scripts/eastern_kingdoms/uldaman/boss_ironaya.cpp \
