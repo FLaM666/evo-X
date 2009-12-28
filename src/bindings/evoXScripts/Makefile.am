@@ -398,6 +398,14 @@ scripts/northrend/vault_of_archavon/boss_koralon.cpp \
 scripts/northrend/vault_of_archavon/boss_archavon.cpp \
 scripts/northrend/vault_of_archavon/instance_vault_of_archavon.cpp \
 scripts/northrend/vault_of_archavon/vault_of_archavon.h \
+scripts/northrend/violet_hold/boss_cyanigosa.cpp \
+scripts/northrend/violet_hold/boss_erekem.cpp \
+scripts/northrend/violet_hold/boss_ichoron.cpp \
+scripts/northrend/violet_hold/boss_lavanthor.cpp \
+scripts/northrend/violet_hold/boss_moragg.cpp \
+scripts/northrend/violet_hold/boss_xevozz.cpp \
+scripts/northrend/violet_hold/boss_zuramat.cpp \
+scripts/northrend/violet_hold/instance_violet_hold.cpp \
 scripts/outland/blades_edge_mountains.cpp \
 scripts/outland/boss_doomlord_kazzak.cpp \
 scripts/outland/boss_doomwalker.cpp \
