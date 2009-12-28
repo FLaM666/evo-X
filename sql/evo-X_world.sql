@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50137
 File Encoding         : 65001
 
-Date: 2009-12-28 15:30:35
+Date: 2009-12-28 23:52:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -17317,6 +17317,7 @@ INSERT INTO `spell_proc_event` VALUES ('67702', '0', '0', '0', '0', '0', '0', '0
 INSERT INTO `spell_proc_event` VALUES ('67771', '0', '0', '0', '0', '0', '0', '0', '0', '0', '45');
 INSERT INTO `spell_proc_event` VALUES ('58375', '0', '4', '0', '512', '0', '16', '0', '0', '100', '0');
 INSERT INTO `spell_proc_event` VALUES ('58388', '0', '4', '0', '64', '0', '16', '0', '0', '100', '0');
+INSERT INTO `spell_proc_event` VALUES ('49194', '0', '15', '8192', '0', '0', '0', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for `spell_proc_item_enchant`
