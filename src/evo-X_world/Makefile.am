@@ -20,8 +20,8 @@
 AM_CPPFLAGS = $(MANGOS_INCLUDES) -I$(top_builddir)/src/shared -I$(srcdir)/../../dep/include -I$(srcdir)/../framework -I$(srcdir)/../shared  -I$(srcdir)/../game -I$(srcdir) -DSYSCONFDIR=\"$(sysconfdir)/\"
 
 ## Build world daemon as standalone program
-bin_PROGRAMS = evo-X_world
-mangos_world_SOURCES = \
+bin_PROGRAMS = mangos-worldd
+mangos_worldd_SOURCES = \
 	CliRunnable.cpp \
 	CliRunnable.h \
 	Main.cpp \
@@ -33,7 +33,7 @@ mangos_world_SOURCES = \
 	WorldRunnable.h
 
 ## Link world daemon against the shared library
-mangos_world_LDADD = \
+mangos_worldd_LDADD = \
 	../bindings/universal/libmangosscript.la \
 	../game/libmangosgame.a \
 	../shared/Database/libmangosdatabase.a \
@@ -45,7 +45,7 @@ mangos_world_LDADD = \
 	../../dep/src/sockets/libmangossockets.a \
 	../../dep/src/g3dlite/libg3dlite.a
 
-mangos_world_LDFLAGS = -L../../dep/src/sockets -L../../dep/src/g3dlite -L../bindings/universal/ -L$(libdir) $(MANGOS_LIBS) -export-dynamic
+mangos_worldd_LDFLAGS = -L../../dep/src/sockets -L../../dep/src/g3dlite -L../bindings/universal/ -L$(libdir) $(MANGOS_LIBS) -export-dynamic
 
 ## Additional files to include when running 'make dist'
 #  Include world daemon configuration
