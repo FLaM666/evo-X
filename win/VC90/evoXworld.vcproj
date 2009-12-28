@@ -81,7 +81,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrt.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evoXworld.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;..\..\dep\lib\$(PlatformName)_$(ConfigurationName)&quot;;&quot;.\framework__$(PlatformName)_$(ConfigurationName)&quot;"
@@ -181,7 +181,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrt.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evoXworld.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;..\..\dep\lib\$(PlatformName)_$(ConfigurationName)&quot;;&quot;.\framework__$(PlatformName)_$(ConfigurationName)&quot;"
@@ -281,7 +281,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrtd.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evoXworld.exe"
 				Version=""
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -382,7 +382,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrtd.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evoXworld.exe"
 				Version=""
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -483,7 +483,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrtd.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evoXworld.exe"
 				Version=""
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -584,7 +584,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib framework.lib msvcrtd.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evo-X_world.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\evoXworld.exe"
 				Version=""
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -676,7 +676,7 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\evoXworld\evo-X_world.rc"
+			RelativePath="..\..\src\evoXworld\evoXworld.rc"
 			>
 		</File>
 		<File
