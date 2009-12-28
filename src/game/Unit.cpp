@@ -778,6 +778,13 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
                     pVictim->RemoveSpellbyDamageTaken(SPELL_AURA_MOD_PACIFY_SILENCE, damage);
             }
         }
+        //Shiver
+        if(pVictim->HasAura(57949))
+           CastSpell(pVictim, 57952, true);
+
+        //Shiver heroic
+        if(pVictim->HasAura(59978))
+            CastSpell(pVictim, 59979, true);
 
         if(damagetype == DIRECT_DAMAGE || damagetype == SPELL_DIRECT_DAMAGE)
         {
