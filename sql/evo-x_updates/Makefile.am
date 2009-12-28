@@ -26,6 +26,7 @@ pkgdatadir = $(datadir)/evo-X/sql/updates
 #  Install basic SQL files to datadir
 pkgdata_DATA = \
 1_world_spell_proc_event.sql \
+2_world_db_version_evo_x.sql \
 
 	README
 
@@ -33,5 +34,6 @@ pkgdata_DATA = \
 #  SQL update files, to upgrade database schema from older revisions
 EXTRA_DIST = \
 1_world_spell_proc_event.sql \
+2_world_db_version_evo_x.sql \
 
 	README
