@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50137
 File Encoding         : 65001
 
-Date: 2009-12-28 13:36:42
+Date: 2009-12-28 15:18:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1120,7 +1120,7 @@ CREATE TABLE `db_version` (
   `version` varchar(120) DEFAULT NULL,
   `creature_ai_version` varchar(120) DEFAULT NULL,
   `cache_id` int(10) DEFAULT '0',
-  `required_003_01_evo_X_world` bit(1) DEFAULT NULL
+  `required_004_01_evo_X_world` bit(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Used DB version notes';
 
 -- ----------------------------
@@ -3218,6 +3218,9 @@ INSERT INTO `mangos_string` VALUES ('2022', '\n|cff00ff00Message|r: \"%s\"|r ', 
 INSERT INTO `mangos_string` VALUES ('2023', '\n|cff00ff00Comment|r: \"%s\"|r ', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('2024', '\n|cff00ccff%s|r |cff00ff00Added comment|r: \"%s\"|r ', null, null, null, null, null, null, null, null);
 INSERT INTO `mangos_string` VALUES ('2025', '|cff00ff00Created|r:|cff00ccff %s ago|r ', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('63', '|c1f40af20 <Mod>|cffff0000[%s]|c1f40af20 announce:|cffffff00 %s|r', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('64', '|c1f40af20 <GM>|cffff0000[%s]|c1f40af20 announce:|cffffff00 %s|r', null, null, null, null, null, null, null, null);
+INSERT INTO `mangos_string` VALUES ('65', '|c1f40af20 <Admin>|cffff0000[%s]|c1f40af20 announce:|cffffff00 %s|r', null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `milling_loot_template`
