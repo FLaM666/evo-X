@@ -29,9 +29,9 @@ libmangosscript_la_SOURCES = \
 	ScriptMgr.h \
 	config.h \
 	system.cpp \
-	Scripts/sc_default.cpp \
-	Scripts/sc_defines.cpp \
-	Scripts/sc_defines.h
+	evoXScripts/sc_default.cpp \
+	evoXScripts/sc_defines.cpp \
+	evoXScripts/sc_defines.h
 
 ## libtool settings
 #  API versioning
@@ -51,6 +51,6 @@ libmangosscript_la_LIBFLAGS = -version-info $(LTMANGOS_CURRENT):$(LTMANGOS_REVIS
 ## Additional files to include when running 'make dist'
 #  Scripts defaults.
 EXTRA_DIST = \
-	Scripts/sc_default.cpp \
-	Scripts/sc_defines.cpp \
-	Scripts/sc_defines.h
+	evoXScripts/sc_default.cpp \
+	evoXScripts/sc_defines.cpp \
+	evoXScripts/sc_defines.h
