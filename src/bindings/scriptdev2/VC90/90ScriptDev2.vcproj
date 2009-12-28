@@ -1031,11 +1031,11 @@
 						>
 					</File>
 					<File
-						RelativePath="..\scripts\eastern_kingdoms\sunken_temple\sunken_temple.h"
+						RelativePath="..\scripts\eastern_kingdoms\sunken_temple\sunken_temple.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\scripts\eastern_kingdoms\sunken_temple\sunken_temple.cpp"
+						RelativePath="..\scripts\eastern_kingdoms\sunken_temple\sunken_temple.h"
 						>
 					</File>
 				</Filter>
@@ -1048,6 +1048,10 @@
 					</File>
 					<File
 						RelativePath="..\scripts\eastern_kingdoms\sunwell_plateau\boss_kalecgos.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\scripts\eastern_kingdoms\sunwell_plateau\boss_kiljaden.cpp"
 						>
 					</File>
 					<File
