@@ -20,39 +20,16 @@
 ## Sub-directories to parse
 SUBDIRS = dep doc sql src
 
-## Additional files to include when running 'make dist'
-# Win32 project workspace for Visual Studio .NET 2005
-EXTRA_DIST = \
-	win/mangosdVC80.sln \
-	win/VC80/framework.vcproj \
-	win/VC80/game.vcproj \
-	win/VC80/evo-X_world.vcproj \
-	win/VC80/evo-X_realmd.vcproj \
-	win/VC80/shared.vcproj \
-	win/VC80/zlib.vcproj \
-	win/VC80/g3dlite.vcproj
-
 # Win32 project workspace for Visual Studio .NET 2008
 EXTRA_DIST += \
-	win/mangosdVC90.sln \
+	win/evo-XVC90.sln \
 	win/VC90/framework.vcproj \
 	win/VC90/game.vcproj \
-	win/VC90/evo-X_world.vcproj \
-	win/VC90/evo-X_realmd.vcproj \
+	win/VC90/evoXworld.vcproj \
+	win/VC90/evoXrealmd.vcproj \
 	win/VC90/shared.vcproj \
 	win/VC90/zlib.vcproj \
 	win/VC90/g3dlite.vcproj
-
-# Win32 project workspace for Visual Studio .NET 2010
-EXTRA_DIST += \
-	win/mangosdVC100.sln \
-	win/VC100/framework.vcxproj \
-	win/VC100/game.vcxproj \
-	win/VC100/evo-X_world.vcxproj \
-	win/VC100/evo-X_realmd.vcxproj \
-	win/VC100/shared.vcxproj \
-	win/VC100/zlib.vcxproj \
-	win/VC100/g3dlite.vcxproj
 
 AUTOMAKE_OPTIONS = foreign
 ACLOCAL_AMFLAGS = -I m4
