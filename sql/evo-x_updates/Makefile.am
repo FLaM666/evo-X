@@ -25,11 +25,13 @@ pkgdatadir = $(datadir)/evo-X/sql/updates
 ## Files to be installed
 #  Install basic SQL files to datadir
 pkgdata_DATA = \
+1_world_spell_proc_event \
 
 	README
 
 ## Additional files to include when running 'make dist'
 #  SQL update files, to upgrade database schema from older revisions
 EXTRA_DIST = \
+1_world_spell_proc_event \
 
 	README
