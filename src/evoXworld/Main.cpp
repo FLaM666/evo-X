@@ -35,7 +35,7 @@
 
 #ifdef WIN32
 #include "ServiceWin32.h"
-char serviceName[] = "evo-X_world";
+char serviceName[] = "evoXworld";
 char serviceLongName[] = "evo-X world service";
 char serviceDescription[] = "evo-X Server";
 /*
