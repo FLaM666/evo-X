@@ -16,6 +16,7 @@
 
 ## Process this file with automake to produce Makefile.in
 
+
 ## Sub-directories to parse
 SUBDIRS = dep doc sql src
 
@@ -53,5 +54,6 @@ EXTRA_DIST += \
 	win/VC100/zlib.vcxproj \
 	win/VC100/g3dlite.vcxproj
 
+AUTOMAKE_OPTIONS = foreign
 ACLOCAL_AMFLAGS = -I m4
 
