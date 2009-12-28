@@ -135,6 +135,9 @@ extern void AddSC_instance_stratholme();
 extern void AddSC_stratholme();
 extern void AddSC_boss_brutallus();                         //sunwell_plateau
 extern void AddSC_boss_kalecgos();
+extern void AddSC_boss_eredar_twins();
+extern void AddSC_boss_kiljaden();
+extern void AddSC_boss_muru_entropius();
 extern void AddSC_instance_sunwell_plateau();
 extern void AddSC_boss_ironaya();                           //uldaman
 extern void AddSC_uldaman();
@@ -545,6 +548,9 @@ void AddScripts()
     AddSC_stratholme();
     AddSC_boss_brutallus();                                 //sunwell_plateau
     AddSC_boss_kalecgos();
+    AddSC_boss_eredar_twins();
+    AddSC_boss_kiljaden();
+    AddSC_boss_muru_entropius();
     AddSC_instance_sunwell_plateau();
     AddSC_boss_ironaya();                                   //uldaman
     AddSC_uldaman();

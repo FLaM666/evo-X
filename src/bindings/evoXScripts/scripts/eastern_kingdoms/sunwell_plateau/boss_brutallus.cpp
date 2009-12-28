@@ -18,7 +18,6 @@
 SDName: Boss_Brutallus
 SD%Complete: 50
 SDComment: Intro not made. Script for Madrigosa to be added here.
-SDCategory: Sunwell Plateau
 EndScriptData */
 
 #include "precompiled.h"
@@ -31,13 +30,11 @@ enum Brutallus
     YELL_INTRO_CHARGE               = -1580019,
     YELL_INTRO_KILL_MADRIGOSA       = -1580020,
     YELL_INTRO_TAUNT                = -1580021,
-
     YELL_MADR_ICE_BARRIER           = -1580031,
     YELL_MADR_INTRO                 = -1580032,
     YELL_MADR_ICE_BLOCK             = -1580033,
     YELL_MADR_TRAP                  = -1580034,
     YELL_MADR_DEATH                 = -1580035,
-
     YELL_AGGRO                      = -1580022,
     YELL_KILL1                      = -1580023,
     YELL_KILL2                      = -1580024,
@@ -50,7 +47,7 @@ enum Brutallus
 
     SPELL_METEOR_SLASH              = 45150,
     SPELL_BURN                      = 45141,
-    SPELL_BURN_AURA_EFFECT          = 46394,
+    SPELL_BURN_AURA                 = 46394,
     SPELL_STOMP                     = 45185,
     SPELL_BERSERK                   = 26662
 };
@@ -70,26 +67,22 @@ struct MANGOS_DLL_DECL boss_brutallusAI : public ScriptedAI
     uint32 m_uiStompTimer;
     uint32 m_uiBerserkTimer;
     uint32 m_uiLoveTimer;
+    uint32 m_uiBurnCheckTimer;
 
     void Reset()
     {
+        m_uiBurnCheckTimer = 1000;
         m_uiSlashTimer = 11000;
         m_uiStompTimer = 30000;
         m_uiBurnTimer = 60000;
         m_uiBerserkTimer = 360000;
         m_uiLoveTimer = urand(10000, 17000);
-
-        //TODO: correct me when pre-event implemented
-        if (m_pInstance)
-            m_pInstance->SetData(TYPE_BRUTALLUS, NOT_STARTED);
     }
 
     void Aggro(Unit* pWho)
     {
         DoScriptText(YELL_AGGRO, m_creature);
-
-        if (m_pInstance)
-            m_pInstance->SetData(TYPE_BRUTALLUS, IN_PROGRESS);
+	    DoPlaySoundToSet(m_creature, 12463);
     }
 
     void KilledUnit(Unit* pVictim)
@@ -106,20 +99,37 @@ struct MANGOS_DLL_DECL boss_brutallusAI : public ScriptedAI
     {
         DoScriptText(YELL_DEATH, m_creature);
 
-        if (m_pInstance)
-            m_pInstance->SetData(TYPE_BRUTALLUS, DONE);
-    }
-
-    void SpellHitTarget(Unit* pCaster, const SpellEntry* pSpell)
+        if (Creature* Felmist = ((Creature*)Unit::GetUnit(*m_creature, m_pInstance->GetData64(DATA_FELMYST))))
     {
-        if (pSpell->Id == SPELL_BURN)
-            pCaster->CastSpell(pCaster, SPELL_BURN_AURA_EFFECT, true, NULL, NULL, m_creature->GetGUID());
+               Felmist->SetVisibility(VISIBILITY_ON);
+               Felmist->setFaction(14);
+    }
     }
 
     void UpdateAI(const uint32 uiDiff)
     {
         if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
             return;
+
+        if (m_uiBurnCheckTimer < uiDiff)
+        {
+            std::list<HostileReference *> t_list = m_creature->getThreatManager().getThreatList();
+            for(std::list<HostileReference *>::iterator itr = t_list.begin(); itr!= t_list.end(); ++itr)
+            {
+                Unit *BurnedPlayer = Unit::GetUnit(*m_creature, (*itr)->getUnitGuid());
+                if (BurnedPlayer && BurnedPlayer->GetTypeId() == TYPEID_PLAYER && BurnedPlayer->HasAura(SPELL_BURN_AURA))
+                {
+                    std::list<HostileReference *> t_list = m_creature->getThreatManager().getThreatList();
+                    for(std::list<HostileReference *>::iterator itr = t_list.begin(); itr!= t_list.end(); ++itr)
+                    {
+                        Unit *TargetedPlayer = Unit::GetUnit(*m_creature, (*itr)->getUnitGuid());  
+                        if (TargetedPlayer && TargetedPlayer->GetTypeId() == TYPEID_PLAYER && TargetedPlayer->IsWithinDistInMap(BurnedPlayer, 6) && !TargetedPlayer->HasAura(SPELL_BURN_AURA))
+                            TargetedPlayer->CastSpell(TargetedPlayer,SPELL_BURN_AURA,true);
+                    }
+                }
+            }          
+            m_uiBurnCheckTimer = 1000;        
+        }else m_uiBurnCheckTimer -= uiDiff;
 
         if (m_uiLoveTimer < uiDiff)
         {
@@ -136,11 +146,10 @@ struct MANGOS_DLL_DECL boss_brutallusAI : public ScriptedAI
 
         if (m_uiSlashTimer < uiDiff)
         {
-            DoCast(m_creature->getVictim(),SPELL_METEOR_SLASH);
+            if (Unit* pTarget = m_creature->getVictim())
+                DoCast(pTarget,SPELL_METEOR_SLASH);
             m_uiSlashTimer = 11000;
-        }
-        else
-            m_uiSlashTimer -= uiDiff;
+        }else m_uiSlashTimer -= uiDiff;
 
         if (m_uiStompTimer < uiDiff)
         {
@@ -148,10 +157,9 @@ struct MANGOS_DLL_DECL boss_brutallusAI : public ScriptedAI
             {
                 DoCast(pTarget,SPELL_STOMP);
 
-                if (pTarget->HasAura(SPELL_BURN_AURA_EFFECT,0))
-                    pTarget->RemoveAurasDueToSpell(SPELL_BURN_AURA_EFFECT);
+                if (pTarget->HasAura(SPELL_BURN_AURA,0))
+                   pTarget->RemoveAurasDueToSpell(SPELL_BURN_AURA);
             }
-
             m_uiStompTimer = 30000;
         }
         else
@@ -159,18 +167,14 @@ struct MANGOS_DLL_DECL boss_brutallusAI : public ScriptedAI
 
         if (m_uiBurnTimer < uiDiff)
         {
-            //returns any unit
-            if (Unit* pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+            if (Unit* target = SelectUnit(SELECT_TARGET_RANDOM, 0))
             {
-                //so we get owner, in case unit was pet/totem/etc
-                if (Player* pPlayer = pTarget->GetCharmerOrOwnerPlayerOrPlayerItself())
-                    DoCast(pPlayer, SPELL_BURN);
+                DoCast(target,SPELL_BURN);
+                target->CastSpell(target,SPELL_BURN_AURA, true);
             }
-
             m_uiBurnTimer = 60000;
         }
-        else
-            m_uiBurnTimer -= uiDiff;
+        else m_uiBurnTimer -= uiDiff;
 
         if (m_uiBerserkTimer < uiDiff)
         {
@@ -186,34 +190,16 @@ struct MANGOS_DLL_DECL boss_brutallusAI : public ScriptedAI
 };
 
 CreatureAI* GetAI_boss_brutallus(Creature* pCreature)
+
 {
     return new boss_brutallusAI(pCreature);
-}
-
-bool AreaTrigger_at_madrigosa(Player* pPlayer, AreaTriggerEntry* pAt)
-{
-    if (ScriptedInstance* pInstance = (ScriptedInstance*)pPlayer->GetInstanceData())
-    {
-        //this simply set encounter state, and trigger ice barrier become active
-        //bosses can start pre-event based on this new state
-        if (pInstance->GetData(TYPE_BRUTALLUS) == NOT_STARTED)
-            pInstance->SetData(TYPE_BRUTALLUS, SPECIAL);
-    }
-
-    return false;
 }
 
 void AddSC_boss_brutallus()
 {
     Script *newscript;
-
     newscript = new Script;
     newscript->Name = "boss_brutallus";
     newscript->GetAI = &GetAI_boss_brutallus;
-    newscript->RegisterSelf();
-
-    newscript = new Script;
-    newscript->Name = "at_madrigosa";
-    newscript->pAreaTrigger = &AreaTrigger_at_madrigosa;
     newscript->RegisterSelf();
 }

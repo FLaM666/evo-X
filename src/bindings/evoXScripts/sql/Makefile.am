@@ -26,7 +26,7 @@ pkgdatadir = $(datadir)/scriptdev2/sql
 #  Install basic SQL files to datadir
 pkgdata_DATA = \
 	evo-X_world_scriptname_full.sql \
-	evo-X_scriptdev2_create_database.sql \
-	evo-X_scriptdev2_create_structure_mysql.sql \
-	evo-X_scriptdev2_create_structure_pgsql.sql \
-	evo-X_scriptdev2_script_full.sql
+	evo-X_evoXScripts_create_database.sql \
+	evo-X_evoXScripts_create_structure_mysql.sql \
+	evo-X_evoXScripts_create_structure_pgsql.sql \
+	evo-X_evoXScripts_script_full.sql
