@@ -15,7 +15,7 @@
  */
 
 /* ScriptData
-SDName: Hodir
+SDName: Yogg-Saron
 SD%Complete: 0
 SDComment: PH.
 SDCategory: Ulduar
@@ -29,9 +29,9 @@ EndScriptData */
 #define SAY_SLAY -1
 */
 
-struct MANGOS_DLL_DECL boss_hodirAI : public ScriptedAI
+struct MANGOS_DLL_DECL boss_yoggsaronAI : public ScriptedAI
 {
-    boss_hodirAI(Creature* pCreature) : ScriptedAI(pCreature)
+    boss_yoggsaronAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
         Reset();
@@ -57,7 +57,7 @@ struct MANGOS_DLL_DECL boss_hodirAI : public ScriptedAI
         m_creature->SetInCombatWithZone();
 
         if (m_pInstance)
-            m_pInstance->SetData(TYPE_HODIR, IN_PROGRESS);
+            m_pInstance->SetData(TYPE_YOGGSARON, IN_PROGRESS);
     }
 
     void UpdateAI(const uint32 diff)
@@ -75,17 +75,17 @@ struct MANGOS_DLL_DECL boss_hodirAI : public ScriptedAI
 
 };
 
-CreatureAI* GetAI_boss_hodir(Creature* pCreature)
+CreatureAI* GetAI_boss_yoggsaron(Creature* pCreature)
 {
-    return new boss_hodirAI(pCreature);
+    return new boss_yoggsaronAI(pCreature);
 }
 
-void AddSC_boss_hodir()
+void AddSC_boss_yoggsaron()
 {
     Script *newscript;
     newscript = new Script;
-    newscript->Name = "boss_hodir";
-    newscript->GetAI = &GetAI_boss_hodir;
+    newscript->Name = "boss_yoggsaron";
+    newscript->GetAI = &GetAI_boss_yoggsaron;
     newscript->RegisterSelf();
 
 }

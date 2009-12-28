@@ -43,6 +43,8 @@ npc_rogue_trainer        80%    Scripted trainers, so they are able to offer ite
 npc_sayge               100%    Darkmoon event fortune teller, buff player based on answers given
 npc_tabard_vendor        50%    allow recovering quest related tabards, achievement related ones need core support
 npc_locksmith            75%    list of keys needs to be confirmed
+npc_onyxian_whelpling   100%    non-combat pet emote
+npc_wormhole            100%    ENG wormhole item 48933 
 EndContentData */
 
 /*########
@@ -1611,7 +1613,6 @@ bool GossipSelect_npc_tabard_vendor(Player* pPlayer, Creature* pCreature, uint32
     }
     return true;
 }
-
 /*######
 ## npc_locksmith
 ######*/
@@ -1727,6 +1728,152 @@ bool GossipSelect_npc_locksmith(Player* pPlayer, Creature* pCreature, uint32 uiS
     }
     return true;
 }
+/*#######################
+# npc_onyxian_whelpling #
+########################*/
+#define SAY_ONYX_WHELP    -1366071
+#define SPELL_DEEP_BREATH 69004
+
+struct MANGOS_DLL_DECL npc_onyxian_whelplingAI : public ScriptedAI
+{
+    npc_onyxian_whelplingAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+
+    uint32 m_uiEmoteTimer;
+    Unit *owner;
+
+    void Reset()
+    {
+        owner = m_creature->GetOwner();
+        if(owner)
+            m_creature->GetMotionMaster()->MoveFollow(owner, 1, (M_PI/2)); 
+        m_uiEmoteTimer = 5000;
+    }
+    void UpdateAI(const uint32 uiDiff)
+    {
+        if (m_uiEmoteTimer < uiDiff)
+        {
+            DoScriptText(SAY_ONYX_WHELP, m_creature);
+            m_creature->CastSpell(m_creature, SPELL_DEEP_BREATH, false);
+            m_uiEmoteTimer = 60000+rand()%300000;
+        }else m_uiEmoteTimer -= uiDiff;
+    }
+};
+
+CreatureAI* GetAI_npc_onyxian_whelpling(Creature* pCreature)
+{
+    return new npc_onyxian_whelplingAI(pCreature);
+}
+
+/*######
+## npc_wormhole
+######*/
+
+#define GOSSIP_ITEM_WORMHOLE1    "Borean Tundra"
+#define GOSSIP_ITEM_WORMHOLE2    "Borean Tundra"
+#define GOSSIP_ITEM_WORMHOLE3    "Howling Fjord"
+#define GOSSIP_ITEM_WORMHOLE4    "Sholazar Basin"
+#define GOSSIP_ITEM_WORMHOLE5    "Icecrown"
+#define GOSSIP_ITEM_WORMHOLE6    "Storm Peaks"
+#define GOSSIP_ITEM_WORMHOLE7    "Underground..."
+
+enum
+{
+    GOSSIP_TEXTID_WORMHOLE1      = 14785,
+    SAY_WORMHOLE_ANOMALY         = -1531099,
+    NPC_ANOMALY                  = 19686,
+};
+struct MANGOS_DLL_DECL npc_wormholeAI : public ScriptedAI
+{
+    npc_wormholeAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+
+    uint32 despawnTimer;
+    void Reset()
+    {
+        despawnTimer = 60000;
+        if(roll_chance_f(1))
+        {
+            DoScriptText(SAY_WORMHOLE_ANOMALY, m_creature);
+            for(int i = 0; i <= 2; i++)
+            {
+                 m_creature->SummonCreature(NPC_ANOMALY, m_creature->GetPositionX()-5+rand()%10, m_creature->GetPositionY()-5+rand()%10, m_creature->GetPositionZ(), 0, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 180000);
+            }
+            despawnTimer = 3000;
+        }
+
+    }
+    void UpdateAI(const uint32 uiDiff)
+    {
+        if (despawnTimer < uiDiff)
+        {
+            m_creature->ForcedDespawn();
+        }else despawnTimer -= uiDiff; 
+    }
+};
+
+CreatureAI* GetAI_npc_wormhole(Creature* pCreature)
+{
+    return new npc_wormholeAI(pCreature);
+}
+bool GossipHello_npc_wormhole(Player* pPlayer, Creature* pCreature)
+{    
+    
+    if(urand(0,1)) {
+        pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE2, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+2);
+    } else {
+        pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+    }
+    pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE3, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+3);
+    pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE4, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+4);
+    pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE5, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+5);
+    pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE6, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+6);
+    switch(urand(0,50)) {
+        case 15:
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE7, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+7);
+            break;
+    }
+    
+    
+
+    pPlayer->SEND_GOSSIP_MENU(GOSSIP_TEXTID_WORMHOLE1, pCreature->GetGUID());
+
+    return true;
+}
+
+bool GossipSelect_npc_wormhole(Player* pPlayer, Creature* pCreature, uint32 uiSender, uint32 uiAction)
+{
+    switch(uiAction) {
+        case GOSSIP_ACTION_INFO_DEF+1:
+            // Borean Tundra, 54.15
+            pPlayer->TeleportTo(571,4300.52,5452.59,64.3578,3.84644);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+2:
+            // Borean Tundra, 51.45
+            pPlayer->TeleportTo(571,3136.24,5603.01,52.3244,1.38835);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+3:
+            // Howling Fjord, 58,48
+            pPlayer->TeleportTo(571,1151.36,-4935.54,299.061,3.4366);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+4:
+            // Sholazar Basin, 48,37
+            pPlayer->TeleportTo(571,6192.98,4801.52,219.963,2.21874);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+5:
+            // Icecrown, 65,31
+            pPlayer->TeleportTo(571,8096.98,1401.17,776.921,2.63893);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+6:
+            // Storm Peaks, 43,25
+            pPlayer->TeleportTo(571,8975.23,-1255.25,1059.01,5.80022);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+7:
+            // Bonus location - underground in Dalaran
+            pPlayer->TeleportTo(571,5856.654297,517.693665,599.817932,2.1);
+            break;
+    }
+
+    return true;
+}
 
 void AddSC_npcs_special()
 {
@@ -1816,5 +1963,17 @@ void AddSC_npcs_special()
     newscript->Name = "npc_locksmith";
     newscript->pGossipHello =  &GossipHello_npc_locksmith;
     newscript->pGossipSelect = &GossipSelect_npc_locksmith;
+    newscript->RegisterSelf();
+
+    newscript = new Script;
+    newscript->Name = "npc_onyxian_whelpling";
+    newscript->GetAI = &GetAI_npc_onyxian_whelpling;
+    newscript->RegisterSelf();
+
+    newscript = new Script;
+    newscript->Name = "npc_wormhole";
+    newscript->pGossipHello =  &GossipHello_npc_wormhole;
+    newscript->pGossipSelect = &GossipSelect_npc_wormhole;
+    newscript->GetAI = &GetAI_npc_wormhole;
     newscript->RegisterSelf();
 }

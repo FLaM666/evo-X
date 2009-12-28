@@ -2,54 +2,63 @@
  * This program is free software licensed under GPL version 2
  * Please see the included DOCS/LICENSE.TXT for more information */
 
-/* Originally based on BroodWyrm scripts. Modified by danbst. Modified by Lutik.*/
-
 #ifndef DEF_NAXXRAMAS_H
 #define DEF_NAXXRAMAS_H
 
 enum
 {
-    //Spider Quarter
-    TYPE_ANUBREKHAN   = 0,
-    TYPE_FAERLINA     = 1,
-    TYPE_MAEXXNA      = 2,
+    MAX_ENCOUNTER               = 15,
 
-    //Construct Quarter
-    TYPE_PATCHWERK    = 3,
-    TYPE_GROBBULUS    = 4,
-    TYPE_GLUTH        = 5,
-    TYPE_THADDIUS     = 6,
+    TYPE_ANUB_REKHAN            = 1,
+    TYPE_FAERLINA               = 2,
+    TYPE_MAEXXNA                = 3,
 
-    //Military Quarter
-    TYPE_RAZUVIOUS    = 7,
-    TYPE_GOTHIK       = 8,
-    TYPE_FOURHORSEMEN = 9,
+    TYPE_NOTH                   = 4,
+    TYPE_HEIGAN                 = 5,
+    TYPE_LOATHEB                = 6,
 
-    //Plague Quarter
-    TYPE_NOTH         = 10,
-    TYPE_HEIGAN       = 11,
-    TYPE_LOATHEB      = 12,
+    TYPE_RAZUVIOUS              = 7,
+    TYPE_GOTHIK                 = 8,
+    TYPE_FOUR_HORSEMEN          = 9,
 
-    //Frostwyrm Lair
-    TYPE_SAPPHIRON    = 13,
-    TYPE_KELTHUZAD    = 14,
-    
-    //Misc
-    TYPE_KORTHAZZ,
-    TYPE_BLAUMEAUX,
-    TYPE_ZELIEK,
-    TYPE_RIVENDARE,
+    TYPE_PATCHWERK              = 10,
+    TYPE_GROBBULUS              = 11,
+    TYPE_GLUTH                  = 12,
+    TYPE_THADDIUS               = 13,
+    TYPE_STALAGG                = 14,
+    TYPE_FEUGEN                 = 15,
 
-    ENCOUNTERS         = 15
-};
+    TYPE_SAPPHIRON              = 16,
+    TYPE_KELTHUZAD              = 17,
 
-enum
-{
-    GUID_FAERLINA
-};
+    DATA_ANUB_REKHAN            = 30,
+    DATA_FAERLINA               = 31,
+    DATA_GOTHIK_GATE            = 32,
 
-enum
-{
+    DATA_THADDIUS               = 33,
+    DATA_STALAGG                = 34,
+    DATA_FEUGEN                 = 35,
+
+    DATA_KORTHAZZ               = 36,
+    DATA_RIVENDARE              = 37,
+    DATA_BLAUMEUX               = 38,
+    DATA_ZELIEK                 = 39,
+    DATA_HEIGAN_ERUPT           = 40,
+
+    NPC_ANUB_REKHAN             = 15956,
+    NPC_FAERLINA                = 15953,
+
+    NPC_THADDIUS                = 15928,
+    NPC_STALAGG                 = 15929,
+    NPC_FEUGEN                  = 15930,
+
+    NPC_ZELIEK                  = 16063,
+    NPC_THANE                   = 16064,
+    NPC_BLAUMEUX                = 16065,
+    NPC_RIVENDARE               = 30549,
+    NPC_HEIGAN                  = 15936,
+
+    // Arachnid Quarter
     GO_ARAC_ANUB_DOOR           = 181126,                   //encounter door
     GO_ARAC_ANUB_GATE           = 181195,                   //open after boss is dead
     GO_ARAC_FAER_WEB            = 181235,                   //encounter door
@@ -93,7 +102,9 @@ enum
     GO_ARAC_PORTAL              = 181575,
     GO_PLAG_PORTAL              = 181577,
     GO_MILI_PORTAL              = 181578,
-    GO_CONS_PORTAL              = 181576
+    GO_CONS_PORTAL              = 181576,
+
+    AREATRIGGER_FROSTWYRM       = 4120                     //not needed here, but AT to be scripted
 };
 
 #endif
