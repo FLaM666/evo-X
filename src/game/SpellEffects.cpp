@@ -1248,6 +1248,25 @@ void Spell::EffectDummy(uint32 i)
                         return;
                     m_caster->CastCustomSpell(unitTarget, 52752, &damage, NULL, NULL, true);
                     return;
+				// Great Feast
+                case 57337:
+                {
+                    if (!unitTarget)
+                        return;
+
+                    unitTarget->CastSpell(unitTarget, 58067, true);
+                    break;
+                }
+                //Fish Feast
+                case 57397:
+                {
+                    if (!unitTarget)
+                        return;
+
+                    unitTarget->CastSpell(unitTarget, 58648, true);
+                    unitTarget->CastSpell(unitTarget, 57398, true);
+                    break;
+                }
                 case 52845:                                 // Brewfest Mount Transformation (Faction Swap)
                     if (m_caster->GetTypeId() != TYPEID_PLAYER)
                         return;
@@ -5357,6 +5376,25 @@ void Spell::EffectScriptEffect(uint32 effIndex)
                         unitTarget->CastSpell(unitTarget, spellID, true);
 
                     return;
+                }
+                // Gigantic Feast
+                case 58466:
+                {
+                    if (!unitTarget)
+                        return;
+                    unitTarget->CastSpell(unitTarget, 58648, true);
+                    unitTarget->CastSpell(unitTarget, 58467, true);
+                    break;
+                }
+                // Small Feast
+                case 58475:
+                {
+                    if (!unitTarget)
+                        return;
+
+                    unitTarget->CastSpell(unitTarget, 58648, true);
+                    unitTarget->CastSpell(unitTarget, 58477, true);
+                    break;
                 }
                 case 59317:                                 // Teleporting
                     if (!unitTarget || unitTarget->GetTypeId() != TYPEID_PLAYER)
