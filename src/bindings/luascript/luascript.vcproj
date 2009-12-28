@@ -261,6 +261,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\luabind\exception_handler.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\luabind\find_best_match.cpp"
 				>
 			</File>
@@ -278,6 +282,10 @@
 			</File>
 			<File
 				RelativePath=".\luabind\get_pointer.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\luabind\get_main_thread.hpp"
 				>
 			</File>
 			<File
@@ -302,6 +310,14 @@
 			</File>
 			<File
 				RelativePath=".\luabind\luabind.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\luabind\make_function.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\luabind\nil.hpp"
 				>
 			</File>
 			<File
@@ -365,7 +381,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\luabind\shared_ptr_converter.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\luabind\tag_function.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\luabind\typeid.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\luabind\value_wrapper.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\luabind\version.hpp"
 				>
 			</File>
 			<File
@@ -436,6 +468,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\luabind\detail\compute_score.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\luabind\detail\conversion_storage.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\luabind\detail\debug.hpp"
 					>
 				</File>
@@ -444,11 +484,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\luabind\detail\deduce_signature.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\luabind\detail\enum_maker.hpp"
 					>
 				</File>
 				<File
 					RelativePath=".\luabind\detail\find_best_match.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\luabind\detail\format_signature.hpp"
 					>
 				</File>
 				<File
@@ -476,6 +524,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\luabind\detail\inheritance.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\luabind\detail\instance_holder.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\luabind\detail\link_compatibility.hpp"
 					>
 				</File>
@@ -485,6 +541,10 @@
 				</File>
 				<File
 					RelativePath=".\luabind\detail\most_derived.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\luabind\detail\make_instance.hpp"
 					>
 				</File>
 				<File

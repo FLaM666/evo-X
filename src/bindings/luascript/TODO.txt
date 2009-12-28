@@ -1,4 +1,4 @@
-TODO list by Derex
+TODO list by Salja
 --------------------------------------------------------
 *MaNGOS need fixing singletons and all dll api
 *need to export many other functions , and things to lua

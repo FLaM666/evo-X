@@ -1,4 +1,4 @@
-HOWTO run it ( by Derex )
+HOWTO run it ( by Salja )
 
 Note: for all platforms you will need to aply the sql patch in sql folder
 
