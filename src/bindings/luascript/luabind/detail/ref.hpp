@@ -30,11 +30,18 @@
 #include <luabind/config.hpp>
 #include <luabind/lua_include.hpp>
 
-namespace luabind
+struct lua_State;
+
+namespace luabind { namespace detail
 {
 
-namespace detail
-{
+	int LUABIND_API ref(lua_State *L);
+	void LUABIND_API unref(lua_State *L, int ref);
+
+	inline void getref(lua_State* L, int r)
+	{
+		lua_rawgeti(L, LUA_REGISTRYINDEX, r);
+	}
 
 	struct lua_reference
 	{
@@ -70,7 +77,7 @@ namespace detail
 		{
 			reset();
 			L = L_;
-			m_ref = luaL_ref(L, LUA_REGISTRYINDEX);
+			m_ref = ref(L);
 		}
 
 		void replace(lua_State* L_)
@@ -86,12 +93,12 @@ namespace detail
 		{
 			assert(m_ref != LUA_NOREF);
 			assert(L_);
-			lua_rawgeti(L_, LUA_REGISTRYINDEX, m_ref);
+			getref(L_, m_ref);
 		}
 
 		void reset()
 		{
-			if (L && m_ref != LUA_NOREF) luaL_unref(L, LUA_REGISTRYINDEX, m_ref);
+			if (L && m_ref != LUA_NOREF) unref(L, m_ref);
 			m_ref = LUA_NOREF;
 		}
 

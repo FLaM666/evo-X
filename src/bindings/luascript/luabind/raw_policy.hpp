@@ -31,12 +31,7 @@ namespace luabind { namespace detail  {
 
 	struct raw_converter
 	{
-        int const consumed_args(...)
-        {
-            return 0;
-        }
-
-        lua_State* apply(lua_State* L, by_pointer<lua_State>, int)
+		lua_State* apply(lua_State* L, by_pointer<lua_State>, int)
 		{
 			return L;
 		}
