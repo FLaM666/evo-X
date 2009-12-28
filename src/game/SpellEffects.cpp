@@ -2201,6 +2201,12 @@ void Spell::EffectTriggerSpell(uint32 effIndex)
                 pet->CastSpell(pet, 28305, true);
             return;
         }
+		// Empower Rune Weapon
+		case 53258:
+	    {
+		m_caster->ModifyPower(POWER_RUNIC_POWER, 25);
+		return;
+		}
     }
 
     // normal case
@@ -4640,6 +4646,21 @@ void Spell::EffectWeaponDmg(uint32 i)
             }
             break;
         }
+        case SPELLFAMILY_HUNTER:
+        {
+            switch(m_spellInfo->Id)
+            {
+                case 53351:    // Kill Shot Rank 1
+                case 61005:    // Kill Shot Rank 2
+                case 61006:    // Kill Shot Rank 3
+                {
+                    spellBonusNeedWeaponDamagePercentMod = true;
+                    spell_bonus += m_spellInfo->EffectBasePoints[0];
+                    spell_bonus += int32( 0.2f * m_caster->GetTotalAttackPowerValue(RANGED_ATTACK) );
+                    break;
+                }
+            }
+        }
         case SPELLFAMILY_PALADIN:
         {
             // Seal of Command - receive benefit from Spell Damage and Healing
@@ -5473,6 +5494,18 @@ void Spell::EffectScriptEffect(uint32 effIndex)
                     // Divine Plea, refresh on target (3 aura slots)
                     if (Aura* aura = unitTarget->GetAura(54428,0))
                         aura->RefreshAura();
+                    return;
+                }
+				 // (Paladin spell with SPELLFAMILY_WARLOCK) - Guarded by The Light
+                case 63521:
+                {
+                    // Refresh Divine Plea on target (3 aura slots)
+                    Unit::AuraMap& dpAuras = unitTarget->GetAuras();
+                    for(Unit::AuraMap::iterator itr = dpAuras.begin(); itr != dpAuras.end(); ++itr)
+                    {
+                        if((*itr).second->GetId() == 54428)
+                            (*itr).second->RefreshAura();
+                    }
                     return;
                 }
             }
