@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50137
 File Encoding         : 65001
 
-Date: 2009-12-28 15:18:29
+Date: 2009-12-28 15:30:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1120,7 +1120,7 @@ CREATE TABLE `db_version` (
   `version` varchar(120) DEFAULT NULL,
   `creature_ai_version` varchar(120) DEFAULT NULL,
   `cache_id` int(10) DEFAULT '0',
-  `required_004_01_evo_X_world` bit(1) DEFAULT NULL
+  `required_005_01_evo_X_world` bit(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Used DB version notes';
 
 -- ----------------------------
@@ -17315,6 +17315,8 @@ INSERT INTO `spell_proc_event` VALUES ('67667', '0', '0', '0', '0', '0', '0', '0
 INSERT INTO `spell_proc_event` VALUES ('67672', '0', '0', '0', '0', '0', '0', '0', '0', '0', '50');
 INSERT INTO `spell_proc_event` VALUES ('67702', '0', '0', '0', '0', '0', '0', '0', '0', '0', '45');
 INSERT INTO `spell_proc_event` VALUES ('67771', '0', '0', '0', '0', '0', '0', '0', '0', '0', '45');
+INSERT INTO `spell_proc_event` VALUES ('58375', '0', '4', '0', '512', '0', '16', '0', '0', '100', '0');
+INSERT INTO `spell_proc_event` VALUES ('58388', '0', '4', '0', '64', '0', '16', '0', '0', '100', '0');
 
 -- ----------------------------
 -- Table structure for `spell_proc_item_enchant`
