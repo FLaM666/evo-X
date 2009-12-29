@@ -6739,6 +6739,17 @@ bool Unit::HandleDummyAuraProc(Unit *pVictim, uint32 damage, Aura* triggeredByAu
                 triggered_spell_id = deathCoilId;
                 break;
             }
+            if (dummySpell->SpellIconId == 1939)
+            {
+                uint32 deathCoilId = 49892;
+                SpellChainMapNext const& nextMap = sSpellMgr.GetSpellChainNext();
+                for(SpellChainMapNext::const_iterator itr = nextMap.lower_bound(49892); itr != nextMap.upper_bound(49892); ++itr)
+                {
+                    if(this->HasSpell(itr->second))deathCoilId = itr->second;
+                }
+                triggered_spell_id = deathCoilId;
+                break;
+            }
             // Mark of Blood
             if (dummySpell->Id == 49005)
             {
