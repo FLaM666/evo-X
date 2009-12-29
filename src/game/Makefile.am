@@ -127,7 +127,6 @@ libmangosgame_a_SOURCES = \
 	GameObject.h \
 	GlobalEvents.cpp \
 	GlobalEvents.h \
-	GMTicketHandler.cpp \
 	GMTicketMgr.cpp \
 	GMTicketMgr.h \
 	GossipDef.cpp \
