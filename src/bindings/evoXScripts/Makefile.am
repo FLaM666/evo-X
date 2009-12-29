@@ -406,6 +406,10 @@ scripts/northrend/violet_hold/boss_moragg.cpp \
 scripts/northrend/violet_hold/boss_xevozz.cpp \
 scripts/northrend/violet_hold/boss_zuramat.cpp \
 scripts/northrend/violet_hold/instance_violet_hold.cpp \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/boss_argent_challenge.cpp \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/boss_black_knight.cpp \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/boss_grand_champions.cpp \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/instance_trial_of_the_champion.cpp \
 scripts/outland/blades_edge_mountains.cpp \
 scripts/outland/boss_doomlord_kazzak.cpp \
 scripts/outland/boss_doomwalker.cpp \

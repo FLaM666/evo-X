@@ -334,6 +334,10 @@ extern void AddSC_boss_moragg();
 extern void AddSC_boss_xevozz();
 extern void AddSC_boss_zuramat();
 extern void AddSC_instance_violet_hold();
+extern void AddSC_boss_argent_challenge();                 //trial_of_the_champion
+extern void AddSC_boss_black_knight();
+extern void AddSC_boss_grand_champions();
+extern void AddSC_instance_trial_of_the_champion();
 
 extern void AddSC_borean_tundra();
 extern void AddSC_dalaran();
@@ -755,6 +759,10 @@ void AddScripts()
     AddSC_boss_xevozz();
     AddSC_boss_zuramat();
     AddSC_instance_violet_hold();
+    AddSC_boss_argent_challenge();                 //trial_of_the_champion
+    AddSC_boss_black_knight();
+    AddSC_boss_grand_champions();
+    AddSC_instance_trial_of_the_champion();
 
     AddSC_borean_tundra();
     AddSC_dalaran();
