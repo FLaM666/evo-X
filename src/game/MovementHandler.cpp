@@ -315,6 +315,7 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
     /* process position-change */
     WorldPacket data(opcode, recv_data.size());
     movementInfo.time = getMSTime();
+	if (!mover->GetGUID()) return;
     movementInfo.guid = mover->GetGUID();
     WriteMovementInfo(&data, &movementInfo);
     GetPlayer()->SendMessageToSet(&data, false);
@@ -455,6 +456,9 @@ void WorldSession::HandleSetActiveMoverOpcode(WorldPacket &recv_data)
 
     uint64 guid;
     recv_data >> guid;
+	 
+    if(!guid)
+      return;
 
     if(_player->m_mover_in_queve && _player->m_mover_in_queve->GetGUID() == guid)
     {
