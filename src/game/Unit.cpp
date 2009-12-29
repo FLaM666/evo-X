@@ -6708,15 +6708,7 @@ bool Unit::HandleDummyAuraProc(Unit *pVictim, uint32 damage, Aura* triggeredByAu
         }
         case SPELLFAMILY_DEATHKNIGHT:
         {
-            // Blood Aura
-            if (dummySpell->SpellIconID == 2636)
-            {
-                if (GetTypeId() != TYPEID_PLAYER || !((Player*)this)->isHonorOrXPTarget(pVictim))
-                    return false;
-                basepoints0 = triggerAmount * damage / 100;
-                triggered_spell_id = 53168;
-                break;
-            }
+
             // Butchery
             if (dummySpell->SpellIconID == 2664)
             {
@@ -6904,6 +6896,57 @@ bool Unit::HandleDummyAuraProc(Unit *pVictim, uint32 damage, Aura* triggeredByAu
             if (dummySpell->SpellIconID == 138)
             {
                 triggered_spell_id = dummySpell->EffectTriggerSpell[effIndex];
+                break;
+            }
+            // Improved Blood Presence
+            if (dummySpell->SpellIconID == 2636 && dummySpell->Id != 48266)
+            {
+                if(!procSpell)
+                    return false;
+
+                //filter Unholy Presence
+                if(procSpell->SpellFamilyFlags & UI64LIT(0x10000) && procSpell->SpellIconID != 2633)
+                    return false;
+
+                basepoints0 = triggerAmount;
+                triggered_spell_id = 63611;
+                break;
+            }
+            // Blood Presence
+            if (dummySpell->Id == 48266)
+            {
+                if (GetTypeId() != TYPEID_PLAYER)
+                    return false;
+
+                if (!((Player*)this)->isHonorOrXPTarget(pVictim))
+                    return false;
+
+                if (damage == 0)
+                    return false;
+
+                triggered_spell_id = 50475;
+                basepoints0 = damage * 4 / 100;
+                break;
+            }
+            // Improved Frost Presence
+            if (dummySpell->SpellIconID == 2632)
+            {
+                if(!procSpell)
+                    return false;
+
+                //filter Unholy Presence
+                if(procSpell->SpellFamilyFlags & UI64LIT(0x10000) && procSpell->SpellIconID != 2633)
+                    return false;
+
+                basepoints0 = triggerAmount;
+                triggered_spell_id = 61261;
+                break;
+            }
+            // Improved Unholy Presence
+            if (dummySpell->SpellIconID == 2633)
+            {
+                basepoints0 = triggerAmount;
+                triggered_spell_id = 49772;
                 break;
             }
             break;
@@ -7510,12 +7553,14 @@ bool Unit::HandleProcTriggerSpell(Unit *pVictim, uint32 damage, Aura* triggeredB
                         return false;
                 }
             }
-            // Blood Presence
-            else if (auraSpellInfo->Id == 48266)
+            // Improved Blood Presence
+            else if (auraSpellInfo->Id == 63611)
             {
                 if (GetTypeId() != TYPEID_PLAYER)
                     return false;
                 if (!((Player*)this)->isHonorOrXPTarget(pVictim))
+                    return false;
+		        if (damage == 0)
                     return false;
                 trigger_spell_id = 50475;
                 basepoints[0] = damage * triggerAmount / 100;
@@ -11871,6 +11916,7 @@ bool InitTriggerAuraData()
     isTriggerAura[SPELL_AURA_REFLECT_SPELLS_SCHOOL] = true;
     isTriggerAura[SPELL_AURA_MECHANIC_IMMUNITY] = true;
     isTriggerAura[SPELL_AURA_MOD_DAMAGE_PERCENT_TAKEN] = true;
+	isTriggerAura[SPELL_AURA_MOD_DAMAGE_PERCENT_DONE] = true; // sometimes has charges or should trigger spells
     isTriggerAura[SPELL_AURA_SPELL_MAGNET] = true;
     isTriggerAura[SPELL_AURA_MOD_ATTACK_POWER] = true;
     isTriggerAura[SPELL_AURA_ADD_CASTER_HIT_TRIGGER] = true;
@@ -12059,6 +12105,7 @@ void Unit::ProcDamageAndSpellFor( bool isVictim, Unit * pTarget, uint32 procFlag
                 break;
             }
             case SPELL_AURA_MOD_DAMAGE_PERCENT_TAKEN:
+			case SPELL_AURA_MOD_DAMAGE_PERCENT_DONE:
             case SPELL_AURA_MANA_SHIELD:
             case SPELL_AURA_OBS_MOD_MANA:
             case SPELL_AURA_DUMMY:
