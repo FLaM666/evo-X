@@ -17,7 +17,7 @@
 ## Process this file with automake to produce Makefile.in
 
 ## Sub-directories to parse
-SUBDIRS = evo-x-updates tools
+SUBDIRS = tools
 
 ## Change installation location
 #  datadir = evo-X/sql
