@@ -2880,6 +2880,21 @@ void Aura::HandleAuraDummy(bool apply, bool Real)
                 ((Player*)m_target)->AddSpellMod(m_spellmod, apply);
                 return;
             }
+            // Improved Unholy Presence
+            if (GetSpellProto()->Id == 50391 || GetSpellProto()->Id == 50392)
+            {
+                if (apply)
+                {
+                     m_target->CastCustomSpell(m_target, 63622, &GetSpellProto()->EffectBasePoints[1], NULL, NULL, true, NULL, this);
+                     m_target->CastCustomSpell(m_target, 65095, &GetSpellProto()->EffectBasePoints[1], NULL, NULL, true, NULL, this);
+                }
+                else
+                {
+                     m_target->RemoveAurasDueToSpell(63622);
+                     m_target->RemoveAurasDueToSpell(65095);
+                }
+                return;
+            }
             break;
         }
     }
