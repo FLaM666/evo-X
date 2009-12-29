@@ -430,24 +430,32 @@ void WorldSession::LogoutPlayer(bool Save)
         ///- Broadcast a logout message to the player's friends
         sSocialMgr.SendFriendStatus(_player, FRIEND_OFFLINE, _player->GetGUIDLow(), true);
         sSocialMgr.RemovePlayerSocial (_player->GetGUIDLow ());
+		    
+        ///- Send the 'logout complete' packet to the client
+        WorldPacket data( SMSG_LOGOUT_COMPLETE, 0 );
+        SendPacket( &data );
+        sLog.outDebug( "SESSION: Sent SMSG_LOGOUT_COMPLETE Message" );
+
+        ///- Since each account can only have one online character at any given time, ensure this character is marked as offline
+        CharacterDatabase.PExecute("UPDATE characters SET online = 0 WHERE guid = '%u'", _player->GetGUIDLow());
 
         ///- Remove the player from the world
         // the player may not be in the world when logging out
         // e.g if he got disconnected during a transfer to another map
         // calls to GetMap in this case may cause crashes
-        Map* _map = _player->GetMap();
-        _map->Remove(_player, true);
-        SetPlayer(NULL);                                    // deleted in Remove call
+        if (_player->IsInWorld())
+        {
+            Map* _map = _player->GetMap();
+            _map->Remove(_player, true);
+        }
+        else
+        {
+            // we have to clean him up manually
+            _player->CleanupsBeforeDelete();
+            sObjectAccessor.RemoveObject(_player);
+        }
 
-        ///- Send the 'logout complete' packet to the client
-        WorldPacket data( SMSG_LOGOUT_COMPLETE, 0 );
-        SendPacket( &data );
-
-        ///- Since each account can only have one online character at any given time, ensure all characters for active account are marked as offline
-        //No SQL injection as AccountId is uint32
-        CharacterDatabase.PExecute("UPDATE characters SET online = 0 WHERE account = '%u'",
-            GetAccountId());
-        sLog.outDebug( "SESSION: Sent SMSG_LOGOUT_COMPLETE Message" );
+     SetPlayer(NULL);                                    // deleted in Remove call
     }
 
     m_playerLogout = false;
