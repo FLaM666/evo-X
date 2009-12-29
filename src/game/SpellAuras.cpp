@@ -4517,7 +4517,7 @@ void Aura::HandleModMechanicImmunity(bool apply, bool /*Real*/)
         }
     }
 	// Heroic Fury
-    if (GetSpellProto()->Id == 60970)
+    if( apply && GetId() == 60970 && m_target->GetTypeId() == TYPEID_PLAYER )
        ((Player*)m_target)->RemoveSpellCooldown(20252, true);
 }
 
