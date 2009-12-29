@@ -262,6 +262,7 @@ libmangosgame_a_SOURCES = \
 	ThreatManager.cpp \
 	ThreatManager.h \
 	Traveller.h \
+        TicketMgr.cpp \
 	Unit.cpp \
 	Unit.h \
 	UnitEvents.h \
