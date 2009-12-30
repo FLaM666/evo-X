@@ -4728,7 +4728,7 @@ void Spell::EffectWeaponDmg(uint32 i)
 
             break;
         }
-        }
+        
         case SPELLFAMILY_HUNTER:
         {
             switch(m_spellInfo->Id)
