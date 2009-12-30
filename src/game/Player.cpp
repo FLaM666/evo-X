@@ -13264,6 +13264,17 @@ void Player::RewardQuest( Quest const *pQuest, uint32 reward, Object* questGiver
         if (pQuest->ReqItemId[i])
             DestroyItemCount( pQuest->ReqItemId[i], pQuest->ReqItemCount[i], true);
     }
+	
+    //Destroy quest item
+    uint32 srcitem = pQuest->GetSrcItemId();
+    if( srcitem > 0 )
+    {
+        uint32 count = pQuest->GetSrcItemCount();
+        if( count <= 0 )
+            count = 1;
+
+        DestroyItemCount(srcitem, count, true, true);
+    }
 
     RemoveTimedQuest(quest_id);
 
