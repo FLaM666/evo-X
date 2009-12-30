@@ -4634,27 +4634,7 @@ void Spell::EffectWeaponDmg(uint32 i)
     int32 spell_bonus = 0;                                  // bonus specific for spell
     switch(m_spellInfo->SpellFamilyName)
     {
-       	case SPELLFAMILY_DRUID:
-        {
-            // Rend and Tear ( on Maul / Shred )
-            if (m_spellInfo->SpellFamilyFlags & UI64LIT(0x0000000000008800))
-            {
-                if(unitTarget && unitTarget->HasAuraState(AURA_STATE_MECHANIC_BLEED))
-                {
-                    Unit::AuraList const& aura = m_caster->GetAurasByType(SPELL_AURA_DUMMY);
-                    for(Unit::AuraList::const_iterator itr = aura.begin(); itr != aura.end(); ++itr)
-                    {
-                        if ((*itr)->GetSpellProto()->SpellIconID == 2859 && (*itr)->GetEffIndex() == 0)
-                        {
-                            totalDamagePercentMod += (totalDamagePercentMod * (*itr)->GetModifier()->m_amount) / 100;
-                            break;
-                        }
-                    }
-                }
-            }
 
-            break;
-        }
         case SPELLFAMILY_WARRIOR:
         {
             // Devastate bonus and sunder armor refresh
@@ -4729,6 +4709,25 @@ void Spell::EffectWeaponDmg(uint32 i)
                     spell_bonus += m_spellInfo->EffectBasePoints[0];
             }
             break;
+			            // Rend and Tear ( on Maul / Shred )
+            if (m_spellInfo->SpellFamilyFlags & UI64LIT(0x0000000000008800))
+            {
+                if(unitTarget && unitTarget->HasAuraState(AURA_STATE_MECHANIC_BLEED))
+                {
+                    Unit::AuraList const& aura = m_caster->GetAurasByType(SPELL_AURA_DUMMY);
+                    for(Unit::AuraList::const_iterator itr = aura.begin(); itr != aura.end(); ++itr)
+                    {
+                        if ((*itr)->GetSpellProto()->SpellIconID == 2859 && (*itr)->GetEffIndex() == 0)
+                        {
+                            totalDamagePercentMod += (totalDamagePercentMod * (*itr)->GetModifier()->m_amount) / 100;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            break;
+        }
         }
         case SPELLFAMILY_HUNTER:
         {
