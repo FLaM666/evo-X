@@ -1493,7 +1493,7 @@ float  GridMap::getHeightFromUint8(float x, float y) const
     return (float)((a * x) + (b * y) + c)*m_gridIntHeightMultiplier + m_gridHeight;
 }
 
-float  GridMap::getHeightFromUint16(float x, float y) const
+float GridMap::getHeightFromUint16(float x, float y) const
 {
     if (!m_uint16_V8 || !m_uint16_V9)
         return m_gridHeight;
@@ -1560,7 +1560,7 @@ float  GridMap::getHeightFromUint16(float x, float y) const
     return (float)((a * x) + (b * y) + c)*m_gridIntHeightMultiplier + m_gridHeight;
 }
 
-float  GridMap::getLiquidLevel(float x, float y)
+float GridMap::getLiquidLevel(float x, float y)
 {
     if (!m_liquid_map)
         return m_liquidLevel;
@@ -1909,6 +1909,11 @@ ZLiquidStatus Map::getLiquidStatus(float x, float y, float z, uint8 ReqLiquidTyp
 
 float Map::GetWaterLevel(float x, float y ) const
 {
+ switch (GetAreaFlag(x,y,0.0f))
+    {
+    case 707: return 39.1f;
+    }
+	
     if(GridMap* gmap = const_cast<Map*>(this)->GetGrid(x, y))
         return gmap->getLiquidLevel(x, y);
     else
@@ -1952,6 +1957,12 @@ bool Map::IsInWater(float x, float y, float pZ) const
         if (getLiquidStatus(x, y, pZ, MAP_ALL_LIQUIDS, &liquid_status))
         {
             if (liquid_status.level - liquid_status.depth_level > 2)
+                return true;
+        }
+		
+        if (GetAreaFlag(x,y,pZ) == 707 || GetAreaFlag(x,y,pZ) == 1637)
+        {
+            if (x > 1436 && x < 1539 && y > -4239 && y < -4148 && pZ < 41 && pZ > 30)
                 return true;
         }
     }
