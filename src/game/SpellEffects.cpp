@@ -5879,6 +5879,9 @@ void Spell::EffectScriptEffect(uint32 effIndex)
                     Unit* mainTarget = m_targets.getUnitTarget();
                     if(!mainTarget)
                         return;
+						
+                    if(m_caster == unitTarget || unitTarget->IsFriendlyTo(m_caster))
+                        return;
 
                     // do only refresh diseases on main target if caster has Glyph of Disease
                     if(mainTarget == unitTarget && !m_caster->HasAura(63334))
