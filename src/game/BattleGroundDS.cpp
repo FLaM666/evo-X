@@ -20,6 +20,8 @@
 #include "BattleGround.h"
 #include "BattleGroundDS.h"
 #include "Language.h"
+#include "ObjectMgr.h"
+#include "WorldPacket.h"
 
 BattleGroundDS::BattleGroundDS()
 {
@@ -51,6 +53,7 @@ void BattleGroundDS::StartingEventCloseDoors()
 
 void BattleGroundDS::StartingEventOpenDoors()
 {
+  OpenDoorEvent(BG_EVENT_DOOR);
 }
 
 void BattleGroundDS::AddPlayer(Player *plr)
@@ -60,19 +63,50 @@ void BattleGroundDS::AddPlayer(Player *plr)
     BattleGroundDSScore* sc = new BattleGroundDSScore;
 
     m_PlayerScores[plr->GetGUID()] = sc;
+	
+  UpdateWorldState(0xe11, GetAlivePlayersCountByTeam(ALLIANCE));
+  UpdateWorldState(0xe10, GetAlivePlayersCountByTeam(HORDE));
 }
 
 void BattleGroundDS::RemovePlayer(Player * /*plr*/, uint64 /*guid*/)
 {
+  if (GetStatus() == STATUS_WAIT_LEAVE)
+    return;
+
+  UpdateWorldState(0xe11, GetAlivePlayersCountByTeam(ALLIANCE));
+  UpdateWorldState(0xe10, GetAlivePlayersCountByTeam(HORDE));
+
+  CheckArenaWinConditions();
 }
 
 void BattleGroundDS::HandleKillPlayer(Player* player, Player* killer)
 {
-    BattleGround::HandleKillPlayer(player, killer);
+   if (GetStatus() != STATUS_IN_PROGRESS)
+    return;
+
+  if (!killer)
+  {
+    sLog.outError("BattleGroundNA: Killer player not found");
+    return;
+  }
+
+  BattleGround::HandleKillPlayer(player,killer);
+
+  UpdateWorldState(0xe11, GetAlivePlayersCountByTeam(ALLIANCE));
+  UpdateWorldState(0xe10, GetAlivePlayersCountByTeam(HORDE));
+
+  CheckArenaWinConditions();
 }
 
 void BattleGroundDS::HandleAreaTrigger(Player * /*Source*/, uint32 /*Trigger*/)
 {
+}
+
+void BattleGroundDS::FillInitialWorldStates(WorldPacket &data)
+{
+  data << uint32(0xe11) << uint32(GetAlivePlayersCountByTeam(ALLIANCE));           // 7
+  data << uint32(0xe10) << uint32(GetAlivePlayersCountByTeam(HORDE));           // 8
+  data << uint32(0xa11) << uint32(1);           // 9
 }
 
 bool BattleGroundDS::SetupBattleGround()
