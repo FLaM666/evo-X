@@ -1453,6 +1453,8 @@ bool GossipSelect_npc_sayge(Player* pPlayer, Creature* pCreature, uint32 uiSende
     return true;
 }
 
+
+
 /*######
 ## npc_tabard_vendor
 ######*/
@@ -1728,6 +1730,36 @@ bool GossipSelect_npc_locksmith(Player* pPlayer, Creature* pCreature, uint32 uiS
     return true;
 }
 
+/*######
+0
++## npc_winter_reveler
+0
++######*/
+
+struct MANGOS_DLL_DECL npc_winter_revelerAI : public ScriptedAI
+{
+    npc_winter_revelerAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+
+    void Reset() {}
+
+    void ReceiveEmote(Player* pPlayer, uint32 emote)
+    {
+        if (emote == TEXTEMOTE_KISS)
+        {
+            if (pPlayer->HasAura(26218))
+                return;
+
+            m_creature->CastSpell(pPlayer, 26218, true);
+        }
+           
+    }
+};
+
+CreatureAI* GetAI_npc_winter_reveler(Creature* pCreature)
+{
+    return new npc_winter_revelerAI(pCreature);
+}
+
 void AddSC_npcs_special()
 {
     Script* newscript;
@@ -1787,7 +1819,12 @@ void AddSC_npcs_special()
     newscript->pGossipHello =  &GossipHello_npc_lunaclaw_spirit;
     newscript->pGossipSelect = &GossipSelect_npc_lunaclaw_spirit;
     newscript->RegisterSelf();
-
+	
+    newscript = new Script;
+    newscript->Name = "npc_winter_reveler";
+    newscript->GetAI = &GetAI_npc_winter_reveler;
+    newscript->RegisterSelf();
+	
     newscript = new Script;
     newscript->Name = "npc_mount_vendor";
     newscript->pGossipHello =  &GossipHello_npc_mount_vendor;
