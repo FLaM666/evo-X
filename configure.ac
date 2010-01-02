@@ -295,7 +295,11 @@ AC_CONFIG_FILES([
    src/evoXworld/Makefile
    src/evoXworld/mangosd.conf.dist
    src/bindings/Makefile
-   src/bindings/universal/Makefile
+   src/bindings/evoXScripts/Makefile
+   src/bindings/evoXScripts/scriptdev2.conf.dist
+   src/bindings/evoXScripts/config.h
+   src/bindings/evoXScripts/sql/Makefile
+   src/bindings/evoXScripts/sql/Updates/Makefile
 ])
 
 ## Configure ACE, if needed
