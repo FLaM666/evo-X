@@ -16,7 +16,7 @@
 ## Process this file with automake to produce Makefile.in
 
 ## Sub-directories to parse
-SUBDIRS = evoXupdates
+SUBDIRS = Updates
 
 ## Change installation location
 #  datadir = scriptdev2/sql
