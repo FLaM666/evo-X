@@ -3105,7 +3105,7 @@ void Spell::finish(bool ok)
         switch((*j)->GetId())
         {
             case 44544: // Fingers of Frost dissapear after two spells
-                if(!m_IsTriggeredSpell)
+                if(!m_IsTriggeredSpell && m_spellInfo->SpellFamilyName == SPELLFAMILY_MAGE)
                 {
                     if((*j)->DropAuraCharge())
                         m_caster->RemoveAura((*j));
