@@ -296,7 +296,7 @@ AC_CONFIG_FILES([
    src/evoXworld/mangosd.conf.dist
    src/bindings/Makefile
    src/bindings/evoXScripts/Makefile
-   src/bindings/evoXScripts/scriptdev2.conf.dist
+   src/bindings/evoXScripts/evoXScripts.conf.dist
    src/bindings/evoXScripts/config.h
    src/bindings/evoXScripts/sql/Makefile
    src/bindings/evoXScripts/sql/evo-X updates/Makefile
