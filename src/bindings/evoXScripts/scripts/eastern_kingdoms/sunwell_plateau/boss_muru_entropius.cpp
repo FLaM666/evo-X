@@ -25,7 +25,7 @@ entropius musi chodzic  mele atak zrobiony
 ruch bosa 
 set data z wybuchem czaszki zeby reszta nie wybuchala  i speed  na 0,8
 */
-
+ 
 #include "precompiled.h"
 #include "sunwell_plateau.h"
  
@@ -35,25 +35,25 @@ enum spells // Boss spells
     SPELL_NEGATIVE              = 46285,
     SPELL_NEGATIVEENERGY        = 46008,
     SPELL_NEGATIVEENERGY_CHAIN  = 46289,
-
+ 
     AURA_SINGULARITY            = 46228,
     AURA_SUNWELL_RADIANCE       = 45769,
-
+ 
     DARKNESS                    = 45996, // dokladnie sprawdzic
     ENTROPIUS_EFFECT            = 46223, // lipny ale zawsze cos
-
+ 
     //Dark Fiend
     DARK_FIEND_AURA             = 45934, // latajaca czaszka :D
     DARK_FIEND_DEBUFF           = 45944,
     SPELL_DISPELL               = 32375,
     SPELL_PURGE                 = 8012,
-
+ 
     SPELL_ARCANEFORM            = 48019, // Chaotic Rift visual
-
+ 
     VOID_AURA                   = 46087,
     VOID_BLAST                  = 46161,
 };
-
+ 
 enum summons
 {
     ID_SWB                      = 25799, // ok
@@ -63,7 +63,7 @@ enum summons
     ID_SINGULARITY              = 25855, // visual effect i nie bic mele zmeiniac target?
     ID_SPAWN                    = 25824, // ok
 };
-
+ 
 //Boss sounds
 #define SOUND_CHANGE_PHASE 12560
 #define SAY_ENTROPIUS_SUMMON	-1950000
@@ -78,7 +78,7 @@ float Trash[6][2] =
         {1781.502,659.254},
         {1781.502,659.254},
 };
-
+ 
 float ShadowPortalSpawn[5][3] =
 {
         {1797.644,613.744,0.56290},
@@ -97,10 +97,10 @@ struct MANGOS_DLL_DECL boss_muruAI : public ScriptedAI
 	    pInstance = ((ScriptedInstance*)c->GetInstanceData());
 	    Reset(); 
     }
-
+ 
     ScriptedInstance* pInstance; 
     bool Phase1;
-
+ 
     uint32 TargetsCount;
     uint32 TargetsCountTimer;
     uint32 SingularityTimer;
@@ -110,13 +110,13 @@ struct MANGOS_DLL_DECL boss_muruAI : public ScriptedAI
     uint32 DarknessTimer;
     uint32 EnrageTimer;
     uint32 DarkFiendTimer;
-
+ 
     bool Darkness;
     
     void Reset()
     {
         m_creature->SetDisplayId(23404);
-
+ 
         NegativeEnergyTimer = 1000;
         SummonTrashTimer = 10000;
         SummonVoidTimer = 30000;
@@ -124,12 +124,12 @@ struct MANGOS_DLL_DECL boss_muruAI : public ScriptedAI
         EnrageTimer = 600000;
         Phase1 = true;
         Darkness = false;
-
+ 
         m_creature->SetVisibility(VISIBILITY_ON);
    
         if(m_creature->HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE))
             m_creature->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-
+ 
         if(!m_creature->HasAura(AURA_SUNWELL_RADIANCE, 0))
             m_creature->CastSpell(m_creature, AURA_SUNWELL_RADIANCE, true);
     }
@@ -158,14 +158,14 @@ struct MANGOS_DLL_DECL boss_muruAI : public ScriptedAI
             m_creature->StopMoving();
             m_creature->GetMotionMaster()->Clear();
             m_creature->GetMotionMaster()->MoveIdle();
-
+ 
             if((m_creature->GetHealth()*100 / m_creature->GetMaxHealth()) <= 42)
             {
                 m_creature->SetDisplayId(23428);
                 m_creature->GetMotionMaster()->MoveChase(m_creature->getVictim());
                 DoPlaySoundToSet(m_creature, SOUND_CHANGE_PHASE);
                 DoCast(m_creature, ENTROPIUS_EFFECT, true);
-
+ 
                 TargetsCount = 1;
                 TargetsCountTimer = 10000;
                 SingularityTimer = 50000;
@@ -180,7 +180,7 @@ struct MANGOS_DLL_DECL boss_muruAI : public ScriptedAI
                 }
                 NegativeEnergyTimer = 1000;
             }else NegativeEnergyTimer -= diff;
-
+ 
             //Spawns Shadow portals and then one Void Sentinel
             if(SummonVoidTimer < diff)
             {
@@ -199,12 +199,12 @@ struct MANGOS_DLL_DECL boss_muruAI : public ScriptedAI
                     for(uint8 i = 0; i < 6; i++)
                     {
                         uint32 ID;
-
+ 
                         if((i == 1) | (i == 2))
                             ID = ID_SWB;
                         else
                             ID = ID_SWM;
-
+ 
                         Creature* sTrash = m_creature->SummonCreature(ID, Trash[i][0], Trash[i][1], m_creature->GetPositionZ(), 0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 15000);
                         
                         if(Unit* sTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
@@ -223,7 +223,7 @@ struct MANGOS_DLL_DECL boss_muruAI : public ScriptedAI
                 ++TargetsCount;
                 TargetsCountTimer = 10000;
             }else TargetsCountTimer -= diff;
-
+ 
             //Utrudnienie -> chain negative energy nie dziala wiec sa 3 beamy full dmg
             if(NegativeEnergyTimer < diff)
             {
@@ -232,10 +232,10 @@ struct MANGOS_DLL_DECL boss_muruAI : public ScriptedAI
                     if(Unit* target = SelectUnit(SELECT_TARGET_RANDOM, 0))
                         m_creature->CastSpell(target, SPELL_NEGATIVE, false);
                 }
-
+ 
                 NegativeEnergyTimer = 1000;
             }else NegativeEnergyTimer -= diff;
-
+ 
             //Summon Singularity
             if(SingularityTimer < diff)
             {
@@ -244,25 +244,25 @@ struct MANGOS_DLL_DECL boss_muruAI : public ScriptedAI
                     Creature* Singularity = m_creature->SummonCreature(ID_SINGULARITY, sTarget->GetPositionX(), sTarget->GetPositionY(), sTarget->GetPositionZ(), m_creature->GetOrientation(), TEMPSUMMON_TIMED_DESPAWN, 20000);
                     if(Singularity)
                         Singularity->AI()->AttackStart(sTarget);
-
+ 
                 }
                 SingularityTimer = 50000;
             }else SingularityTimer -= diff; 
-
+ 
             DoMeleeAttackIfReady();
         }
-
+ 
         //Cast Darkness
         if(DarknessTimer < diff)
         {
             // Creature* Darkness = m_creature->SummonCreature(25879, m_creature->GetPositionX(), m_creature->GetPositionY(), m_creature->GetPositionZ(), 0, TEMPSUMMON_TIMED_DESPAWN, 15000);
             m_creature->CastSpell(m_creature, DARKNESS, true);
-
+ 
             Darkness = true;
             DarkFiendTimer = 3000;
             DarknessTimer = 45000;
         }else DarknessTimer -= diff;
-
+ 
         if(DarkFiendTimer < diff && Darkness)
         {
             // Phase2 1 dark fiend : Phase1 8 dark fiend
@@ -294,11 +294,11 @@ struct MANGOS_DLL_DECL dark_fiendAI : public ScriptedAI
 	    pInstance = ((ScriptedInstance*)c->GetInstanceData());
 	    Reset(); 
     }
-
+ 
     ScriptedInstance* pInstance; 
-
+ 
     bool Reached;
-
+ 
     void Reset() 
     {
         m_creature->SetDisplayId(25206);
@@ -321,7 +321,7 @@ struct MANGOS_DLL_DECL dark_fiendAI : public ScriptedAI
                 Reached  = true;
         }
     }
-
+ 
     void UpdateAI(const uint32 diff)
     {
         //Return since we have no target
@@ -357,7 +357,7 @@ struct MANGOS_DLL_DECL mob_voidsentinelAI : public ScriptedAI
  
     uint32 AuraTimer;
     uint32 BlastTimer;
-
+ 
     void Reset() 
     {   
         AuraTimer   = 3000;
@@ -389,24 +389,24 @@ struct MANGOS_DLL_DECL mob_voidsentinelAI : public ScriptedAI
             DoCast(m_creature, VOID_AURA);
             AuraTimer = 3000;
         }else AuraTimer -=diff;
-
+ 
         if(BlastTimer < diff)
         {
             DoCast(m_creature->getVictim(), VOID_BLAST, true);
             BlastTimer = 20000;
         }else BlastTimer -= diff;
-
+ 
         DoMeleeAttackIfReady();
-
+ 
     }
 };
-
+ 
 struct MANGOS_DLL_DECL mob_singularityAI : public ScriptedAI
 {
     mob_singularityAI(Creature *c) : ScriptedAI(c) { Reset(); }
  
     uint32 ChangeTargetTimer;
-
+ 
     void Reset()                    
     {
         m_creature->SetDisplayId(25206);
@@ -422,7 +422,7 @@ struct MANGOS_DLL_DECL mob_singularityAI : public ScriptedAI
     {
         if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
                 return;
-
+ 
         if(ChangeTargetTimer < diff)
         {
             if(Unit* target = SelectUnit(SELECT_TARGET_RANDOM,0))
@@ -431,7 +431,7 @@ struct MANGOS_DLL_DECL mob_singularityAI : public ScriptedAI
         }else ChangeTargetTimer -= diff;
     }
 };
-
+ 
 /* Adding Scripts */
  
 CreatureAI* GetAI_boss_muru(Creature *_Creature)
@@ -448,12 +448,12 @@ CreatureAI* GetAI_mob_voidsentinel(Creature *_Creature)
 {
     return new mob_voidsentinelAI(_Creature);
 }
-
+ 
 CreatureAI* GetAI_mob_singularity(Creature *_Creature)
 {
     return new mob_singularityAI(_Creature);
 }
-
+ 
 void AddSC_boss_muru_entropius()
 {
     Script *newscript;
@@ -462,20 +462,19 @@ void AddSC_boss_muru_entropius()
     newscript->Name="boss_muru";
     newscript->GetAI = &GetAI_boss_muru;
     newscript->RegisterSelf();
-
+ 
     newscript = new Script;
     newscript->Name="dark_fiend";
     newscript->GetAI = &GetAI_dark_fiend;
     newscript->RegisterSelf();
-
+ 
     newscript = new Script;
     newscript->Name="mob_voidsentinel";
     newscript->GetAI = &GetAI_mob_voidsentinel;
     newscript->RegisterSelf();
-
+ 
     newscript = new Script;
     newscript->Name="mob_singularity";
     newscript->GetAI = &GetAI_mob_singularity;
     newscript->RegisterSelf();
 }
-
