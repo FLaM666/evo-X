@@ -16,11 +16,11 @@
 ## Process this file with automake to produce Makefile.in
 
 ## Sub-directories to parse
-SUBDIRS = Updates
+SUBDIRS = evo-X updates
 
 ## Change installation location
 #  datadir = scriptdev2/sql
-pkgdatadir = $(datadir)/scriptdev2/sql
+pkgdatadir = $(datadir)/evoXScripts/sql
 
 ## Files to be installed
 #  Install basic SQL files to datadir
