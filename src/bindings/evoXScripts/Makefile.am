@@ -544,11 +544,11 @@ EXTRA_DIST = \
 	Scripts/sc_default.cpp \
 	Scripts/sc_defines.cpp \
 	Scripts/sc_defines.h \
-	scriptdev2.conf.dist
+	evoXScripts.conf.dist
 
 ## Additional files to install
 sysconf_DATA = \
-	scriptdev2.conf.dist
+	evoXScripts.conf.dist
 
 install-data-hook:
 	@list='$(sysconf_DATA)'; for p in $$list; do \
