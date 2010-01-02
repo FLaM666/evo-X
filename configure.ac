@@ -299,7 +299,6 @@ AC_CONFIG_FILES([
    src/bindings/evoXScripts/evoXScripts.conf.dist
    src/bindings/evoXScripts/config.h
    src/bindings/evoXScripts/sql/Makefile
-   src/bindings/evoXScripts/sql/Updates/Makefile
 ])
 
 ## Configure ACE, if needed
